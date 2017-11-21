@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Products</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Producer</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Deleted</th>
+      <th>Enabled</th>
+      <th>Admin notes</th>
+      <th>Discount</th>
+      <th>Min quantity</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Contains cerials</th>
+      <th>Contains crustaceans</th>
+      <th>Contains eggs</th>
+      <th>Contains fish</th>
+      <th>Contains peanuts</th>
+      <th>Contains soybeans</th>
+      <th>Contains milk</th>
+      <th>Contains nuts</th>
+      <th>Contains celery</th>
+      <th>Contains mustard</th>
+      <th>Contains semsame</th>
+      <th>Contains sulphur</th>
+      <th>Contains lupin</th>
+      <th>Contains mullucus</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.producer_id %></td>
+        <td><%= product.name %></td>
+        <td><%= product.description %></td>
+        <td><%= product.price %></td>
+        <td><%= product.deleted %></td>
+        <td><%= product.enabled %></td>
+        <td><%= product.admin_notes %></td>
+        <td><%= product.discount %></td>
+        <td><%= product.min_quantity %></td>
+        <td><%= product.start_date %></td>
+        <td><%= product.end_date %></td>
+        <td><%= product.contains_cerials %></td>
+        <td><%= product.contains_crustaceans %></td>
+        <td><%= product.contains_eggs %></td>
+        <td><%= product.contains_fish %></td>
+        <td><%= product.contains_peanuts %></td>
+        <td><%= product.contains_soybeans %></td>
+        <td><%= product.contains_milk %></td>
+        <td><%= product.contains_nuts %></td>
+        <td><%= product.contains_celery %></td>
+        <td><%= product.contains_mustard %></td>
+        <td><%= product.contains_semsame %></td>
+        <td><%= product.contains_sulphur %></td>
+        <td><%= product.contains_lupin %></td>
+        <td><%= product.contains_mullucus %></td>
+        <td><%= link_to 'Show', product %></td>
+        <td><%= link_to 'Edit', edit_product_path(product) %></td>
+        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Product', new_product_path %>

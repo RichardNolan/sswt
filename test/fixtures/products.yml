@@ -1,0 +1,55 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  producer_id: 1
+  name: MyString
+  description: MyString
+  price: 1.5
+  deleted: false
+  enabled: false
+  admin_notes: MyString
+  discount: 1.5
+  min_quantity: 1
+  start_date: 2017-11-21
+  end_date: 2017-11-21
+  contains_cerials: false
+  contains_crustaceans: false
+  contains_eggs: false
+  contains_fish: false
+  contains_peanuts: false
+  contains_soybeans: false
+  contains_milk: false
+  contains_nuts: false
+  contains_celery: false
+  contains_mustard: false
+  contains_semsame: false
+  contains_sulphur: false
+  contains_lupin: false
+  contains_mullucus: false
+
+two:
+  producer_id: 1
+  name: MyString
+  description: MyString
+  price: 1.5
+  deleted: false
+  enabled: false
+  admin_notes: MyString
+  discount: 1.5
+  min_quantity: 1
+  start_date: 2017-11-21
+  end_date: 2017-11-21
+  contains_cerials: false
+  contains_crustaceans: false
+  contains_eggs: false
+  contains_fish: false
+  contains_peanuts: false
+  contains_soybeans: false
+  contains_milk: false
+  contains_nuts: false
+  contains_celery: false
+  contains_mustard: false
+  contains_semsame: false
+  contains_sulphur: false
+  contains_lupin: false
+  contains_mullucus: false

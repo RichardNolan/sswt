@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @producer.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @producer.email %>
+</p>
+
+<p>
+  <strong>Email confirmed:</strong>
+  <%= @producer.email_confirmed %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @producer.password %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @producer.address %>
+</p>
+
+<p>
+  <strong>Address2:</strong>
+  <%= @producer.address2 %>
+</p>
+
+<p>
+  <strong>County:</strong>
+  <%= @producer.county_id %>
+</p>
+
+<p>
+  <strong>Contact phone:</strong>
+  <%= @producer.contact_phone %>
+</p>
+
+<p>
+  <strong>Contact email:</strong>
+  <%= @producer.contact_email %>
+</p>
+
+<p>
+  <strong>Join date:</strong>
+  <%= @producer.join_date %>
+</p>
+
+<p>
+  <strong>Enabled:</strong>
+  <%= @producer.enabled %>
+</p>
+
+<p>
+  <strong>Admin notes:</strong>
+  <%= @producer.admin_notes %>
+</p>
+
+<p>
+  <strong>About:</strong>
+  <%= @producer.about %>
+</p>
+
+<%= link_to 'Edit', edit_producer_path(@producer) %> |
+<%= link_to 'Back', producers_path %>
