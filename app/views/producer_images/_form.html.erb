@@ -1,0 +1,32 @@
+<%= form_with(model: producer_image, local: true) do |form| %>
+  <% if producer_image.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(producer_image.errors.count, "error") %> prohibited this producer_image from being saved:</h2>
+
+      <ul>
+      <% producer_image.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :producer_id %>
+    <%= form.number_field :producer_id, id: :producer_image_producer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :src %>
+    <%= form.text_field :src, id: :producer_image_src %>
+  </div>
+
+  <div class="field">
+    <%= form.label :primary_image %>
+    <%= form.check_box :primary_image, id: :producer_image_primary_image %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

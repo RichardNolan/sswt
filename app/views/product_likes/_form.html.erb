@@ -1,0 +1,27 @@
+<%= form_with(model: product_like, local: true) do |form| %>
+  <% if product_like.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product_like.errors.count, "error") %> prohibited this product_like from being saved:</h2>
+
+      <ul>
+      <% product_like.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :product_id %>
+    <%= form.number_field :product_id, id: :product_like_product_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :customer_id %>
+    <%= form.number_field :customer_id, id: :product_like_customer_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

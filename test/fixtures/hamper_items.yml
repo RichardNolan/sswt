@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hamper_id: 1
+  product_id: 1
+  quantity: 1
+  price_when_ordered: 1.5
+
+two:
+  hamper_id: 1
+  product_id: 1
+  quantity: 1
+  price_when_ordered: 1.5

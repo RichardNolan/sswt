@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @hamper.customer_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @hamper.name %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @hamper.price %>
+</p>
+
+<p>
+  <strong>Greeting:</strong>
+  <%= @hamper.greeting %>
+</p>
+
+<%= link_to 'Edit', edit_hamper_path(@hamper) %> |
+<%= link_to 'Back', hampers_path %>

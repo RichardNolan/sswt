@@ -1,0 +1,37 @@
+<%= form_with(model: hamper, local: true) do |form| %>
+  <% if hamper.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(hamper.errors.count, "error") %> prohibited this hamper from being saved:</h2>
+
+      <ul>
+      <% hamper.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :customer_id %>
+    <%= form.number_field :customer_id, id: :hamper_customer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :hamper_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.text_field :price, id: :hamper_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :greeting %>
+    <%= form.text_field :greeting, id: :hamper_greeting %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
