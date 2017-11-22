@@ -1,4 +1,5 @@
 class OrderItem < ApplicationRecord
-    belongs_to :order
-    has_one :hamper
+    #has_one :hamper
+    belongs_to :order 	# has FK order_id
+    belongs_to :hamper 	# has FK hamper_id
 end
