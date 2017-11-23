@@ -4,7 +4,7 @@
   <strong>Product:</strong>
   <%= @product_image.product_id %>
 </p>
-
+  <%= image_tag @product_image.src.url, width: 100 if @product_image.src? %>
 <p>
   <strong>Src:</strong>
   <%= @product_image.src %>

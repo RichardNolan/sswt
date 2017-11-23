@@ -1,0 +1,27 @@
+/*  THIS FILE AND THE ACCOMPANYING FILEUPLOADPREVIEW.JS 
+    ARE DESIGNED TO HIDE THE STANDARD FILE INPUT TYPE
+    THIS IS WITHOUT REDUCING THE FUNCTIONALITY OR USING ANY 
+    OTHER TECHNOLOGIES. THE FORM IS HIDDEN AND THE LABEL IS
+    USED TO INITIATE THE FILE SELECTION. 
+
+    THESE FEATURES ARE BEING COMMENTED OUT FOR NOW
+*/
+
+/*
+input[type=file]{
+    display: none;
+}
+.upload{
+    width:180px;
+    height:36px;
+    line-height: 36px;
+    padding: 4px;
+    background-color: #b4b831;
+    color: white;
+    text-align: center;
+    margin-right:10px;
+}
+.upload::after{
+    content: url(/upload-icon-24.png);
+}
+*/

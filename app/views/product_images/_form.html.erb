@@ -15,10 +15,14 @@
     <%= form.label :product_id %>
     <%= form.number_field :product_id, id: :product_image_product_id %>
   </div>
-
+  
   <div class="field">
-    <%= form.label :src %>
-    <%= form.text_field :src, id: :product_image_src %>
+    <%= image_tag @product_image.src, width: 100, id: "image_placeholder" if :src? %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :src, 'REPLACE IMAGE', class: 'upload' %>
+    <%= form.file_field :src, id: :product_image_src %>
   </div>
 
   <div class="field">

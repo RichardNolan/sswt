@@ -4,7 +4,7 @@
   <strong>Producer:</strong>
   <%= @producer_image.producer_id %>
 </p>
-
+<%= image_tag @producer_image.src.url, width: 100 if @producer_image.src? %>
 <p>
   <strong>Src:</strong>
   <%= @producer_image.src %>

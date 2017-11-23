@@ -17,8 +17,12 @@
   </div>
 
   <div class="field">
-    <%= form.label :src %>
-    <%= form.text_field :src, id: :producer_image_src %>
+    <%= image_tag @producer_image.src, width: 100, id: "image_placeholder" if :src? %>
+  </div>
+
+ <div class="field">
+    <%= form.label :src, 'REPLACE IMAGE', class: 'upload' %>
+    <%= form.file_field :src, id: :producer_image_src %>
   </div>
 
   <div class="field">

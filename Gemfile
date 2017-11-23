@@ -33,6 +33,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'figaro'
+gem 'carrierwave', '~> 1.0'
 
 # Added jquery and bootstrap ---
 gem 'jquery-rails', '4.3.1'
