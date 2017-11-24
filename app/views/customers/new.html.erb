@@ -18,7 +18,7 @@
 			<%= f.label :password %>
 			<%= f.password_field :password, class: 'form-control' %>
 
-			<%= f.label :county %>
+			<%= f.label :county_id %>
 			<%= select_tag "county_id", options_from_collection_for_select(@counties, "id", "name"), :include_blank => true, class: 'form-control' %>
 			
 

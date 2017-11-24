@@ -35,8 +35,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'figaro'
 
 # Added jquery and bootstrap ---
-gem 'jquery-rails', '4.3.1'
-gem 'bootstrap-sass', '3.3.7'
+#gem 'jquery-rails', '4.3.1'
+#gem 'bootstrap-sass', '3.3.7'
+#gem 'autoprefixer-rails'
 
 
 group :development, :test do
