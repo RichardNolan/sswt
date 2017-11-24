@@ -17,6 +17,9 @@
 
 
 
+Producer.delete_all
+Product.delete_all
+
 # Test Producers
 producer1 = Producer.create(	name: "Farmer Brown", 
 								email: "fb@abc.com",
@@ -42,9 +45,6 @@ producer2 = Producer.create(	name: "Farmer Green",
 								enabled: true
 							)
 
-
-Producer.delete_all
-Product.delete_all
 # Test Products
 producer1.products.create(
 		name: "Sausages",
