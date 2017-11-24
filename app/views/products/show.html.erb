@@ -1,129 +1,43 @@
-<p id="notice"><%= notice %></p>
+<!-- Page Content -->
+    <div class="container">
 
-<p>
-  <strong>Producer:</strong>
-  <%= @product.producer_id %>
-</p>
+      <!-- Portfolio Item Heading -->
+      <h1 class="my-4"><%= @product.name %>
+        <small>by <%= @product.producer.name %></small>
+      </h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
+      <!-- Portfolio Item Row -->
+      <div class="row">
 
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
+        <div class="col-md-8">
+          <img class="img-fluid" src="http://placehold.it/750x500" alt="">
+        </div>
 
-<p>
-  <strong>Price:</strong>
-  <%= @product.price %>
-</p>
+        <div class="col-md-4">
+          <h3 class="my-3"><%= @product.name %></h3>
+          <p><%= @product.description %></p>
+          <h5 class="my-5">&euro; <%= @product.price %></h5>
+          <%= link_to "Add to Cart", products_path, class: 'btn btn-primary' %>
+        </div>
 
-<p>
-  <strong>Deleted:</strong>
-  <%= @product.deleted %>
-</p>
+      </div>
+      <!-- /.row -->
 
-<p>
-  <strong>Enabled:</strong>
-  <%= @product.enabled %>
-</p>
+      <!-- Related Products Row -->
+      <h3 class="my-4">More Products from <%= @product.producer.name %></h3>
 
-<p>
-  <strong>Admin notes:</strong>
-  <%= @product.admin_notes %>
-</p>
+      <div class="row">
 
-<p>
-  <strong>Discount:</strong>
-  <%= @product.discount %>
-</p>
+        <% @more_products.each do |product| %>
+        <div class="col-md-3 col-sm-6 mb-4">
+          <%= link_to product do %>
+            <img class="img-fluid" src="http://placehold.it/500x300" alt="<%= product.name %>">
+          <% end %>
+        </div>
+        <% end %>
 
-<p>
-  <strong>Min quantity:</strong>
-  <%= @product.min_quantity %>
-</p>
+      </div>
+      <!-- /.row -->
 
-<p>
-  <strong>Start date:</strong>
-  <%= @product.start_date %>
-</p>
-
-<p>
-  <strong>End date:</strong>
-  <%= @product.end_date %>
-</p>
-
-<p>
-  <strong>Contains cerials:</strong>
-  <%= @product.contains_cerials %>
-</p>
-
-<p>
-  <strong>Contains crustaceans:</strong>
-  <%= @product.contains_crustaceans %>
-</p>
-
-<p>
-  <strong>Contains eggs:</strong>
-  <%= @product.contains_eggs %>
-</p>
-
-<p>
-  <strong>Contains fish:</strong>
-  <%= @product.contains_fish %>
-</p>
-
-<p>
-  <strong>Contains peanuts:</strong>
-  <%= @product.contains_peanuts %>
-</p>
-
-<p>
-  <strong>Contains soybeans:</strong>
-  <%= @product.contains_soybeans %>
-</p>
-
-<p>
-  <strong>Contains milk:</strong>
-  <%= @product.contains_milk %>
-</p>
-
-<p>
-  <strong>Contains nuts:</strong>
-  <%= @product.contains_nuts %>
-</p>
-
-<p>
-  <strong>Contains celery:</strong>
-  <%= @product.contains_celery %>
-</p>
-
-<p>
-  <strong>Contains mustard:</strong>
-  <%= @product.contains_mustard %>
-</p>
-
-<p>
-  <strong>Contains semsame:</strong>
-  <%= @product.contains_semsame %>
-</p>
-
-<p>
-  <strong>Contains sulphur:</strong>
-  <%= @product.contains_sulphur %>
-</p>
-
-<p>
-  <strong>Contains lupin:</strong>
-  <%= @product.contains_lupin %>
-</p>
-
-<p>
-  <strong>Contains mullucus:</strong>
-  <%= @product.contains_mullucus %>
-</p>
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+    </div>
+    <!-- /.container -->

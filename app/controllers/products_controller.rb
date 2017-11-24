@@ -12,6 +12,8 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    # Show more products from Producer
+    @more_products = @product.producer.products.order('id DESC').limit(4).all
   end
 
   # GET /products/new

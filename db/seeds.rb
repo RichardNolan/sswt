@@ -43,6 +43,8 @@ producer2 = Producer.create(	name: "Farmer Green",
 							)
 
 
+Producer.delete_all
+Product.delete_all
 # Test Products
 producer1.products.create(
 		name: "Sausages",
@@ -58,6 +60,20 @@ producer1.products.create(
 		enabled: true,
 		deleted: false
 	)
+producer1.products.create(
+		name: "Christmas goodies",
+		description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
+		price: 20,
+		enabled: true,
+		deleted: false
+	)
+producer1.products.create(
+		name: "Roast beef",
+		description: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+		price: 4.99,
+		enabled: true,
+		deleted: false
+	)
 producer2.products.create(
 		name: "Candy bar",
 		description: "Suger overload",
@@ -68,6 +84,20 @@ producer2.products.create(
 producer2.products.create(
 		name: "Potatoes",
 		description: "Chips are cool",
+		price: 6,
+		enabled: true,
+		deleted: false
+	)
+producer2.products.create(
+		name: "Whiskey",
+		description: "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur",
+		price: 25,
+		enabled: true,
+		deleted: false
+	)
+producer2.products.create(
+		name: "Onions",
+		description: "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatu",
 		price: 6,
 		enabled: true,
 		deleted: false
