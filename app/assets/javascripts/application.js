@@ -11,4 +11,6 @@
 // about supported directives.
 //
 //= require jquery-3.2.1.min.js
+//= require tether.js
+//= require bootstrap.js
 //= require_tree .
