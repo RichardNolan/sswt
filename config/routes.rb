@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :producers
   resources :orders
   resources :order_items
   resources :hampers
