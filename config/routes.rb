@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  
+  get '/about',   to: 'about#index', :as => "about"
+
   resources :orders
   resources :order_items
   resources :hampers
@@ -10,9 +13,10 @@ Rails.application.routes.draw do
   resources :categories
   resources :product_categories
   resources :product_images
-  resources :producers do
-    resources :products
-  end
+  resources :producers
+  
+  resources :products
+  
 
   root 'welcome#index'
 
