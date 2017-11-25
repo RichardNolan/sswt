@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   
   get '/about',   to: 'about#index', :as => "about"
 
+  devise_for :producers
   resources :orders
   resources :order_items
   resources :hampers
