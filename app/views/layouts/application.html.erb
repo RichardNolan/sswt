@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>SSWTProject</title>
-    <%= csrf_meta_tags %>
+<%= render 'layouts/header' %>
+<%= render 'layouts/navbar' %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= favicon_link_tag 'favicon.ico' %>
-    
-  </head>
-
-  <body>
-
+<div id="main-content">
+  <div class="container">
     <%= yield %>
+  </div>
+</div>
 
-
-  </body>
-</html>
+<%= render 'layouts/footer' %>
