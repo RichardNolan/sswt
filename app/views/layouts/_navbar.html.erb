@@ -20,12 +20,29 @@
         <li class="nav-item">
           <%= link_to "About us", about_path, class: 'nav-link' %>
         </li>
-        <li class="nav-item">
-          <%= link_to "Sign up", "#", class: 'nav-link' %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Log in", "#", class: 'nav-link' %>
-        </li>        
+            <% if producer_signed_in? %>            
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><%= current_producer.email %> <span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <li class="dropdown-header">Producer Account</li>
+                  <li class="dropdown-header"><%= current_producer.email %></li>
+                  <li role="separator" class="divider"></li>
+                  <li><%= link_to "Edit Profile", edit_producer_registration_path %></li>
+                  <li role="separator" class="divider"></li>
+                  <li><%= link_to "Sign Out", destroy_producer_session_path, method: :delete %></li>
+                </ul>
+              </li>
+            <% else %>  
+              <li class="nav-item"><%= link_to "Sign Up via Devise", new_producer_registration_path %></li>          
+              <li class="dropdown nav-item">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Log In <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Log in as Producer", new_producer_session_path %></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">Log in as Customer</a></li>
+                </ul>
+              </li>
+            <% end %>
       </ul>
 
     </div>
