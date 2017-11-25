@@ -4,7 +4,7 @@
 
     <%= link_to "Custom Hampers", root_path, class:"navbar-brand" %>
     
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
       <span class="navbar-toggler-icon"></span>
     </button>
     
@@ -20,30 +20,37 @@
         <li class="nav-item">
           <%= link_to "About us", about_path, class: 'nav-link' %>
         </li>
-            <% if producer_signed_in? %>            
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><%= current_producer.email %> <span class="caret"></span></a>
-                <ul class="dropdown-menu dropdown-menu-right">
-                  <li class="dropdown-header">Producer Account</li>
-                  <li class="dropdown-header"><%= current_producer.email %></li>
-                  <li role="separator" class="divider"></li>
-                  <li><%= link_to "Edit Profile", edit_producer_registration_path %></li>
-                  <li role="separator" class="divider"></li>
-                  <li><%= link_to "Sign Out", destroy_producer_session_path, method: :delete %></li>
-                </ul>
+
+
+            <% if producer_signed_in? %>   
+
+              <li class="nav-item dropdown">
+               <a class="nav-link dropdown-toggle" href="#" id="signedinmenu" role="button" data-toggle="dropdown"><%= current_producer.email %> <span class="caret"></span></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item disabled" href="#">Producer Account</a>
+                  <a class="dropdown-item disabled" href="#"><%= current_producer.email %></a>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to "Edit Profile", edit_producer_registration_path, class: 'dropdown-item' %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to "Sign Out", destroy_producer_session_path, method: :delete, class: 'dropdown-item' %>
+                </div>
               </li>
             <% else %>  
-              <li class="nav-item"><%= link_to "Sign Up via Devise", new_producer_registration_path %></li>          
-              <li class="dropdown nav-item">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Log In <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><%= link_to "Log in as Producer", new_producer_session_path %></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#">Log in as Customer</a></li>
+              <li class="nav-item">
+                <%= link_to "Sign Up via Devise", new_producer_registration_path, class: 'nav-link' %>
+              </li>          
+              <li class="dropdown nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button">Sign In <span class="caret"></span></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <%= link_to "Log in as Producer", new_producer_session_path, class: 'dropdown-item' %>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Log in as Customer</a>
                 </ul>
               </li>
             <% end %>
       </ul>
+
+
 
     </div>
   </div>
