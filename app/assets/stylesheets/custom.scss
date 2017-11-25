@@ -1,7 +1,7 @@
 html, body {
 	
 	height: 100%;
-	box-sizing: border-box;
+	
 }
 
 
@@ -16,4 +16,8 @@ footer {
 	bottom: 0;	
 	left: 0;
 	padding: 20px;
+}
+
+.portfolio-item {
+	margin-bottom: 10px;
 }

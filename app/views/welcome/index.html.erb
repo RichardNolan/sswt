@@ -1,1 +1,54 @@
-HOMEPAGE
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Heading Row -->
+      <div class="row my-4">
+        <div class="col-lg-8">
+          <img class="img-fluid rounded" src="http://placehold.it/900x400" alt="">
+        </div>
+        <!-- /.col-lg-8 -->
+        <div class="col-lg-4">
+          <h1>Custom Hampers</h1>
+          <p>Christmas is just around the corner! Dont miss your opportunity to find amazing deals and wonderful products to send to your loved ones as a surprise Christmas present.</p>
+          <%= link_to "Browse Products", products_path, class: 'btn btn-primary btn-lg' %>
+        </div>
+        <!-- /.col-md-4 -->
+      </div>
+      <!-- /.row -->
+
+      <!-- Call to Action Well -->
+      <div class="card text-white bg-secondary my-4 text-center">
+        <div class="card-body">
+          <p class="text-white m-0">We have a full range of Irish Products from local Producers. Order your hamper today!</p>
+        </div>
+      </div>
+
+
+ 	  <!-- Latest Products -->
+      <h2>Latest Products</h2>
+
+      <div class="row">
+        
+        <!-- Product -->
+        <% @products.each do |product| %>
+        <div class="col-lg-4 col-sm-6 portfolio-item">
+          <div class="card h-100">
+            <%= link_to product do %>
+              <img class="card-img-top" src="http://placehold.it/700x400" alt="<%= product.name %>">
+            <% end %>
+            <div class="card-body">
+              <h4 class="card-title">
+                <%= link_to product.name, "#" %>
+              </h4>
+              <p class="card-text"><%= product.description %></p>
+            </div>
+          </div>
+        </div>
+        <% end %>
+        <!-- END Product -->
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->

@@ -5,13 +5,15 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = Product.order('id DESC').all
     @categories = Category.all
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
+    # Show more products from Producer
+    @more_products = @product.producer.products.order('id DESC').limit(4).all
   end
 
   # GET /products/new
