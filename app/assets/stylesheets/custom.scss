@@ -1,3 +1,19 @@
+html, body {
+	
+	height: 100%;
+	box-sizing: border-box;
+}
+
+
 #main-content {
 	margin-top: 90px;
+	margin-bottom: 90px;
+}
+
+footer {
+	position: fixed;
+	width: 100%;
+	bottom: 0;	
+	left: 0;
+	padding: 20px;
 }
