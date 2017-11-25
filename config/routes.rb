@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   
-  get '/about',   to: 'about#index', :as => "about"
-
   devise_for :producers
+  devise_for :customers
+  
+  get '/about',   to: 'about#index', :as => "about"
+  get '/signup',  to: 'signup#index',:as => "signup"
+  
   resources :orders
   resources :order_items
   resources :hampers

@@ -3,7 +3,7 @@ class CreateCustomers < ActiveRecord::Migration[5.1]
     create_table :customers do |t|
       t.string :first_name
       t.string :last_name
-      t.string :email
+      # t.string :email
       t.string :password
       t.boolean :email_confirmed
       t.date :join_date

@@ -1,0 +1,56 @@
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Page Heading/Breadcrumbs -->
+      <h1 class="mt-4 mb-3">Sign me up...</h1>
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <%= link_to "Home", root_url %>
+        </li>
+        <li class="breadcrumb-item active">Sign Up</li>
+      </ol>
+
+
+      <h2>What kind of member are you?</h2>
+
+      <div class="row">
+        <div class="col-lg-6 mb-6">
+          <div class="card h-100 text-center">
+            <img class="card-img-top" src="/images/producer.jpg" alt="">
+            <div class="card-body">
+              <h4 class="card-title">Producer</h4>
+              <h6 class="card-subtitle mb-2 text-muted">I make food or drinks</h6>
+              <p class="card-text">I am a producer and would like to make my goods available on your site.</p>
+            </div>
+            <div class="card-footer">
+              <%= link_to "Sign me up", new_producer_registration_path %>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-6">
+          <div class="card h-100 text-center">
+            <img class="card-img-top" src="/images/customer.jpg" alt="">
+            <div class="card-body">
+              <h4 class="card-title">Customer</h4>
+              <h6 class="card-subtitle mb-2 text-muted">I buy food and drinks</h6>
+              <p class="card-text">I am a customer and I would love to purchase some goods form these wonderful producers.</p>
+            </div>
+            <div class="card-footer">
+              <%= link_to "Sign me up", new_customer_registration_path %>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <!-- /.row -->
+
+      
+
+    </div>
+    <!-- /.container -->
+
+<!--
+<h1>About#index</h1>
+<p>Find me in app/views/about/index.html.erb</p>
+-->
