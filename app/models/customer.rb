@@ -6,5 +6,5 @@ class Customer < ApplicationRecord
     # many to many 
     has_many :product_likes		# customer PK used many times on product_like
     has_many :products, :through => :product_likes	
-     
+    
 end
