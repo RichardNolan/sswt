@@ -16,7 +16,7 @@ class CustomersController < ApplicationController
   # GET /customers/new
   def new
     @customer = Customer.new
-    @counties = County.order('name ASC').all
+    #@counties = County.order('name ASC').all
   end
 
   # GET /customers/1/edit

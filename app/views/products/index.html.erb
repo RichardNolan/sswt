@@ -7,7 +7,7 @@
 
           <h1 class="my-4">Categories</h1>
           <div class="list-group">
-            <% @categories.each do |category| %>
+            <% categoryList.each do |category| %>
               <%= link_to category.name, "#", class:'list-group-item' %>
             <% end %>
           </div>

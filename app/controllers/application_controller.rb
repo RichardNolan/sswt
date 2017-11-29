@@ -4,14 +4,14 @@ class ApplicationController < ActionController::Base
 
   # Before an action on any instance run county_list
   # This seems like overkill having this on every instance, but it is global
-  before_action :county_list
+  #before_action :county_list
   
 
   protected
-    def county_list
+    #def county_list
       # populate @counties instance variable
-      @counties = County.order('name ASC').all
-    end
+      #@counties = County.order('name ASC').all
+    #end
 
     def configure_permitted_parameters
       # this allows the following parameters to be permitted, devise advises this goes here
