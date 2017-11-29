@@ -5,10 +5,17 @@ html, body {
 }
 
 
+a.dropdown-item {
+    font-size: 14px;
+}
+a.btn.btn-primary {
+    color:#fff;
+}
+
 #main-container {
 	margin: auto;
 	margin-top: 70px;
-	margin-bottom: 90px;
+	margin-bottom: 120px;
 }
 
 footer {

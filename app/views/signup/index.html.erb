@@ -1,18 +1,7 @@
     <!-- Page Content -->
     <div class="container">
 
-      <!-- Page Heading/Breadcrumbs -->
-      <h1 class="mt-4 mb-3">Sign me up...</h1>
-
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <%= link_to "Home", root_url %>
-        </li>
-        <li class="breadcrumb-item active">Sign Up</li>
-      </ol>
-
-
-      <h2>What kind of member are you?</h2>
+      <h2 class="text-center">What kind of member are you?</h2>
 
       <div class="row">
         <div class="col-lg-6 mb-6">
@@ -24,7 +13,7 @@
               <p class="card-text">I am a producer and would like to make my goods available on your site.</p>
             </div>
             <div class="card-footer">
-              <%= link_to "Sign me up", new_producer_registration_path %>
+              <%= link_to "Sign me up", new_producer_registration_path, class: 'btn btn-primary col-lg-12' %>
             </div>
           </div>
         </div>
@@ -37,7 +26,7 @@
               <p class="card-text">I am a customer and I would love to purchase some goods form these wonderful producers.</p>
             </div>
             <div class="card-footer">
-              <%= link_to "Sign me up", new_customer_registration_path %>
+              <%= link_to "Sign me up", new_customer_registration_path, class: 'btn btn-primary col-lg-12' %>
             </div>
           </div>
         </div>
