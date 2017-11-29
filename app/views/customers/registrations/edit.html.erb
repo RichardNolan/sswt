@@ -34,7 +34,7 @@
 
               <div class="form-group">
                 <%= f.label :county %>
-                <%= f.select :county_id, options_from_collection_for_select(@counties, 'id', 'name', {selected: resource.county_id}), {}, {:include_blank => true, class: 'form-control', :required => true} 
+                <%= f.select :county_id, options_from_collection_for_select(countyList, 'id', 'name', {selected: resource.county_id}), {}, {:include_blank => true, class: 'form-control', :required => true} 
                 %>
               </div>
 
