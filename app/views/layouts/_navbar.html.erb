@@ -13,9 +13,15 @@ fixed-top">   <div class="container">
         <li class="nav-item">
           <%= link_to "Home", root_path, class: 'nav-link' %>
         </li>
+
+        <!-- moved to welcome page
+        <% if !producer_signed_in? && !customer_signed_in? %>
         <li class="nav-item">
           <span class="badge badge-danger"><a href="/signup" class="nav-link">SIGNUP NOW</a></span>
         </li>
+        <% end %>
+        -->
+
         <li class="nav-item">
           <%= link_to "Products", products_path, class: 'nav-link' %>
         </li>
@@ -24,36 +30,36 @@ fixed-top">   <div class="container">
         </li>
 
 
-            <% if producer_signed_in? || customer_signed_in? %>   
+        <% if producer_signed_in? || customer_signed_in? %>   
 
-              <li class="nav-item dropdown">
-               <a class="nav-link dropdown-toggle" href="#" id="signedinmenu" role="button" data-toggle="dropdown">
-                <%= producer_signed_in? ? current_producer.email : current_customer.email %> <span class="caret"></span></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item disabled" href="#"><%= producer_signed_in? ? "Producer" : "Customer"%> Account</a>
-                  <a class="dropdown-item disabled" href="#"><%= producer_signed_in? ? current_producer.email : current_customer.email %></a>
-                  <div class="dropdown-divider"></div>
-                  <%= producer_signed_in? ?   link_to("Edit Profile", edit_producer_registration_path, class: 'dropdown-item') : link_to("Edit Profile", edit_customer_registration_path, class: 'dropdown-item') %>
-                  <div class="dropdown-divider"></div>
-                  <%= producer_signed_in? ?   link_to("Sign Out", destroy_producer_session_path, method: :delete, class: 'dropdown-item') : link_to("Sign Out", destroy_customer_session_path, method: :delete, class: 'dropdown-item') %>
-                </div>
-              </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="signedinmenu" role="button" data-toggle="dropdown">
+            My Account <span class="caret"></span></a>
+            <div class="dropdown-menu dropdown-menu-right">
 
-            <% else %>  
+              <%= producer_signed_in? ?   link_to("My Profile", producer_path(current_producer.id), class: 'dropdown-item') : link_to("My Profile", customer_path(current_customer.id), class: 'dropdown-item') %>
 
-              <li class="dropdown nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button">Sign In <span class="caret"></span></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <%= link_to "Log in as Producer", new_producer_session_path, class: 'dropdown-item' %>
-                  <div class="dropdown-divider"></div>
-                  <%= link_to "Log in as Customer", new_customer_session_path, class: 'dropdown-item' %>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item disabled" href="#">Not signed up yet?</a>
-                  <a class="dropdown-item" href="/signup">Sign up now...</a>
-                </ul>
-              </li>
-              
-            <% end %>
+              <%= producer_signed_in? ?   link_to("Edit Profile", edit_producer_registration_path, class: 'dropdown-item') : link_to("Edit Profile", edit_customer_registration_path, class: 'dropdown-item') %>
+              <div class="dropdown-divider"></div>
+              <%= producer_signed_in? ?   link_to("Sign Out", destroy_producer_session_path, method: :delete, class: 'dropdown-item') : link_to("Sign Out", destroy_customer_session_path, method: :delete, class: 'dropdown-item') %>
+            </div>
+          </li>
+
+        <% else %>  
+
+          <li class="dropdown nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button">Sign In <span class="caret"></span></a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <%= link_to "Log in as Producer", new_producer_session_path, class: 'dropdown-item' %>
+              <div class="dropdown-divider"></div>
+              <%= link_to "Log in as Customer", new_customer_session_path, class: 'dropdown-item' %>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item disabled" href="#">Not signed up yet?</a>
+              <%= link_to "Sign up now", '/signup', class: 'dropdown-item' %>
+            </ul>
+          </li>
+          
+        <% end %>
 
       </ul>
 

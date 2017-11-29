@@ -17,12 +17,13 @@
       <!-- /.row -->
 
       <!-- Call to Action Well -->
-      <div class="card text-white bg-secondary my-4 text-center">
+      <% if !producer_signed_in? && !customer_signed_in? %>
+      <div class="card text-white bg-warning my-4 text-center">
         <div class="card-body">
-          <p class="text-white m-0">We have a full range of Irish Products from local Producers. Order your hamper today!</p>
+          <p class="text-white m-0"><%= link_to "Sign Up", '/signup', class: 'btn btn-default' %> for your free account</p>
         </div>
       </div>
-
+      <% end %>
 
  	  <!-- Latest Products -->
       <h2>Latest Products</h2>
