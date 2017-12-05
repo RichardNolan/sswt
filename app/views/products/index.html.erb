@@ -60,6 +60,7 @@
                   </h4>
                   <h5>&euro; <%= product.price %></h5>
                   <p class="card-text"><%= product.description %></p>
+                  <%= render partial: '/products/likes', locals:{product: product}%>
                 </div>
                 <div class="card-footer">
                   <small class="text-muted"><%= product.producer.name %></small>

@@ -1,6 +1,15 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   
+  def like
+    # if the customer is signed in
+    if customer_signed_in? then
+      # create a new ProductLike object passing the id of the customer and the product
+      ProductLike.create({customer_id: current_customer.id.to_i, product_id: params[:id].to_i})
+    end
+    # redirect back to where you've come from, any problems go to the product path
+    redirect_back fallback_location: product_path
+  end
 
   # GET /products
   # GET /products.json

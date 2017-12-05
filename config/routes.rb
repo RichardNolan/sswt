@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   
   get '/about',   to: 'about#index', :as => "about"
   get '/signup',  to: 'signup#index',:as => "signup"
-  
+    
+  get '/products/:id/like',    to: 'products#like', as: 'like'
+
   resources :orders
   resources :order_items
   resources :hampers
