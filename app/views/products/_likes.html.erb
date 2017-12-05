@@ -1,0 +1,38 @@
+<%
+    # Query the ProductLike model for rows with both current_customer and product ids - return the length 
+    # the trick of var && otherVar is the same as 'if var then otherVar' - could also use a terinery
+    @customer_likes = current_customer && ProductLike.where(customer_id: current_customer.id, product_id: product.id).length
+    # simply a count of occurances in ProductLikes
+    @public_likes = ProductLike.where(product_id: product.id).length ||= 0
+
+    # below are the three possibilities for how to display the like icon
+    # 1. The customer is signed in and likes this
+    # 2. The customer is signed in but doesn't like this - hense the link
+    # 3. customer is not signed in - no link available
+%>
+
+<% if @customer_likes && @customer_likes > 0 then %>
+    <div class="like_btn">
+        <img src="/images/heart_red.svg" class="heart" />
+        <span class="tag badge badge-pill badge-danger">
+            <%= @public_likes %>
+        </span>
+    </div>
+<% elsif current_customer && @customer_likes==0 %>
+    <div class="like_btn">
+        <a href='/products/<%= product.id %>/like'>
+            <img src="/images/heart_grey.svg" class="heart" />
+        </a>
+        <span class="tag badge badge-pill badge-secondary">
+            <%= @public_likes %>
+        </span>
+    </div>
+<% elsif !current_customer %>    
+    <div class="like_btn">
+        <img src="/images/heart_grey.svg" class="heart" />
+        <span class="tag badge badge-pill badge-secondary">
+            <%= @public_likes %>
+        </span>
+    </div>
+<% end %>
+

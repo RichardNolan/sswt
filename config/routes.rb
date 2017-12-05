@@ -26,8 +26,12 @@ Rails.application.routes.draw do
   # Product search by keyword
   get '/products/search(/:query)', to: 'products#search'
 
+  # product likes route
+  get '/products/:id/like',    to: 'products#like', as: 'like'
+
 
   # Scaffold resources  
+    
   resources :orders
   resources :order_items
   resources :hampers

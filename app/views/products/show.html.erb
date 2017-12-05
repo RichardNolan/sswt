@@ -18,6 +18,7 @@
           <p><%= @product.description %></p>
           <h5 class="my-5">&euro; <%= @product.price %></h5>
           <%= link_to "Add to Cart", products_path, class: 'btn btn-primary' %>
+          <%= render partial: '/products/likes', locals:{product: @product}%>
         </div>
 
       </div>

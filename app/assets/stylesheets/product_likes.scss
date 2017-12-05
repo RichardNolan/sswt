@@ -1,3 +1,21 @@
 // Place all the styles related to the product_likes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.like_btn{
+    position: relative;
+    display: inline;
+}
+
+.heart{
+    position: relative;
+    width: 32px;
+    height: 32px;
+    z-index:5000!important;
+}
+
+.tag{
+    padding-left: 10px;
+    margin-left: -10px;
+}

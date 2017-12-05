@@ -42,6 +42,7 @@
                 <%= link_to product.name, "#" %>
               </h4>
               <p class="card-text"><%= product.description %></p>
+              <%= render partial: '/products/likes', locals:{product: product}%>
             </div>
           </div>
         </div>
