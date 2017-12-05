@@ -16,7 +16,6 @@ class CustomersController < ApplicationController
   # GET /customers/new
   def new
     @customer = Customer.new
-    #@counties = County.order('name ASC').all
   end
 
   # GET /customers/1/edit
@@ -71,6 +70,17 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:first_name, :last_name, :email, :password, :email_confirmed, :join_date, :address, :address2, :county_id, :enabled, :admin_notes)
+      params.require(:customer).permit( product_ids:[], # Customer-Likes-Products
+                                        :first_name, 
+                                        :last_name, 
+                                        :email, 
+                                        :password, 
+                                        :email_confirmed, 
+                                        :join_date, 
+                                        :address, 
+                                        :address2, 
+                                        :county_id, 
+                                        :enabled, 
+                                        :admin_notes)
     end
 end

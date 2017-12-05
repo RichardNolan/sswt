@@ -10,6 +10,8 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
+    @products = @category.products
+    render template: "products/index"
   end
 
   # GET /categories/new

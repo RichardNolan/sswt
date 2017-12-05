@@ -4,11 +4,10 @@ class Customer < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
     
-    #has_many :product_likes
-    has_many :hampers 			# customer PK used many times in hampers
+  #has_many :product_likes
+  has_many :hampers 			# customer PK used many times in hampers
 
-    # many to many 
-    has_many :product_likes		# customer PK used many times on product_like
-    has_many :products, :through => :product_likes	
+  # Customer Likes Product - many to many 
+  has_and_belongs_to_many :product
     
 end

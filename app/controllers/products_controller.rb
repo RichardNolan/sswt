@@ -1,6 +1,10 @@
 class ProductsController < ApplicationController
+
+  # Check that Producer is logged in
+  before_action :authenticate_producer!, only: [:new, :edit, :update, :destroy]
+
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  
+
 
   # GET /products
   # GET /products.json
@@ -38,6 +42,7 @@ class ProductsController < ApplicationController
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PATCH/PUT /products/1
@@ -72,6 +77,32 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:producer_id, :name, :description, :price, :deleted, :enabled, :admin_notes, :discount, :min_quantity, :start_date, :end_date, :contains_cerials, :contains_crustaceans, :contains_eggs, :contains_fish, :contains_peanuts, :contains_soybeans, :contains_milk, :contains_nuts, :contains_celery, :contains_mustard, :contains_semsame, :contains_sulphur, :contains_lupin, :contains_mullucus)
+      params.require(:product).permit(  :producer_id, 
+                                        :name, 
+                                        :description, 
+                                        :price, 
+                                        :deleted, 
+                                        :enabled, 
+                                        :admin_notes, 
+                                        :discount, 
+                                        :min_quantity, 
+                                        :start_date, 
+                                        :end_date, 
+                                        :contains_cerials, 
+                                        :contains_crustaceans, 
+                                        :contains_eggs, 
+                                        :contains_fish, 
+                                        :contains_peanuts, 
+                                        :contains_soybeans, 
+                                        :contains_milk, 
+                                        :contains_nuts, 
+                                        :contains_celery, 
+                                        :contains_mustard, 
+                                        :contains_semsame, 
+                                        :contains_sulphur, 
+                                        :contains_lupin, 
+                                        :contains_mullucus,
+                                        category_ids:[]
+                                      )
     end
 end
