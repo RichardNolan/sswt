@@ -7,12 +7,13 @@ class CategoriesController < ApplicationController
     @categories = Category.all
   end
 
-  # GET /categories/1
-  # GET /categories/1.json
+
+  # Display Products by Category ID
   def show
     @products = @category.products
     render template: "products/index"
   end
+
 
   # GET /categories/new
   def new
