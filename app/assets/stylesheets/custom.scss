@@ -4,6 +4,13 @@ html, body {
 	
 }
 
+a p {
+    color: #222;
+}
+a p:hover {
+    color: #111;
+    text-decoration:underline;
+}
 
 a.dropdown-item {
     font-size: 14px;

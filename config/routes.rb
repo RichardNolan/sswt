@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   
   # Page for choosing to sign up as Producer or Customer
   get '/signup',  to: 'signup#index',:as => "signup"
+
+  # Products by Category
+  get '/products/category/:id', to: 'categories#show'
   
   resources :orders
   resources :order_items
