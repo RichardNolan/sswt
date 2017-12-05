@@ -11,7 +11,7 @@
     # 3. customer is not signed in - no link available
 %>
 
-<% if @customer_likes>0 then %>
+<% if @customer_likes && @customer_likes > 0 then %>
     <div class="like_btn">
         <img src="/images/heart_red.svg" class="heart" />
         <span class="tag badge badge-pill badge-danger">
