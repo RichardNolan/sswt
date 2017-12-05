@@ -6,6 +6,23 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
 
+  # Search by keyword
+  def search
+    
+    # sanitize to prevent SQL Injection
+    @keyword = ActionController::Base.helpers.sanitize(params[:query]) if params[:query]
+    
+    if @keyword
+      @products = Product.where('name LIKE ? OR description LIKE ?', "%#{@keyword}%", "%#{@keyword}%")
+    else
+      @products = Product.all
+    end
+
+    # render products page
+    render template: 'products/index'
+  end
+
+
   # GET /products
   # GET /products.json
   def index
@@ -77,7 +94,8 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(  :producer_id, 
+      params.require(:product).permit(  :query,
+                                        :producer_id, 
                                         :name, 
                                         :description, 
                                         :price, 
