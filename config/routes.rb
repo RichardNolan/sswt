@@ -14,14 +14,11 @@ Rails.application.routes.draw do
   # About Us Page
   get '/about',   to: 'about#index', :as => "about"
   
-
   # Page for choosing to sign up as Producer or Customer
   get '/signup',  to: 'signup#index',:as => "signup"
 
-
   # Products by Category
   get '/products/category/:id', to: 'categories#show'
-
 
   # Product search by keyword
   get '/products/search(/:query)', to: 'products#search'
@@ -29,6 +26,9 @@ Rails.application.routes.draw do
   # product likes route
   get '/products/:id/like',    to: 'products#like', as: 'like'
 
+  # session hamper add and empty
+  post 'hamper/add',    to: 'hamper_items#add',   as: 'add_to_hamper'
+  post 'hamper/empty',  to: 'hamper_items#empty', as: 'empty_hamper'
 
   # Scaffold resources  
     

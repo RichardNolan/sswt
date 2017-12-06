@@ -1,6 +1,54 @@
 class HamperItemsController < ApplicationController
   before_action :set_hamper_item, only: [:show, :edit, :update, :destroy]
 
+  def add
+    # due to a limit on the cookie size of 4kb, we need to be economical with the data saved
+    # to that end 
+    # h = hamper.id
+    # id = product.id
+    # q = quantity
+    # p = price
+    hamper_id = params['hamper_id'].to_i
+    quantity = params['quantity'].to_i
+    price = params['price'].to_f
+    product_id = params['product_id'].to_i
+
+    # create a string name for the session which includes the hamper id
+    hamper = 'hamper'+hamper_id.to_s
+
+    # if the session variable doesn't exist create an empty array in one
+    session[hamper] ||= []
+
+    # flag for if an item exists in the hamper already
+    already_in_hamper = false
+    # interate over the array of items
+    session[hamper].each do |item|
+      # if the newly added object is in the hamper
+      if(item['id']==product_id) then
+        # just increment its quantity by the new quantity added
+        item['q'] += quantity
+        # set the flag
+        already_in_hamper = true
+      end 
+    end
+
+    # add the item to the array if not already in the hamper
+    session[hamper].push( {h: hamper_id, id: product_id, q: quantity, p: price} ) if !already_in_hamper
+
+    # respond ok and return the hamper
+    head :ok, hamper: session[hamper]
+  end
+
+  def empty
+    # get session name from passed hamper id
+    hamper = 'hamper'+params['hamper_id'].to_s
+    # delete it from session object
+    session.delete(hamper)
+    # respond ok and return what should be an empty array
+    head :ok, hamper: session[hamper]
+  end
+
+
   # GET /hamper_items
   # GET /hamper_items.json
   def index
