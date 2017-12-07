@@ -64,7 +64,10 @@ class HampersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_hamper
-      @hamper = Hamper.find(params[:id])
+      if(params[:id].to_i == 0) then
+        @hamper = {customer_id:0, name: "My Hamper", price: 0, greeting:"", hamper_items: session['hamper0']}
+      end 
+      @hamper = Hamper.find(params[:id]) if(params[:id].to_i > 0)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
