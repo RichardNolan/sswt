@@ -1,6 +1,6 @@
 class ProducersController < ApplicationController
   
-  # Only Admin can see list of producers
+  # Only Admin can see list of producers, enable or disable
   before_action :authenticate_admin!, only: [:index, :destroy, :enable]
 
   

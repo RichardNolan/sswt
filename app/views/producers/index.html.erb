@@ -1,8 +1,4 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Producers</h1>
-
-
 
 <div class="container">
 
@@ -33,8 +29,7 @@
           <% end %>  
         </td>
         <td><%= producer.products.count %></td>
-        <td>
-          <%= link_to 'Edit', edit_producer_path(producer), class: 'btn btn-sm btn-primary' %>
+        <td>          
           <%= link_to 'Show', producer, class: 'btn btn-sm btn-primary' %>
         </td>
       </tr>      
@@ -44,54 +39,3 @@
 
 
 </div>
-
-
-<!--
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Email confirmed</th>
-      <th>Password</th>
-      <th>Address</th>
-      <th>Address2</th>
-      <th>County</th>
-      <th>Contact phone</th>
-      <th>Contact email</th>
-      <th>Join date</th>
-      <th>Enabled</th>
-      <th>Admin notes</th>
-      <th>About</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @producers.each do |producer| %>
-      <tr>
-        <td><%= producer.name %></td>
-        <td><%= producer.email %></td>
-        <td><%= producer.email_confirmed %></td>
-        <td><%= producer.password %></td>
-        <td><%= producer.address %></td>
-        <td><%= producer.address2 %></td>
-        <td><%= producer.county_id %></td>
-        <td><%= producer.contact_phone %></td>
-        <td><%= producer.contact_email %></td>
-        <td><%= producer.join_date %></td>
-        <td><%= producer.enabled %></td>
-        <td><%= producer.admin_notes %></td>
-        <td><%= producer.about %></td>
-        <td><%= link_to 'Show', producer %></td>
-        <td><%= link_to 'Edit', edit_producer_path(producer) %></td>
-        <td><%= link_to 'Destroy', producer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Producer', new_producer_path %>
--->

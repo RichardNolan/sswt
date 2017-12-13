@@ -1,83 +1,56 @@
 class CustomersController < ApplicationController
   
-  # Devise verify customer
-  before_action :authenticate_customer!, only: [:edit, :update, :destroy]
+  # Only Admin can see list of customers, enable or disable
+  before_action :authenticate_admin!, only: [:index, :destroy, :enable]
 
-  # Default scaffold
-  before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  
+  # Customer can edit and update
+  #before_action :authenticate_customer!, only: [:edit, :update]
+
+
+  # Default rails
+  before_action :set_customer, only: [:show, :edit, :update, :destroy, :enable]
   
 
 
-  # GET /customers
-  # GET /customers.json
+    # Index - List of Producers
   def index
     @customers = Customer.all
   end
 
-  # GET /customers/1
-  # GET /customers/1.json
+
+  # View Customer Page
   def show
   end
 
-  # GET /customers/new
-  def new
-    @customer = Customer.new
-  end
 
-  # GET /customers/1/edit
-  def edit
-  end
-
-  # POST /customers
-  # POST /customers.json
-  def create
-    @customer = Customer.new(customer_params)
-
-    respond_to do |format|
-      if @customer.save
-        format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
-        format.json { render :show, status: :created, location: @customer }
-      else
-        format.html { render :new }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /customers/1
-  # PATCH/PUT /customers/1.json
-  def update
-    respond_to do |format|
-      if @customer.update(customer_params)
-        format.html { redirect_to @customer, notice: 'Customer was successfully updated.' }
-        format.json { render :show, status: :ok, location: @customer }
-      else
-        format.html { render :edit }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /customers/1
-  # DELETE /customers/1.json
+  # Disable Customer
   def destroy
-    @customer.destroy
-    respond_to do |format|
-      format.html { redirect_to customers_url, notice: 'Customer was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @customer.enabled = false
+    @customer.save
+    redirect_to @customer
   end
 
+
+  # Enable Customer
+  def enable
+    @customer.enabled = true
+    @customer.save
+    redirect_to @customer
+  end
+
+
+  # Private ------------------------------------------------------------
   private
-    # Use callbacks to share common setup or constraints between actions.
+
+    # Set customer variable
     def set_customer
       @customer = Customer.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Permitted parameters
     def customer_params
-      params.require(:customer).permit( #product_ids:[], # Customer-Likes-Products
-                                        :first_name, 
+      params.require(:customer).permit( :first_name, 
                                         :last_name, 
                                         :email, 
                                         :password, 

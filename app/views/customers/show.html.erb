@@ -1,59 +1,90 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>First name:</strong>
-  <%= @customer.first_name %>
-</p>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @customer.last_name %>
-</p>
+<!-- Page Content -->
+<div class="container">
 
-<p>
-  <strong>Email:</strong>
-  <%= @customer.email %>
-</p>
+  <!-- Customer Name -->
+  <h3 class="my-4"><%= "#{@customer.first_name} #{@customer.last_name}" %></h3>
+  <!-- Customer Email -->
+  <h4><%= @customer.email %></h4>
 
-<p>
-  <strong>Password:</strong>
-  <%= @customer.password %>
-</p>
+  <% 
+  # Only Admin can view this 
+  if(admin_signed_in?) %>
+    <div class="admin-controls">
+      <h5>Administration tools</h5>
+      <hr>
+      
+      <% if @customer.enabled==true || @customer.enabled==nil %>
+      Status: <strong class="text-green">Enabled</strong>
+      <%= link_to 'Disable Customer', @customer, class: 'btn btn-sm btn-warning', method: :delete, data: { confirm: 'Are you sure you want to disable this customer?' } %>
+      <% end %>
+    
+      <% if @customer.enabled==false %>
+      Status: <strong class="text-red">Disabled</strong>
+      <%= link_to 'Enable Customer', enable_customer_path, class: 'btn btn-sm btn-primary', method: :put, data: { confirm: 'Do you want to enable this customer?' } %>
+      <% end %>
 
-<p>
-  <strong>Email confirmed:</strong>
-  <%= @customer.email_confirmed %>
-</p>
+    </div>
+  <% end %>
 
-<p>
-  <strong>Join date:</strong>
-  <%= @customer.join_date %>
-</p>
+  <!-- Row -->
+  <div class="row">
 
-<p>
-  <strong>Address:</strong>
-  <%= @customer.address %>
-</p>
+    
+    <!-- Details -->
+    <div class="col-md-4">
+      <div class="card">
+        <h4 class="card-header">Details</h4>
+        <div class="card-body">
+            <p>
+              <strong>First Name:</strong>
+              <%= @customer.first_name %>
+            </p>
 
-<p>
-  <strong>Address2:</strong>
-  <%= @customer.address2 %>
-</p>
+            <p>
+              <strong>Last Name:</strong>
+              <%= @customer.last_name %>
+            </p>
 
-<p>
-  <strong>County:</strong>
-  <%= @customer.county_id %>
-</p>
+            <p>
+              <strong>Email:</strong>
+              <%= @customer.email %>
+            </p>
 
-<p>
-  <strong>Enabled:</strong>
-  <%= @customer.enabled %>
-</p>
 
-<p>
-  <strong>Admin notes:</strong>
-  <%= @customer.admin_notes %>
-</p>
+        </div>        
+      </div>
+    </div>
 
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>
+    <!-- Details -->
+    <div class="col-md-4">
+      <div class="card">
+        <h4 class="card-header">Hampers</h4>
+        <div class="card-body">
+            
+          ...hampers
+
+        </div>        
+      </div>
+    </div>
+
+
+    <!-- Details -->
+    <div class="col-md-4">
+      <div class="card">
+        <h4 class="card-header">Orders</h4>
+        <div class="card-body">
+            ...orders
+
+        </div>        
+      </div>
+    </div>
+
+
+
+  </div>
+  <!-- /.row -->
+
+</div>
+<!-- /.container -->

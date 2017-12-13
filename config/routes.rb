@@ -51,6 +51,11 @@ Rails.application.routes.draw do
   # Enable Producer
   put '/producers/:id/enable', to: 'producers#enable', as: 'enable_producer'
 
+  # Disable Customer
+  delete '/customers/:id', to: 'customers#destroy'
+
+  # Enable Customer
+  put '/customers/:id/enable', to: 'customers#enable', as: 'enable_customer'
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

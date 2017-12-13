@@ -4,30 +4,29 @@
 <div class="container">
 
   <!-- Producer Name -->
-  <h1 class="my-4"><%= @producer.name %></h1>
-
+  <h3 class="my-4"><%= @producer.name %></h3>
 
 
   <% 
-  # Only Admin or Producer (owner of page) can view this 
+  # Only Admin can view this 
   if(admin_signed_in?) %>
-  
-  <div class="admin-controls">
-    <h5>Administration tools</h5>
-    <hr>
+    <div class="admin-controls">
+      <h5>Administration tools</h5>
+      <hr>
+      
+      <% if @producer.enabled==true || @producer.enabled==nil %>
+      Status: <strong class="text-green">Enabled</strong>
+      <%= link_to 'Disable Producer', @producer, class: 'btn btn-sm btn-warning', method: :delete, data: { confirm: 'Are you sure you want to disable this producer?' } %>
+      <% end %>
     
-    <% if @producer.enabled==true || @producer.enabled==nil %>
-    Status: <strong class="text-green">Enabled</strong>
-    <%= link_to 'Disable Producer', @producer, class: 'btn btn-sm btn-warning', method: :delete, data: { confirm: 'Are you sure you want to disable this producer?' } %>
-    <% end %>
-  
-    <% if @producer.enabled==false %>
-    Status: <strong class="text-red">Disabled</strong>
-    <%= link_to 'Enable Producer', enable_producer_path, class: 'btn btn-sm btn-primary', method: :put, data: { confirm: 'Do you want to enable this producer?' } %>
-    <% end %>
+      <% if @producer.enabled==false %>
+      Status: <strong class="text-red">Disabled</strong>
+      <%= link_to 'Enable Producer', enable_producer_path, class: 'btn btn-sm btn-primary', method: :put, data: { confirm: 'Do you want to enable this producer?' } %>
+      <% end %>
 
-  </div>
+    </div>
   <% end %>
+
 
   <!-- Row -->
   <div class="row">
@@ -44,6 +43,7 @@
         <div class="card-body">
           <p class="card-text">
             <%= @producer.about %>
+
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.
 
           </p>
@@ -56,7 +56,8 @@
       <div class="card">
         <h4 class="card-header">Details</h4>
         <div class="card-body">
-            <strong>Name:</strong>
+            <p>
+              <strong>Name:</strong>
               <%= @producer.name %>
             </p>
 
