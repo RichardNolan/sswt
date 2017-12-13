@@ -13,9 +13,9 @@ class ProductsController < ApplicationController
     @keyword = ActionController::Base.helpers.sanitize(params[:query]) if params[:query]
     
     if @keyword
-      @products = Product.where('name LIKE ? OR description LIKE ?', "%#{@keyword}%", "%#{@keyword}%")
+      @products = Product.where('(name LIKE ? OR description LIKE ?) AND enabled = ?', "%#{@keyword}%", "%#{@keyword}%", true)
     else
-      @products = Product.all
+      @products = Product.where('enabled = ?', true)
     end
 
     # render products page
@@ -36,14 +36,14 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.order('id DESC').all
+    @products = Product.order('id DESC').where('enabled = ?',true)
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
     # Show more products from Producer
-    @more_products = @product.producer.products.order('id DESC').limit(4).all
+    @more_products = @product.producer.products.order('id DESC').limit(4).where('enabled = ?',true)
   end
 
   # GET /products/new

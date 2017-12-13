@@ -4,12 +4,8 @@ class CustomersController < ApplicationController
   before_action :authenticate_admin!, only: [:index, :destroy, :enable]
 
   
-  # Customer can edit and update
-  #before_action :authenticate_customer!, only: [:edit, :update]
-
-
-  # Default rails
-  before_action :set_customer, only: [:show, :edit, :update, :destroy, :enable]
+  # Set Customer Variable
+  before_action :set_customer, only: [:show, :destroy, :enable]
   
 
 
