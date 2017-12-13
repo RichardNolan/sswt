@@ -1,10 +1,11 @@
 class HampersController < ApplicationController
   before_action :set_hamper, only: [:show, :edit, :update, :destroy]
+  before_action :set_hampers, only: [:index]
 
   # GET /hampers
   # GET /hampers.json
   def index
-    @hampers = Hamper.all
+    render layout: "modal"
   end
 
   # GET /hampers/1
@@ -62,12 +63,58 @@ class HampersController < ApplicationController
   end
 
   private
+    def create_session_hamper
+      return {customer_id:0, name: "My Hamper", price: get_hamper_price(session['hamper0']), greeting:"", hamper_items: session['hamper0']}
+    end
+
+    def load_db_hamper
+      hamper = Hamper.find(params[:id])
+      hamper[:price] = get_hamper_price(hamper.hamper_items)
+      # hamper[:hamper_items] = add_product_names(hamper.hamper_items)
+      return hamper
+    end
+
+    def get_hamper_price(items)
+      return items ? items.reduce(0){ |total_price, item|
+        # Because this function equates the value of hampers from two sources Sessions and Database
+        # and because they have different keys, due to the 4kb cookie limit
+        # creates vars for the price and quantity from either version of keys
+        quantity  =   item['q'] || item.quantity
+        price     =   item['p'] || item.price_when_ordered
+
+        total_price+=(  quantity * price    )
+      } : 0
+    end
+    
+    # def add_product_names(items)
+    #   return items ? items.map {|item| add_product_name(item) } : nil
+    # end
+
+    # def add_product_name(item)
+    #   new_item = {}
+    #   new_item['product_id']    = item.product_id || item['id']
+    #   new_item['quantity']    = item.quantity || item['q']
+    #   new_item['price_when_ordered']    = item.price_when_ordered || item['p']
+    #   new_item['hamper_id']    = item.hamper_id || item['h']
+    #   return new_item
+    # end
+
+    def set_hampers      
+      if customer_signed_in? then
+        @hampers = Hamper.where(:customer_id => current_customer[:id])
+        @hampers.map do |hamper| 
+          hamper[:price] = get_hamper_price(hamper.hamper_items)
+          # hamper[:hamper_items] = add_product_names(hamper.hamper_items)
+          return hamper
+        end
+      else
+        @hampers = [create_session_hamper]
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_hamper
-      if(params[:id].to_i == 0) then
-        @hamper = {customer_id:0, name: "My Hamper", price: 0, greeting:"", hamper_items: session['hamper0']}
-      end 
-      @hamper = Hamper.find(params[:id]) if(params[:id].to_i > 0)
+        @hamper = (params[:id].to_i == 0) ? create_session_hamper : load_db_hamper
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

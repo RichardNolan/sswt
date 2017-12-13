@@ -1,7 +1,32 @@
-    <div class="input-group">
-      <input type="number" class="form-control quantity" value=1>
+    <div class="input-group add-group">
+      <input type="number" class="form-control form-control-sm quantity" value=1 min=1>
+
+      <% 
+      if customer_signed_in? then 
+        
+        @hampers = Hamper.where(:customer_id => current_customer[:id])  
+      
+      %>
+        <div class="btn-group" role="group">
+          <button id="add_button_<%= product.id %>" type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Add
+          </button>
+          <div class="dropdown-menu" aria-labelledby="add_button_<%= product.id %>">
+          <% @hampers.each do |item| %>
+            <button class="dropdown-item buy" type="button" data-hamper="<%= item.id %>" data-id="<%= product.id %>" data-price="<%= product.price %>"><%= item.name %></button>
+          <% end %>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item buy" href="">New Hamper</a>
+          </div>
+        </div>
+
+      <% else %>
+
       <span class="input-group-btn">
-        <button class="btn btn-secondary buy" type="button" data-id="<%= product.id %>" data-price="<%= product.price %>">Add to Hamper</button>
+        <button class="btn btn-secondary btn-sm buy" type="button" data-id="<%= product.id %>" data-price="<%= product.price %>">Add</button>
       </span>
+
+      <% end %>
+
     </div>
-    <div class="empty">Empty _FOR DEMO PURPOSES</div>
+    

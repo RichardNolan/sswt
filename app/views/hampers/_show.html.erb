@@ -1,0 +1,45 @@
+<%
+def get_product_name(id)
+  return Product.find(id).name
+end
+%>
+
+<%  if customer_signed_in? then  %>
+  <%  @hampers.each { |hamper|  %>
+        <h3><%= hamper.name %> - <%= hamper[:price] %></h3>
+        <p>
+          <%= link_to 'Edit', edit_hamper_path(hamper) %> | 
+          <%= link_to 'Destroy', hamper, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </p>
+          <ul>
+          <%  hamper.hamper_items.each { |item|  %>
+                <li>
+                  <%= item.quantity %> 
+                  <%= get_product_name(item.id) %> 
+                  @ €<%=item.price_when_ordered %> each
+                </li>
+          <%  }  %>
+          </ul>
+  <%  }  %>
+  
+<%= link_to 'New Hamper', new_hamper_path %>
+
+<% else %>
+
+   <%  @hampers.each { |hamper|  %>
+        <h3><%= hamper[:name] %> - Total Cost: €<%= hamper[:price] %></h3>      
+          <ul>
+          <%  
+            if hamper[:hamper_items] then
+            hamper[:hamper_items].each { |item|  %>
+                <li>
+                  <%= item['q'] %> 
+                  <%= get_product_name(item['id']) %> 
+                  @ €<%=item['p'] %> each
+                </li>
+          <%  } 
+            end
+          %>
+          </ul>
+  <%  }  %>
+<%  end  %>

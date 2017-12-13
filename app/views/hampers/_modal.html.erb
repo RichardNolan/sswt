@@ -1,0 +1,23 @@
+<div class="modal fade" id="hamperModal" tabindex="-1" role="dialog" aria-labelledby="hamperModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="hamperModalLabel">My Hampers</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <iframe style="width:100%;height:500px;border:0px;" src="/hampers_modal" id="hamperModalIframe"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <% if !customer_signed_in? then%>
+          <button type="button" class="btn btn-secondary empty">Discard</button>
+        <%end%>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+

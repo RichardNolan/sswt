@@ -70,8 +70,7 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit( product_ids:[], # Customer-Likes-Products
-                                        :first_name, 
+      params.require(:customer).permit( :first_name, 
                                         :last_name, 
                                         :email, 
                                         :password, 
@@ -81,6 +80,9 @@ class CustomersController < ApplicationController
                                         :address2, 
                                         :county_id, 
                                         :enabled, 
-                                        :admin_notes)
+                                        :admin_notes, 
+                                        #:product_ids:[]    #this is giving an error
+                                        
+                                        )
     end
 end

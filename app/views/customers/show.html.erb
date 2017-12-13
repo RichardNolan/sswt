@@ -55,5 +55,22 @@
   <%= @customer.admin_notes %>
 </p>
 
+<p>
+  <h1>Hampers</h1>
+  <ul>
+  <%  @customer.hampers.each { |hamper|  %>
+        <li><%= hamper.name %>  
+          <ul>
+          <%  hamper.hamper_items.each { |item|  %>
+                <li><%= item.product_id %></li>
+          <%  }  %>
+          </ul>
+        </li>
+  <%  }  %>
+  </ul>
+</p>
+
+
+
 <%= link_to 'Edit', edit_customer_path(@customer) %> |
 <%= link_to 'Back', customers_path %>

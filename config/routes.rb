@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   devise_for :admins
   devise_for :producers
   devise_for :customers
-  
+
 
   # About Us Page
   get '/about',   to: 'about#index', :as => "about"
@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   post 'hamper/add',    to: 'hamper_items#add',   as: 'add_to_hamper'
   post 'hamper/empty',  to: 'hamper_items#empty', as: 'empty_hamper'
 
+  get 'hampers_modal/', to: 'hampers#index', layout: 'modal'
   # Scaffold resources  
     
   resources :orders

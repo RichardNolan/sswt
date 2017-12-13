@@ -1,33 +1,3 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Hampers</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Customer</th>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Greeting</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @hampers.each do |hamper| %>
-      <tr>
-        <td><%= hamper.customer_id %></td>
-        <td><%= hamper.name %></td>
-        <td><%= hamper.price %></td>
-        <td><%= hamper.greeting %></td>
-        <td><%= link_to 'Show', hamper %></td>
-        <td><%= link_to 'Edit', edit_hamper_path(hamper) %></td>
-        <td><%= link_to 'Destroy', hamper, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Hamper', new_hamper_path %>
+<%= render 'hampers/show' %>
