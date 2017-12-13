@@ -5,6 +5,9 @@ html, body {
 }
 
 
+.navbar, footer {
+    z-index: 99999;
+}
 .text-red {
     color: red;
 }

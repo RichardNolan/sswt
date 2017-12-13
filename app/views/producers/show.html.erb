@@ -92,10 +92,19 @@
       <h4>Products</h4>
     </div>
 
-    <% @producer.products.each do |product| %>
+    <% 
+    @producer.products.each do |product| 
+      # only show disabled products to owner or admin
+      if product.enabled == false && (!producer_signed_in? || current_producer.id != @producer.id) && !admin_signed_in?
+        next
+      end
+    %>
     <div class="col-md-3 col-sm-6 mb-4">
       <%= link_to product do %>
         <img class="img-fluid" src="http://placehold.it/500x300" alt="<%= product.name %>">
+        <% if product.enabled == false %>
+          <div class="text-red text-center">[DISABLED]</div>
+        <% end %>
         <p class="text-center"><%= product.name %></p>
       <% end %>
     </div>

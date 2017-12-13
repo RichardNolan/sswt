@@ -1,45 +1,67 @@
 <!-- Page Content -->
-    <div class="container">
+<div class="container">
 
-      <!-- Portfolio Item Heading -->
-      <h1 class="my-4"><%= @product.name %>
-        <small>by <%= @product.producer.name %></small>
-      </h1>
 
-      <!-- Portfolio Item Row -->
-      <div class="row">
+  <% 
+  # Only Admin can view this 
+  if(admin_signed_in?) %>
+  <div class="admin-controls">
+    <h5>Administration tools</h5>
+    <hr>
+    
+    <% if @product.enabled==true || @product.enabled==nil %>
+    Status: <strong class="text-green">Enabled</strong>
+    <%= link_to 'Disable Product', disable_product_path, class: 'btn btn-sm btn-warning', method: :put, data: { confirm: 'Are you sure you want to disable this product?' } %>
+    <% end %>
 
-        <div class="col-md-8">
-          <img class="img-fluid" src="http://placehold.it/750x500" alt="">
-        </div>
+    <% if @product.enabled==false %>
+    Status: <strong class="text-red">Disabled</strong>
+    <%= link_to 'Enable Product', enable_product_path, class: 'btn btn-sm btn-primary', method: :put, data: { confirm: 'Do you want to enable this product?' } %>
+    <% end %>
 
-        <div class="col-md-4">
-          <h3 class="my-3"><%= @product.name %></h3>
-          <p><%= @product.description %></p>
-          <h5 class="my-5">&euro; <%= @product.price %></h5>
-          <%= link_to "Add to Cart", products_path, class: 'btn btn-primary' %>
-          <%= render partial: '/products/likes', locals:{product: @product}%>
-        </div>
+  </div>
+  <% end %>
 
-      </div>
-      <!-- /.row -->
 
-      <!-- Related Products Row -->
-      <h3 class="my-4">More Products from <%= @product.producer.name %></h3>
+  <!-- Portfolio Item Heading -->
+  <h1 class="my-4"><%= @product.name %>
+    <small>by <%= @product.producer.name %></small>
+  </h1>
 
-      <div class="row">
+  <!-- Portfolio Item Row -->
+  <div class="row">
 
-        <% @more_products.each do |product| %>
-        <div class="col-md-3 col-sm-6 mb-4">
-          <%= link_to product do %>
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="<%= product.name %>">
-            <p class="text-center"><%= product.name %></p>
-          <% end %>
-        </div>
-        <% end %>
-
-      </div>
-      <!-- /.row -->
-
+    <div class="col-md-8">
+      <img class="img-fluid" src="http://placehold.it/750x500" alt="">
     </div>
-    <!-- /.container -->
+
+    <div class="col-md-4">
+      <h3 class="my-3"><%= @product.name %></h3>
+      <p><%= @product.description %></p>
+      <h5 class="my-5">&euro; <%= @product.price %></h5>
+      <%= link_to "Add to Cart", products_path, class: 'btn btn-primary' %>
+      <%= render partial: '/products/likes', locals:{product: @product}%>
+    </div>
+
+  </div>
+  <!-- /.row -->
+
+  <!-- Related Products Row -->
+  <h3 class="my-4">More Products from <%= @product.producer.name %></h3>
+
+  <div class="row">
+
+    <% @more_products.each do |product| %>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <%= link_to product do %>
+        <img class="img-fluid" src="http://placehold.it/500x300" alt="<%= product.name %>">
+        <p class="text-center"><%= product.name %></p>
+      <% end %>
+    </div>
+    <% end %>
+
+  </div>
+  <!-- /.row -->
+
+</div>
+<!-- /.container -->

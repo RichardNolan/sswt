@@ -3,11 +3,14 @@ class ProductsController < ApplicationController
   # Check that Producer is logged in
   before_action :authenticate_producer!, only: [:new, :edit, :update, :destroy]
 
+  # Only admin can disable/enable products
+  before_action :authenticate_admin!, only: [:enable, :disable]
+  
   # Check if producer is disabled by admin
   before_action :producer_enabled, only: [:new, :edit, :update, :destroy]
 
   # set @product variable
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :enable, :disable]
 
 
   # Search by keyword
@@ -27,6 +30,7 @@ class ProductsController < ApplicationController
   end
 
   
+  # Customer Likes Product  
   def like
     # if the customer is signed in
     if customer_signed_in? then
@@ -37,77 +41,83 @@ class ProductsController < ApplicationController
     redirect_back fallback_location: product_path
   end
 
-  # GET /products
-  # GET /products.json
+
+  # Main Products page
   def index
     @products = Product.order('id DESC').where('enabled = ?',true)
   end
 
-  # GET /products/1
-  # GET /products/1.json
-  def show
-    # Show more products from Producer
-    @more_products = @product.producer.products.order('id DESC').limit(4).where('enabled = ?',true)
 
-    # if product is disallowed, redirect to main products page
-    if @product.enabled == false
+  # Show Product Page
+  def show
+    
+    # if product is disallowed, redirect to main products page (admin allowed to see)
+    if @product.enabled == false && !admin_signed_in?
       redirect_to products_path
     end
 
+    # More products from Producer
+    @more_products = @product.producer.products.order('id DESC').limit(4).where('enabled = ?',true)
+
   end
 
-  # GET /products/new
+
+  # Upload new product
   def new
     @product = Product.new
   end
 
-  # GET /products/1/edit
+
+  # Edit Product
   def edit
   end
 
-  # POST /products
-  # POST /products.json
+
+  # Form submission for new product
   def create
     @product = Product.new(product_params)
-
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-        format.json { render :show, status: :created, location: @product }
-      else
-        format.html { render :new }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    if @product.save
+      redirect_to @product, notice: 'Product was successfully created.'
+    else
+      render :new        
     end
-
   end
 
-  # PATCH/PUT /products/1
-  # PATCH/PUT /products/1.json
+
+  # Form submission for update product
   def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-        format.json { render :show, status: :ok, location: @product }
-      else
-        format.html { render :edit }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    if @product.update(product_params)
+      redirect_to @product, notice: 'Product was successfully updated.'
+    else
+      render :edit
     end
   end
 
-  # DELETE /products/1
-  # DELETE /products/1.json
+
+  # Delete Product
   def destroy
     @product.destroy
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to products_url, notice: 'Product was successfully destroyed.'
   end
 
-  # Private methods -------------------------------------
 
+  # Disable Product (admin)
+  def disable
+    @product.enabled = false
+    @product.save
+    redirect_to @product
+  end
+
+
+  # Enable Product (admin)
+  def enable
+    @product.enabled = true
+    @product.save
+    redirect_to @product
+  end
+
+
+  # Private methods -------------------------------------
   private  
 
 

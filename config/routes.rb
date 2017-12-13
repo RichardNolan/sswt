@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   # Root Page
   root 'welcome#index'
   
+  # Producer not allowed
+  get 'producer/not_allowed', to: 'producers#not_allowed', as: 'producer_not_allowed'
+
   
   # Devise routes
   devise_for :admins
@@ -57,10 +60,12 @@ Rails.application.routes.draw do
   # Enable Customer
   put '/customers/:id/enable', to: 'customers#enable', as: 'enable_customer'
 
+  # Disable Product
+  put '/products/:id/disable', to: 'products#disable', as: 'disable_product'
 
-  # Producer not allowed
-  get 'producer/not_allowed', to: 'producers#not_allowed', as: 'producer_not_allowed'
-
+  # Enable Product
+  put '/products/:id/enable', to: 'products#enable', as: 'enable_product'
+  
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
