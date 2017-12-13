@@ -58,5 +58,9 @@ Rails.application.routes.draw do
   put '/customers/:id/enable', to: 'customers#enable', as: 'enable_customer'
 
 
+  # Producer not allowed
+  get 'producer/not_allowed', to: 'producers#not_allowed', as: 'producer_not_allowed'
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

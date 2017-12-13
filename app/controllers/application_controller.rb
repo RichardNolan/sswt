@@ -7,6 +7,14 @@ class ApplicationController < ActionController::Base
   #before_action :county_list
   
 
+  # Check if producer is disabled by admin
+  def producer_enabled
+    if producer_signed_in? && current_producer.enabled == false
+      redirect_to producer_not_allowed_path
+    end
+  end
+
+
   protected
     #def county_list
       # populate @counties instance variable

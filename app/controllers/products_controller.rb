@@ -3,6 +3,10 @@ class ProductsController < ApplicationController
   # Check that Producer is logged in
   before_action :authenticate_producer!, only: [:new, :edit, :update, :destroy]
 
+  # Check if producer is disabled by admin
+  before_action :producer_enabled, only: [:new, :edit, :update, :destroy]
+
+  # set @product variable
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
 
@@ -44,6 +48,12 @@ class ProductsController < ApplicationController
   def show
     # Show more products from Producer
     @more_products = @product.producer.products.order('id DESC').limit(4).where('enabled = ?',true)
+
+    # if product is disallowed, redirect to main products page
+    if @product.enabled == false
+      redirect_to products_path
+    end
+
   end
 
   # GET /products/new
@@ -96,11 +106,16 @@ class ProductsController < ApplicationController
     end
   end
 
-  private
+  # Private methods -------------------------------------
+
+  private  
+
+
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
     end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params

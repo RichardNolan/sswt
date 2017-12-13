@@ -3,7 +3,6 @@ class ProducersController < ApplicationController
   # Only Admin can see list of producers, enable or disable
   before_action :authenticate_admin!, only: [:index, :destroy, :enable]
 
-
   # Set producer variable
   before_action :set_producer, only: [:show, :destroy, :enable]
   
@@ -32,6 +31,11 @@ class ProducersController < ApplicationController
     @producer.enabled = true
     @producer.save
     redirect_to @producer
+  end
+
+
+  # Producer not allowed page
+  def not_allowed
   end
 
   
