@@ -35,8 +35,7 @@ fixed-top">   <div class="container">
               <% if producer_signed_in? %>
               <div class="dropdown-item"><%= current_producer.name %></div>
               <div class="dropdown-divider"></div>
-              <%= link_to "Upload Product", '/products/new', class: 'dropdown-item' %>
-              <%= link_to "My Products", '#', class: 'dropdown-item' %>  
+              <%= link_to "Upload Product", '/products/new', class: 'dropdown-item' %>              
               <% end %>
 
               <% if customer_signed_in? %>
@@ -50,6 +49,23 @@ fixed-top">   <div class="container">
               <%= producer_signed_in? ?   link_to("Edit Profile", edit_producer_registration_path, class: 'dropdown-item') : link_to("Edit Profile", edit_customer_registration_path, class: 'dropdown-item') %>
               <div class="dropdown-divider"></div>
               <%= producer_signed_in? ?   link_to("Sign Out", destroy_producer_session_path, method: :delete, class: 'dropdown-item') : link_to("Sign Out", destroy_customer_session_path, method: :delete, class: 'dropdown-item') %>
+            </div>
+          </li>
+
+        <% elsif admin_signed_in? %>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="signedinmenu" role="button" data-toggle="dropdown">
+            Admin <span class="caret"></span></a>
+            <div class="dropdown-menu dropdown-menu-right">              
+
+              <%= link_to("Admin settings", '#', class: 'dropdown-item') %>
+
+              <%= link_to("Producers", producers_path, class: 'dropdown-item') %>
+              <%= link_to("Customers", customers_path, class: 'dropdown-item') %>
+
+              <div class="dropdown-divider"></div>
+              <%= link_to("Sign Out", destroy_admin_session_path, method: :delete, class: 'dropdown-item') %>
             </div>
           </li>
 

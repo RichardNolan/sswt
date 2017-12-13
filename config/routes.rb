@@ -30,8 +30,8 @@ Rails.application.routes.draw do
   get '/products/:id/like',    to: 'products#like', as: 'like'
 
 
-  # Scaffold resources  
-    
+  
+  # Scaffold resources      
   resources :orders
   resources :order_items
   resources :hampers

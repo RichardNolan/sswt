@@ -1,2 +1,0 @@
-json.extract! product, :id, :producer_id, :name, :description, :price, :deleted, :enabled, :admin_notes, :discount, :min_quantity, :start_date, :end_date, :contains_cerials, :contains_crustaceans, :contains_eggs, :contains_fish, :contains_peanuts, :contains_soybeans, :contains_milk, :contains_nuts, :contains_celery, :contains_mustard, :contains_semsame, :contains_sulphur, :contains_lupin, :contains_mullucus, :created_at, :updated_at
-json.url product_url(product, format: :json)

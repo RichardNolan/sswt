@@ -1,6 +1,12 @@
 class CustomersController < ApplicationController
+  
+  # Devise verify customer
+  before_action :authenticate_customer!, only: [:edit, :update, :destroy]
+
+  # Default scaffold
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
-  #before_action :authenticate_customer!, only: [:edit, :update, :destroy]
+  
+
 
   # GET /customers
   # GET /customers.json
@@ -70,7 +76,7 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit( product_ids:[], # Customer-Likes-Products
+      params.require(:customer).permit( #product_ids:[], # Customer-Likes-Products
                                         :first_name, 
                                         :last_name, 
                                         :email, 

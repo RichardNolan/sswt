@@ -1,67 +1,95 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @producer.name %>
-</p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @producer.email %>
-</p>
+<!-- Page Content -->
+<div class="container">
 
-<p>
-  <strong>Email confirmed:</strong>
-  <%= @producer.email_confirmed %>
-</p>
+  <!-- Producer Name -->
+  <h1 class="my-4"><%= @producer.name %></h1>
 
-<p>
-  <strong>Password:</strong>
-  <%= @producer.password %>
-</p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @producer.address %>
-</p>
+  <% 
+  # Only Admin or Producer (owner of page) can view this 
+  if(admin_signed_in?) %>
+  <h4>Administration tools</h4>
+  <div class="admin-controls">
+    <%= link_to "Edit Producer", "/producer/#{@producer.id}/edit", class: 'btn btn-sm btn-warning' %>
+    <a href="index.html" class="btn btn-sm btn-danger">Disable Producer</a>
+  </div>
+  <% end %>
 
-<p>
-  <strong>Address2:</strong>
-  <%= @producer.address2 %>
-</p>
+  <!-- Row -->
+  <div class="row">
 
-<p>
-  <strong>County:</strong>
-  <%= @producer.county_id %>
-</p>
+    <!-- Image -->
+    <div class="col-md-12">
+      <img class="img-fluid" src="http://placehold.it/1200x300" alt="">
+    </div>
 
-<p>
-  <strong>Contact phone:</strong>
-  <%= @producer.contact_phone %>
-</p>
+    <!-- About -->
+    <div class="col-md-6">
+      <div class="card">
+        <h4 class="card-header">About</h4>
+        <div class="card-body">
+          <p class="card-text">
+            <%= @producer.about %>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.
 
-<p>
-  <strong>Contact email:</strong>
-  <%= @producer.contact_email %>
-</p>
+          </p>
+        </div>        
+      </div>
+    </div>
 
-<p>
-  <strong>Join date:</strong>
-  <%= @producer.join_date %>
-</p>
+    <!-- Details -->
+    <div class="col-md-6">
+      <div class="card">
+        <h4 class="card-header">Details</h4>
+        <div class="card-body">
+            <strong>Name:</strong>
+              <%= @producer.name %>
+            </p>
 
-<p>
-  <strong>Enabled:</strong>
-  <%= @producer.enabled %>
-</p>
+            <p>
+              <strong>Email:</strong>
+              <%= @producer.email %>
+            </p>
+            <p>
+              <strong>Phone:</strong>
+              <%= @producer.contact_phone %>
+            </p>
+            <p>
+              <strong>Address:</strong><br>
+              <%= "#{@producer.address}, " if @producer.address %>
+              <%= "#{@producer.address2}, " if @producer.address2 %>
+              <%= "#{County.find(@producer.county_id).name}" if @producer.county_id %>
+            </p>
 
-<p>
-  <strong>Admin notes:</strong>
-  <%= @producer.admin_notes %>
-</p>
+        </div>        
+      </div>
+    </div>
 
-<p>
-  <strong>About:</strong>
-  <%= @producer.about %>
-</p>
 
+
+  </div>
+  <!-- /.row -->
+
+  <!-- Products Row -->
+  <div class="row">
+
+    <div class="col-md-12">
+      <h4>Products</h4>
+    </div>
+
+    <% @producer.products.each do |product| %>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <%= link_to product do %>
+        <img class="img-fluid" src="http://placehold.it/500x300" alt="<%= product.name %>">
+        <p class="text-center"><%= product.name %></p>
+      <% end %>
+    </div>
+    <% end %>
+
+  </div>
+  <!-- /.row -->
+
+</div>
+<!-- /.container -->
