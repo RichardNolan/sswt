@@ -1,15 +1,15 @@
 class ProducersController < ApplicationController
   
   # Only Admin can see list of producers
-  before_action :authenticate_admin!, only: [:index]
+  before_action :authenticate_admin!, only: [:index, :destroy, :enable]
 
   
-  # Admin or Producer can edit and update
-  before_action :authenticate_producer! || :authenticate_admin!, only: [:edit, :update]
+  # Producer can edit and update
+  #before_action :authenticate_producer!, only: [:edit, :update]
 
 
   # Default rails
-  before_action :set_producer, only: [:show, :edit, :update, :destroy]
+  before_action :set_producer, only: [:show, :edit, :update, :destroy, :enable]
   
 
   # Index - List of Producers
@@ -22,6 +22,21 @@ class ProducersController < ApplicationController
   def show
   end
 
+
+  # Disable Producer
+  def destroy
+    @producer.enabled = false
+    @producer.save
+    redirect_to @producer
+  end
+
+
+  # Enable Producer
+  def enable
+    @producer.enabled = true
+    @producer.save
+    redirect_to @producer
+  end
 
 
   # Private ------------------------------------------------------------

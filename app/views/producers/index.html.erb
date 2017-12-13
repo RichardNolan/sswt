@@ -13,7 +13,7 @@
         <th>Name</th>
         <th>Email</th>                        
         <th>County</th>        
-        <th>Enabled</th> 
+        <th>Status</th> 
         <th>Products</th>
         <th>Admin Tools</th>               
       </tr>
@@ -25,7 +25,13 @@
         <td><%= producer.name %></td>
         <td><%= producer.email %></td>
         <td><%= County.find(producer.county_id).name if producer.county_id %></td>        
-        <td><%= producer.enabled %></td>
+        <td>
+          <% if producer.enabled==true || producer.enabled==nil %>
+          <span class="text-green">Enabled</span>
+          <% else %>
+          <span class="text-red">Disabled</span>
+          <% end %>  
+        </td>
         <td><%= producer.products.count %></td>
         <td>
           <%= link_to 'Edit', edit_producer_path(producer), class: 'btn btn-sm btn-primary' %>

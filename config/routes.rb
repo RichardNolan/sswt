@@ -29,7 +29,6 @@ Rails.application.routes.draw do
   # product likes route
   get '/products/:id/like',    to: 'products#like', as: 'like'
 
-
   
   # Scaffold resources      
   resources :orders
@@ -44,6 +43,14 @@ Rails.application.routes.draw do
   resources :product_images
   resources :producers
   resources :products
+
+  
+  # Disable Producer
+  delete '/producers/:id', to: 'producers#destroy'
+
+  # Enable Producer
+  put '/producers/:id/enable', to: 'producers#enable', as: 'enable_producer'
+
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
