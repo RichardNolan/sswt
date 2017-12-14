@@ -1,6 +1,13 @@
-<h1>Editing Category</h1>
+<div class="container">
 
-<%= render 'form', category: @category %>
+	<div class="card col-lg-8 col-lg-offset-2">
+	  <h2 class="card-header">Edit Category</h2>
+	  <div class="card-body">
+			<%= render 'form', category: @category %>
+		</div>
+		<div class="card-footer">
+			<%= link_to 'Cancel', categories_path %>
+		</div>
+	</div>
 
-<%= link_to 'Show', @category %> |
-<%= link_to 'Back', categories_path %>
+</div>

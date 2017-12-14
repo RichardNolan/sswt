@@ -12,19 +12,20 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :category_name %>
+    <%= form.text_field :name, id: :category_name, placeholder: 'Category name', class: 'form-control' %>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description, id: :category_description %>
+    <%= form.text_field :description, id: :category_description, placeholder: 'Description', class: 'form-control' %>
   </div>
 
+  <!--
   <div class="field">
     <%= form.label :image %>
     <%= form.text_field :image, id: :category_image %>
   </div>
+  -->
+
 
   <div class="actions">
     <%= form.submit %>

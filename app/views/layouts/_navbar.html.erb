@@ -60,10 +60,11 @@ fixed-top">   <div class="container">
             <div class="dropdown-menu dropdown-menu-right">              
 
               <%= link_to("Admin settings", '#', class: 'dropdown-item') %>
-
+              <div class="dropdown-divider"></div>              
               <%= link_to("Producers", producers_path, class: 'dropdown-item') %>
               <%= link_to("Customers", customers_path, class: 'dropdown-item') %>
-
+              <div class="dropdown-divider"></div>
+              <%= link_to "Categories", categories_path, class: 'dropdown-item' %>
               <div class="dropdown-divider"></div>
               <%= link_to("Sign Out", destroy_admin_session_path, method: :delete, class: 'dropdown-item') %>
             </div>

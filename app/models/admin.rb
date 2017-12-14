@@ -3,5 +3,5 @@ class Admin < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, 
   # :recoverable, :rememberable,  and :omniauthable
 
-  devise :database_authenticatable, :trackable, :registerable, :validatable
+  devise :database_authenticatable, :trackable, :validatable, :registerable
 end
