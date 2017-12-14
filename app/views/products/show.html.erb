@@ -23,6 +23,20 @@
   <% end %>
 
 
+
+  <% 
+  # Only Product Owner can view this 
+  if(producer_signed_in? && current_producer.id == @product.producer_id) %>
+    <div class="admin-controls">
+      <h5>Producer tools</h5>
+      <hr>
+      
+      <%= link_to "Edit Product", edit_product_path(@product.id), class: 'btn btn-warning btn-sm' %>
+
+    </div>
+  <% end %>
+
+
   <!-- Portfolio Item Heading -->
   <h1 class="my-4"><%= @product.name %>
     <small>by <%= @product.producer.name %></small>
