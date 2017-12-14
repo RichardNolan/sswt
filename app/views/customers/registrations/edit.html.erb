@@ -1,17 +1,20 @@
 <div class="row">
-	<div class="col-md-6 col-md-offset-1">
+	<div class="col-md-12">
+
+    <h2>Edit My Profile</h2>
 
     <div class="card">
-      <h2 class="card-header">Edit <%= resource_name.to_s.humanize %></h2>
+      
       <div class="card-body">
 
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
         <%= devise_error_messages! %>
 
-          <div class="card card-default">
-            <h5 class="card-header">1. Contact Details</h5>
-            <div class="card-body">
+          <div class="row">
 
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <h5>1. Contact Details</h5>
+            
               <div class="form-group">
                 <%= f.label :first_name %>
                 <%= f.text_field :first_name, class: 'form-control', placeholder: 'Your First Name', :required => true %>
@@ -39,13 +42,10 @@
               </div>
 
             </div>
-          </div>
 
-
-          <div class="card card-default">
-            <h5 class="card-header">2. Sign in Details</h5>
-            <div class="card-body">
-
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <h5>2. Sign in Details</h5>
+            
               <div class="form-group">
                 <%= f.label :email %>
                 <%= f.email_field :email, class: 'form-control', placeholder: 'Email Address - used for log-in' %>
@@ -69,12 +69,10 @@
               </div>
 
             </div>
-          </div>
 
-          <div class="card card-primary">
-            <h5 class="card-header">3. We need your current password to confirm your changes</h5>
-            <div class="card-body">
-
+            <div class="col-md-12">
+              <hr>
+              <h5>3. We need your current password to confirm your changes</h5>            
               <div class="form-group">
                 <%= f.label :current_password %><br />
                 <%= f.password_field :current_password, autocomplete: "off", class: 'form-control', placeholder: 'Your CURRENT password' %>
@@ -91,7 +89,7 @@
 
   </div>
 
-  <div class="col-md-3 ">
+  <div class="col-md-12 ">
 
     <div class="card card-danger">
       <h5 class="card-header">Cancel my account</h5>
@@ -101,7 +99,7 @@
       </div>
     </div>
 
-    <%= link_to "Back", :back %>
+    <%= link_to "Return to my profile", customer_path(current_customer.id) %>
         
   </div>
 </div>
