@@ -12,6 +12,8 @@ class ProductsController < ApplicationController
   # set @product variable
   before_action :set_product, only: [:show, :edit, :update, :destroy, :enable, :disable]
 
+  # Check that Producer is owner of Product
+  before_action :is_owner, only: [:edit, :update, :destroy]
 
   # Search by keyword
   def search
@@ -120,6 +122,11 @@ class ProductsController < ApplicationController
   # Private methods -------------------------------------
   private  
 
+
+    # Producer is owner of product
+    def is_owner
+      redirect_to @product if not @product.producer_id == current_producer.id
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_product
