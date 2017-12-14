@@ -33,7 +33,7 @@
 
     <!-- Image -->
     <div class="col-md-12">
-      <img class="img-fluid" src="http://placehold.it/1200x300" alt="">
+      <img class="img-fluid" src="http://lorempixel.com/1200/300/food/" alt="">
     </div>
 
     <!-- About -->
@@ -101,7 +101,7 @@
     %>
     <div class="col-md-3 col-sm-6 mb-4">
       <%= link_to product do %>
-        <img class="img-fluid" src="http://placehold.it/500x300" alt="<%= product.name %>">
+        <img class="img-fluid" src="http://lorempixel.com/500/300/food/" alt="<%= product.name %>">
         <% if product.enabled == false %>
           <div class="text-red text-center">[DISABLED]</div>
         <% end %>
