@@ -15,7 +15,7 @@ class CategoriesController < ApplicationController
 
   # Display Products by Category
   def show
-    @products = @category.products.where('enabled = ?', true) # only enabled products
+    @products = @category.products.where(enabled: [nil, true]) # only enabled products
     render template: "products/index"
   end
 
