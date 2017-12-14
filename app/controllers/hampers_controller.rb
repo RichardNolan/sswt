@@ -1,11 +1,22 @@
 class HampersController < ApplicationController
-  before_action :set_hamper, only: [:show, :edit, :update, :destroy]
-  before_action :set_hampers, only: [:index]
+  before_action :set_hamper, only: [:show, :edit, :update, :destroy, :destroy_customers_hamper]
+  before_action :set_hampers, only: [:customers]
 
+  def create_hamper
+    hamper = Hamper.create({name: params[:hamper_name], customer_id:current_customer.id })
+    # respond ok and return the hamper
+    puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    puts hamper.id
+    head :ok, hamper_id: hamper.id
+  end
+
+  def customers
+    render "customer_hampers", layout: "modal"
+  end
   # GET /hampers
   # GET /hampers.json
   def index
-    render layout: "modal"
+    @hampers = Hamper.all
   end
 
   # GET /hampers/1
@@ -57,7 +68,15 @@ class HampersController < ApplicationController
   def destroy
     @hamper.destroy
     respond_to do |format|
-      format.html { redirect_to hampers_url, notice: 'Hamper was successfully destroyed.' }
+      format.html { redirect_to hampers_url, notice: 'Hamper was successfully deleted.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def destroy_customers_hamper
+    @hamper.destroy
+    respond_to do |format|
+      format.html { redirect_to customer_hampers_url, notice: 'Hamper was successfully deleted' }
       format.json { head :no_content }
     end
   end

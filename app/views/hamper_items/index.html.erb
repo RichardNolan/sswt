@@ -22,7 +22,7 @@
         <td><%= hamper_item.price_when_ordered %></td>
         <td><%= link_to 'Show', hamper_item %></td>
         <td><%= link_to 'Edit', edit_hamper_item_path(hamper_item) %></td>
-        <td><%= link_to 'Destroy', hamper_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', hamper_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

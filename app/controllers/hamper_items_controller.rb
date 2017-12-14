@@ -40,12 +40,10 @@ class HamperItemsController < ApplicationController
         # respond ok and return the hamper
         head :ok, hamper: session[hamper]
       else
-        puts '########################'
-        puts hamper_id
-        puts quantity
-        puts price
-        puts product_id
-        puts '########################'
+
+        HamperItem.create({hamper_id: hamper_id, price_when_ordered: price.to_f, product_id: product_id, quantity: quantity })
+        # respond ok and return the hamper
+        head :ok
       end
   end
 

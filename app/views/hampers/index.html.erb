@@ -1,3 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<%= render 'hampers/show' %>
+
+ <%  @hampers.each { |hamper|  %>
+        <h3><%= hamper.name %> - <%= currency(hamper[:price]) %></h3>
+        <p>
+          <%= link_to 'Edit', edit_hamper_path(hamper) %> | 
+          <%= link_to 'Destroy', hamper, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </p>
+  <%  }  %>
+  
+<%= link_to 'New Hamper', new_hamper_path %>

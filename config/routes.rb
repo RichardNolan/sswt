@@ -30,7 +30,10 @@ Rails.application.routes.draw do
   post 'hamper/add',    to: 'hamper_items#add',   as: 'add_to_hamper'
   post 'hamper/empty',  to: 'hamper_items#empty', as: 'empty_hamper'
 
-  get 'hampers_modal/', to: 'hampers#index', layout: 'modal'
+  get 'hampers_modal/', to: 'hampers#customers', layout: 'modal', as: 'customer_hampers'
+  delete '/customer_hamper/:id', to: 'hampers#destroy_customers_hamper', as: 'delete_customers_hamper'
+
+  post 'hamper/createhamper', to: 'hampers#create_hamper'
   # Scaffold resources  
     
   resources :orders

@@ -6,28 +6,30 @@ end
 
 <%  if customer_signed_in? then  %>
   <%  @hampers.each { |hamper|  %>
-        <h3><%= hamper.name %> - <%= hamper[:price] %></h3>
-        <p>
-          <%= link_to 'Edit', edit_hamper_path(hamper) %> | 
-          <%= link_to 'Destroy', hamper, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </p>
+        <h3>
+            <%= hamper.name %> - <%= currency(hamper[:price]) %>
+            <span class="badge badge-light">
+                <%= link_to 'X', '/customer_hamper/'+hamper.id.to_s, method: :delete, data: { confirm: 'Are you sure?' } %>
+            </span>
+        </h3>
+       <span class="badge badge-danger">TO BE REMOVED  <%= link_to 'Edit', edit_hamper_path(hamper) %></span>
           <ul>
           <%  hamper.hamper_items.each { |item|  %>
                 <li>
                   <%= item.quantity %> 
-                  <%= get_product_name(item.id) %> 
-                  @ €<%=item.price_when_ordered %> each
+                  <%= get_product_name(item.product_id) %> 
+                  @ <%= currency(item.price_when_ordered) %> each
                 </li>
           <%  }  %>
           </ul>
   <%  }  %>
-  
+<span class="badge badge-danger">TO BE REMOVED 
 <%= link_to 'New Hamper', new_hamper_path %>
-
+</span>
 <% else %>
 
    <%  @hampers.each { |hamper|  %>
-        <h3><%= hamper[:name] %> - Total Cost: €<%= hamper[:price] %></h3>      
+        <h3><%= hamper[:name] %> - Total Cost: <%= currency(hamper[:price]) %></h3>      
           <ul>
           <%  
             if hamper[:hamper_items] then
@@ -35,7 +37,7 @@ end
                 <li>
                   <%= item['q'] %> 
                   <%= get_product_name(item['id']) %> 
-                  @ €<%=item['p'] %> each
+                  @ <%= currency(item['p']) %> each
                 </li>
           <%  } 
             end
