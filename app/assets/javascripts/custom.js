@@ -5,7 +5,7 @@ $(document).ready(function(){
     //     $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp()
     // });
 
-
+console.log("READY")
     $('a').bind('ajax:success', function(event, data, status, xhr) {
         console.log("########################")
         console.log(event)
@@ -18,5 +18,8 @@ $(document).ready(function(){
         $like.html("<img src='/images/heart_red.svg' class='heart' />  <span class='product_likes'>"+ product_likes +"</span>")
       });
 
-
+    $('.dropdown-toggle').on('click', function(e){
+        
+        console.log("CLICK")
+    })
 })
