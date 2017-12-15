@@ -1,4 +1,8 @@
-<%= form_with(model: product, local: true) do |form| %>
+
+  <hr>
+<%= form_with(model: @product, local: true) do |form| %>
+<% end %>
+<%= form_for(@product, :html => {:multipart => true}) do |form| %>
   <% if product.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
@@ -10,6 +14,27 @@
       </ul>
     </div>
   <% end %>
+<hr>
+<%= form.label :product_images %>
+<hr>
+<%= form.fields_for :product_images do |image| %>
+
+  <div class="field">
+  <img src="<%= image.object.src %>" class="image_thumbnail"/>
+
+    <%= image.label :src, 'REPLACE IMAGE', class: 'upload' %>
+    <%= image.file_field :src, id: :product_image_src %>
+  </div>
+
+  <div class="field">
+    <%= image.label :primary_image %>
+    <%= image.check_box :primary_image, id: :product_image_primary_image %>
+  </div>
+
+
+<% end %>
+<hr>
+
 
   <div class="field">
     <%= form.label :producer_id %>
@@ -139,4 +164,4 @@
   <div class="actions">
     <%= form.submit %>
   </div>
-<% end %>
+  <% end %>
