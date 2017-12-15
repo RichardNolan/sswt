@@ -30,9 +30,8 @@
 
   <!-- Portfolio Item Row -->
   <div class="row">
-
     <div class="col-md-8">
-      <img class="img-fluid" src="http://via.placeholder.com/750x500" alt="">
+      <img class="img-fluid" src="<%= primary_product_image(@product.id) %>" alt="" id="hero_image">
     </div>
 
     <div class="col-md-4">
@@ -44,6 +43,14 @@
     </div>
 
   </div>
+  <div class="row">
+    
+      <% @images.each do | image |%>
+        <div class="col-sm-2">
+          <img class="img-fluid sidekick_image" src="<%= image.src %>" alt="">
+        </div>
+      <% end %>
+  </div>
   <!-- /.row -->
 
   <!-- Related Products Row -->
@@ -54,7 +61,7 @@
     <% @more_products.each do |product| %>
     <div class="col-md-3 col-sm-6 mb-4">
       <%= link_to product do %>
-        <img class="img-fluid" src="http://via.placeholder.com/500x300" alt="<%= product.name %>">
+        <img class="img-fluid image_thumnail" src="<%= primary_product_image(product.id) %>" alt="<%= product.name %>">
         <p class="text-center"><%= product.name %></p>
       <% end %>
     </div>

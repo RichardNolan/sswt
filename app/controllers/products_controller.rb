@@ -12,6 +12,9 @@ class ProductsController < ApplicationController
   # set @product variable
   before_action :set_product, only: [:show, :edit, :update, :destroy, :enable, :disable, :like]
 
+  # set where images are needed
+  before_action :set_images, only: [:show, :edit]
+
 
   # Search by keyword
   def search
@@ -66,11 +69,13 @@ class ProductsController < ApplicationController
   # Upload new product
   def new
     @product = Product.new
+    @product.product_images.build
   end
 
 
   # Edit Product
   def edit
+    @product.product_images.build
   end
 
 
@@ -87,6 +92,8 @@ class ProductsController < ApplicationController
 
   # Form submission for update product
   def update
+    puts '#############################'
+    puts product_params
     if @product.update(product_params)
       redirect_to @product, notice: 'Product was successfully updated.'
     else
@@ -121,6 +128,10 @@ class ProductsController < ApplicationController
   # Private methods -------------------------------------
   private  
 
+    def set_images      
+      # get images with this product id
+      @images = ProductImage.where('product_id = ?', @product.id)
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_product
@@ -156,7 +167,8 @@ class ProductsController < ApplicationController
                                         :contains_sulphur, 
                                         :contains_lupin, 
                                         :contains_mullucus,
-                                        category_ids:[]
+                                        category_ids:[], 
+                                        product_images_attributes:[:src, :id, :primary_image]
                                       )
     end
 end
