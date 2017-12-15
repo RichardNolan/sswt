@@ -1,4 +1,5 @@
-<%= form_with(model: @product, local: true) do |f| %>
+
+<%= form_for(@product, :html => {:multipart => true}) do |f| %>
 <%= f.hidden_field :producer_id, value: current_producer.id %>
 
 <div class="card col-lg-8 col-lg-offset-2">
@@ -35,6 +36,37 @@
 	    <%= f.label :price %>
 	    <%= f.text_field :price, id: :product_price, class: 'form-control' %>
 	  </div>
+
+
+
+            <!--  Images //-->
+        <div class="row">
+          <div class="col-md-12">
+            <hr>
+            <h2>Images</h2>
+          </div>
+        </div>
+
+			  <div class="row">
+        <%= f.fields_for :product_images do |image| %>
+					
+				  	<div class="col-md-4">
+								<div class="field">
+								<img src="<%= image.object.src %>" class="image_thumbnail"/>
+
+									<%= image.label :src, 'REPLACE IMAGE', class: 'upload' %>
+									<%= image.file_field :src, id: :product_image_src %>
+								</div>
+
+								<div class="field">
+									<%= image.label :primary_image %>
+									<%= image.check_box :primary_image, id: :product_image_primary_image %>
+								</div>
+						</div>
+        <% end %>
+        </div>
+
+
 
 			  <!-- Categories -->
 			  <div class="row">

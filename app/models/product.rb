@@ -13,5 +13,5 @@ class Product < ApplicationRecord
 	has_and_belongs_to_many :categories
 
 	
-	accepts_nested_attributes_for :product_images, allow_destroy: true
+	accepts_nested_attributes_for :product_images, allow_destroy: true, reject_if: proc {|attributes| attributes['src'].blank?}
 end

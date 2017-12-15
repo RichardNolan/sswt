@@ -69,11 +69,13 @@ class ProductsController < ApplicationController
   # Upload new product
   def new
     @product = Product.new
+    @product.product_images.build
   end
 
 
   # Edit Product
   def edit
+    @product.product_images.build
   end
 
 
