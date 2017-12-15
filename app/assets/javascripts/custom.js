@@ -19,4 +19,8 @@ console.log("READY")
     $(document).on('click', '.sidekick_image', function(){
         $('#hero_image').attr('src', $(this).attr('src'))
     })
+    $(document).on('click', '.upload', function(e){
+        e.preventDefault();
+        $(this).siblings('input[type=file]').click()
+    })
 })

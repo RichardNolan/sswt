@@ -7,15 +7,15 @@
     THESE FEATURES ARE BEING COMMENTED OUT FOR NOW
 */
 
-/*
+
 $(function(){
+    $placeholder = null
     $("input:file").on('change', function(e){
-        console.log('image changed')
         reader.readAsDataURL(e.target.files[0])
+        $placeholder = $(this).siblings('img')
     }) 
     
     $("input:file").on('click', function(){
-        console.log('reseting', this.value)
         this.value = null
     })
 });
@@ -23,9 +23,9 @@ $(function(){
 
 var reader = new FileReader();    
 reader.onload = function(){
+    $placeholder.attr('src', reader.result); 
     $('#image_placeholder').attr('src', reader.result); 
 }
 reader.onerror = function(){
     reader.abort()
 }
-*/
