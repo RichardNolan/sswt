@@ -39,10 +39,10 @@ gem 'figaro'
 gem 'carrierwave', '~> 1.0'
 
 gem 'devise'
-# Added jquery and bootstrap ---
-#gem 'jquery-rails', '4.3.1'
-#gem 'bootstrap-sass', '3.3.7'
-#gem 'autoprefixer-rails'
+
+gem 'jquery-rails'
+gem 'bootstrap', '~> 4.0.0.beta2.1'
+
 
 
 group :development, :test do

@@ -13,26 +13,17 @@
 
 <% if @customer_likes && @customer_likes > 0 then %>
     <div class="like_btn">
-        <img src="/images/heart_red.svg" class="heart" />
-        <span class="tag badge badge-pill badge-danger">
-            <%= @public_likes %>
-        </span>
+        <img src="/images/heart_red.svg" class="heart" /> <%= @public_likes %>
     </div>
 <% elsif current_customer && @customer_likes==0 %>
     <div class="like_btn">
-        <a href='/products/<%= product.id %>/like'>
+        <a href='/products/<%= product.id %>/like' data-remote="true" data-type="json">
             <img src="/images/heart_grey.svg" class="heart" />
-        </a>
-        <span class="tag badge badge-pill badge-secondary">
-            <%= @public_likes %>
-        </span>
+        </a> <%= @public_likes %>
     </div>
 <% elsif !current_customer %>    
     <div class="like_btn">
-        <img src="/images/heart_grey.svg" class="heart" />
-        <span class="tag badge badge-pill badge-secondary">
-            <%= @public_likes %>
-        </span>
+        <img src="/images/heart_grey.svg" class="heart" /> <%= @public_likes %>
     </div>
 <% end %>
 
