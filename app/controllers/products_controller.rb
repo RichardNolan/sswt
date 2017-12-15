@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
   before_action :producer_enabled, only: [:new, :edit, :update, :destroy]
 
   # set @product variable
-  before_action :set_product, only: [:show, :edit, :update, :destroy, :enable, :disable]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :enable, :disable, :like]
 
 
   # Search by keyword
@@ -38,7 +38,8 @@ class ProductsController < ApplicationController
       ProductLike.create({customer_id: current_customer.id.to_i, product_id: params[:id].to_i})
     end
     # redirect back to where you've come from, any problems go to the product path
-    redirect_back fallback_location: product_path
+    # redirect_back fallback_location: product_path
+    render json: @product
   end
 
 

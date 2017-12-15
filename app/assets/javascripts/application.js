@@ -15,5 +15,4 @@
 //= require popper
 //= require tether.js
 //= require bootstrap
-//= require turbolinks
 //= require_tree .
