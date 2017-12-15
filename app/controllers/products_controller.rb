@@ -11,10 +11,6 @@ class ProductsController < ApplicationController
 
   # set @product variable
   before_action :set_product, only: [:show, :edit, :update, :destroy, :enable, :disable]
-  
-    # set where images are needed
-    before_action :set_images, only: [:show, :edit]
-  
 
   # set where images are needed
   before_action :set_images, only: [:show, :edit]
@@ -130,11 +126,6 @@ class ProductsController < ApplicationController
 
   # Private methods -------------------------------------
   private  
-  
-      def set_images      
-        # get images with this product id
-        @images = ProductImage.where('product_id = ?', @product.id)
-      end
 
     def set_images      
       # get images with this product id

@@ -31,7 +31,7 @@
   <!-- Portfolio Item Row -->
   <div class="row">
     <div class="col-md-8">
-      <img class="img-fluid" src="<%= primary_image(@product.id) %>" alt="" id="hero_image">
+      <img class="img-fluid" src="<%= primary_product_image(@product.id) %>" alt="" id="hero_image">
     </div>
 
     <div class="col-md-4">
@@ -61,7 +61,7 @@
     <% @more_products.each do |product| %>
     <div class="col-md-3 col-sm-6 mb-4">
       <%= link_to product do %>
-        <img class="img-fluid image_thumnail" src="<%= primary_image(product.id) %>" alt="<%= product.name %>">
+        <img class="img-fluid image_thumnail" src="<%= primary_product_image(product.id) %>" alt="<%= product.name %>">
         <p class="text-center"><%= product.name %></p>
       <% end %>
     </div>
