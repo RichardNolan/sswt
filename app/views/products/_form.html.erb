@@ -1,142 +1,228 @@
-<%= form_with(model: product, local: true) do |form| %>
-  <% if product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
 
-      <ul>
-      <% product.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= form_for(@product, :html => {:multipart => true}) do |f| %>
+<%= f.hidden_field :producer_id, value: current_producer.id %>
+
+<div class="card col-lg-8 col-lg-offset-2">
+  <h2 class="card-header">Upload Product</h2>
+  <div class="card-body">
+
+
+		<% if @product.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+	      <ul>
+	      <% @product.errors.full_messages.each do |message| %>
+	        <li><%= message %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+
+    
+    <div class="row">
+      <div class="col-sm-12">
+
+        <div class="form-group">
+        	<%= f.label :title %>
+    			<%= f.text_field :name, id: :product_name, class: 'form-control', placeholder: 'Enter the title of the product' %>          
+        </div>
+
+        <div class="form-group">
+        	<%= f.label :description %>
+        	<%= f.text_area(:description, id: :product_description, class: 'form-control') %>
+        </div>
+
+		<div class="form-group">
+	    <%= f.label :price %>
+	    <%= f.text_field :price, id: :product_price, class: 'form-control' %>
+	  </div>
+
+
+
+            <!--  Images //-->
+        <div class="row">
+          <div class="col-md-12">
+            <hr>
+            <h2>Images</h2>
+          </div>
+        </div>
+
+			  <div class="row">
+        <%= f.fields_for :product_images do |image| %>
+					
+				  	<div class="col-md-4">
+								<div class="field">
+								<img src="<%= image.object.src %>" class="image_thumbnail"/>
+
+									<%= image.label :src, 'REPLACE IMAGE', class: 'upload' %>
+									<%= image.file_field :src, id: :product_image_src %>
+								</div>
+
+								<div class="field">
+									<%= image.label :primary_image %>
+									<%= image.check_box :primary_image, id: :product_image_primary_image %>
+								</div>
+						</div>
+        <% end %>
+        </div>
+
+
+
+			  <!-- Categories -->
+			  <div class="row">
+			  	<div class="col-md-12">
+			  		<hr>
+			  		<h2>Categories</h2>			  		
+			  	</div>
+			  </div>
+
+			  <div class="row">
+	  
+				  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+				  	<div class="col-md-4">
+
+					    <div class="collection-check-box">
+					      <%= b.check_box %>
+					      <%= b.label %>
+					    </div>
+					    
+						</div>
+				  <% end %>
+					
+					</div>
+			  </div>
+
+			  <!-- Food Allergins -->
+			  <div class="row">
+			  	<div class="col-md-12">
+			  		<hr>
+			  		<h2>Allergens</h2>			  		
+			  	</div>
+			  </div>
+
+			  <div class="row">
+			  	<div class="col-md-4">
+
+					  <div class="field">
+					    <%= f.label :contains_cerials %>
+					    <%= f.check_box :contains_cerials, id: :product_contains_cerials %>
+					  </div>
+
+					</div>
+					<div class="col-md-4">
+
+					  <div class="field">
+					    <%= f.label :contains_crustaceans %>
+					    <%= f.check_box :contains_crustaceans, id: :product_contains_crustaceans %>
+					  </div>
+
+					</div>
+					<div class="col-md-4">
+
+					  <div class="field">
+					    <%= f.label :contains_eggs %>
+					    <%= f.check_box :contains_eggs, id: :product_contains_eggs %>
+					  </div>
+
+					</div>
+					<div class="col-md-4">
+
+					  <div class="field">
+					    <%= f.label :contains_fish %>
+					    <%= f.check_box :contains_fish, id: :product_contains_fish %>
+					  </div>
+
+					</div>
+					<div class="col-md-4">
+
+					  <div class="field">
+					    <%= f.label :contains_peanuts %>
+					    <%= f.check_box :contains_peanuts, id: :product_contains_peanuts %>
+					  </div>
+
+					</div>
+					<div class="col-md-4">
+
+					  <div class="field">
+					    <%= f.label :contains_soybeans %>
+					    <%= f.check_box :contains_soybeans, id: :product_contains_soybeans %>
+					  </div>
+
+					</div>
+					<div class="col-md-4">
+
+					  <div class="field">
+					    <%= f.label :contains_milk %>
+					    <%= f.check_box :contains_milk, id: :product_contains_milk %>
+					  </div>
+
+					</div>
+					<div class="col-md-4">
+
+					  <div class="field">
+					    <%= f.label :contains_nuts %>
+					    <%= f.check_box :contains_nuts, id: :product_contains_nuts %>
+					  </div>
+
+					</div>
+					<div class="col-md-4">
+
+					  <div class="field">
+					    <%= f.label :contains_celery %>
+					    <%= f.check_box :contains_celery, id: :product_contains_celery %>
+					  </div>
+
+					</div>
+					<div class="col-md-4">
+
+					  <div class="field">
+					    <%= f.label :contains_mustard %>
+					    <%= f.check_box :contains_mustard, id: :product_contains_mustard %>
+					  </div>
+
+					</div>
+					<div class="col-md-4">
+
+					  <div class="field">
+					    <%= f.label :contains_semsame %>
+					    <%= f.check_box :contains_semsame, id: :product_contains_semsame %>
+					  </div>
+
+					</div>
+					<div class="col-md-4">
+
+					  <div class="field">
+					    <%= f.label :contains_sulphur %>
+					    <%= f.check_box :contains_sulphur, id: :product_contains_sulphur %>
+					  </div>
+
+					</div>
+					<div class="col-md-4">
+
+					  <div class="field">
+					    <%= f.label :contains_lupin %>
+					    <%= f.check_box :contains_lupin, id: :product_contains_lupin %>
+					  </div>
+
+					</div>
+					<div class="col-md-4">
+
+					  <div class="field">
+					    <%= f.label :contains_mullucus %>
+					    <%= f.check_box :contains_mullucus, id: :product_contains_mullucus %>
+					  </div>        
+
+					</div>
+				</div>
+
+				<div class="form-group">
+					<hr>
+					<%= f.submit "Upload Product", class: "btn btn-primary" %>
+				</div>
+
+      </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :producer_id %>
-    <%= form.number_field :producer_id, id: :product_producer_id %>
   </div>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :product_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description, id: :product_description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price, id: :product_price %>
-  </div>
-
-  <div class="field">
-    <%= form.label :deleted %>
-    <%= form.check_box :deleted, id: :product_deleted %>
-  </div>
-
-  <div class="field">
-    <%= form.label :enabled %>
-    <%= form.check_box :enabled, id: :product_enabled %>
-  </div>
-
-  <div class="field">
-    <%= form.label :admin_notes %>
-    <%= form.text_field :admin_notes, id: :product_admin_notes %>
-  </div>
-
-  <div class="field">
-    <%= form.label :discount %>
-    <%= form.text_field :discount, id: :product_discount %>
-  </div>
-
-  <div class="field">
-    <%= form.label :min_quantity %>
-    <%= form.number_field :min_quantity, id: :product_min_quantity %>
-  </div>
-
-  <div class="field">
-    <%= form.label :start_date %>
-    <%= form.date_select :start_date, id: :product_start_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :end_date %>
-    <%= form.date_select :end_date, id: :product_end_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contains_cerials %>
-    <%= form.check_box :contains_cerials, id: :product_contains_cerials %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contains_crustaceans %>
-    <%= form.check_box :contains_crustaceans, id: :product_contains_crustaceans %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contains_eggs %>
-    <%= form.check_box :contains_eggs, id: :product_contains_eggs %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contains_fish %>
-    <%= form.check_box :contains_fish, id: :product_contains_fish %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contains_peanuts %>
-    <%= form.check_box :contains_peanuts, id: :product_contains_peanuts %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contains_soybeans %>
-    <%= form.check_box :contains_soybeans, id: :product_contains_soybeans %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contains_milk %>
-    <%= form.check_box :contains_milk, id: :product_contains_milk %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contains_nuts %>
-    <%= form.check_box :contains_nuts, id: :product_contains_nuts %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contains_celery %>
-    <%= form.check_box :contains_celery, id: :product_contains_celery %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contains_mustard %>
-    <%= form.check_box :contains_mustard, id: :product_contains_mustard %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contains_semsame %>
-    <%= form.check_box :contains_semsame, id: :product_contains_semsame %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contains_sulphur %>
-    <%= form.check_box :contains_sulphur, id: :product_contains_sulphur %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contains_lupin %>
-    <%= form.check_box :contains_lupin, id: :product_contains_lupin %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contains_mullucus %>
-    <%= form.check_box :contains_mullucus, id: :product_contains_mullucus %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+</div>
 <% end %>

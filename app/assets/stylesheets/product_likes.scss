@@ -6,16 +6,14 @@
 .like_btn{
     position: relative;
     display: inline;
+    font-size: 9pt;
 }
-
+.like_btn a:hover{
+    background-color: transparent;
+    text-decoration: none;
+}
 .heart{
     position: relative;
     width: 32px;
     height: 32px;
-    z-index:5000!important;
-}
-
-.tag{
-    padding-left: 10px;
-    margin-left: -10px;
 }
