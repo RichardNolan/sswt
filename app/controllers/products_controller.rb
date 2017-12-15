@@ -51,6 +51,9 @@ class ProductsController < ApplicationController
   # Main Products page
   def index
     @products = Product.order('id DESC').where('enabled = ?',true)
+
+    # carousel images
+    @images = carousel
   end
 
 

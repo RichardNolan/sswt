@@ -15,6 +15,22 @@ class ApplicationController < ActionController::Base
   end
 
 
+  # Carousel Images
+  def carousel
+    
+    # Hash with carousel photos
+    images = {}
+
+    # How many photos to display
+    total = 6
+    (0..total-1).each { |n|
+      images[n] = "#{n+1}.jpg"
+    }
+    return images
+
+  end
+
+
   protected
     #def county_list
       # populate @counties instance variable
