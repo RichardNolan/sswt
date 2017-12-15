@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171204174524) do
+ActiveRecord::Schema.define(version: 20171215135752) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20171204174524) do
     t.string "address"
     t.string "address2"
     t.integer "county_id"
-    t.boolean "enabled"
+    t.boolean "enabled", default: true
     t.string "admin_notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -134,7 +134,7 @@ ActiveRecord::Schema.define(version: 20171204174524) do
     t.string "contact_phone"
     t.string "contact_email"
     t.date "join_date"
-    t.boolean "enabled"
+    t.boolean "enabled", default: true
     t.string "admin_notes"
     t.string "about"
     t.datetime "created_at", null: false
@@ -180,8 +180,8 @@ ActiveRecord::Schema.define(version: 20171204174524) do
     t.string "name"
     t.string "description"
     t.float "price"
-    t.boolean "deleted"
-    t.boolean "enabled"
+    t.boolean "deleted", default: false
+    t.boolean "enabled", default: true
     t.string "admin_notes"
     t.float "discount"
     t.integer "min_quantity"
