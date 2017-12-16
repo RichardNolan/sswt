@@ -18,4 +18,9 @@ module ApplicationHelper
 		(primary_image = primary_image.src if primary_image) || "/images/placeholder.jpg"
 	end
 	
+	
+	def currency(num)
+		num = 0 if !num
+		return "€" + sprintf("%20.2f", num)
+	end
 end

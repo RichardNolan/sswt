@@ -79,7 +79,7 @@
                   <h4 class="card-title">
                     <%= link_to product.name, product %>
                   </h4>
-                  <h5>&euro; <%= product.price %></h5>
+                  <h5><%= currency(product.price) %></h5>
                   <p class="card-text"><%= product.description %></p>
                   <%= render partial: '/products/likes', locals:{product: product}%>
                 </div>
