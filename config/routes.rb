@@ -32,6 +32,11 @@ Rails.application.routes.draw do
   # product likes route
   get '/products/:id/like',    to: 'products#like', as: 'like'
 
+  # session hamper add and empty
+  post 'hamper_item/add',    to: 'hamper_items#add',   as: 'add_to_hamper'
+  post 'hamper/empty',  to: 'hamper_items#empty', as: 'empty_hamper'
+  
+  post 'hamper/createhamper', to: 'hampers#create_hamper'
   
   # Scaffold resources      
   resources :orders

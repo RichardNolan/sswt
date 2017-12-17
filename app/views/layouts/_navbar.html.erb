@@ -72,7 +72,7 @@ fixed-top">   <div class="container">
 
         <% else %>  
 
-          <li class="dropdown nav-item dropdown">
+          <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button">Log In <span class="caret"></span></a>
             <div class="dropdown-menu dropdown-menu-right">
               <%= link_to "Log in as Producer", new_producer_session_path, class: 'dropdown-item' %>
@@ -81,10 +81,15 @@ fixed-top">   <div class="container">
               <div class="dropdown-divider"></div>
               <a class="dropdown-item disabled" href="#">Not signed up yet?</a>
               <%= link_to "Sign up now", '/signup', class: 'dropdown-item' %>
-            </ul>
+            </div>
           </li>
           
         <% end %>
+
+
+        <li class="nav-item basket">
+          <a href="" class="nav-link" id="hamper_count">3</a>
+        </li>
 
       </ul>
 
