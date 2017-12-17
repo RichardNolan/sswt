@@ -1,10 +1,16 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-
+  # before_action :authenticate_admin!, only: [:index]
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    if(customer_signed_in?) then
+      @orders = Order.where('customer_id = ?', current_customer.id)
+    else
+      @order = session['hamper0']
+      @total = @order.reduce(0) {|total, item| total + (item['q']*item['p'])}
+      render 'session'
+    end
   end
 
   # GET /orders/1

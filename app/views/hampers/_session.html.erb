@@ -1,5 +1,6 @@
+<button type="button" class="btn btn-danger btn-sm float-right btn-drawer">X</button>
 <%
-
+        session['hamper0'] ||= []
         full_session = session['hamper0'].collect do |item| 
           id = item['id'] || item[:id]
           name = Product.find(id).name || 'unknown'
@@ -11,3 +12,4 @@
   Loading products...
 <% end %>
 <button class="btn btn-primary empty">Clear</button>
+<a href="/orders" class="btn btn-primary" role="button" aria-pressed="true">Checkout</a>

@@ -37,7 +37,8 @@ Rails.application.routes.draw do
   post 'hamper/empty',  to: 'hamper_items#empty', as: 'empty_hamper'
   
   post 'hamper/createhamper', to: 'hampers#create_hamper'
-  
+  # get 'orders/', to 'orders#show'
+
   # Scaffold resources      
   resources :orders
   resources :order_items

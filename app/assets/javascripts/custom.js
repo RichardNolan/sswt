@@ -14,8 +14,8 @@ $(document).ready(function(){
 
     var hamperMap = function(item){
         var str = "" 
-            str += "<h4>"+item.q+" "+item.name+"</h4>"
-            str += "<p>@ €"+item.p.toFixed(2)+" = €"+(item.q*item.p).toFixed(2)+"</p>"
+            str += "<h4>"+item.q+" x "+item.name+"</h4>"
+            str += "<p>@ €"+item.p.toFixed(2)+" = <strong>€"+(item.q*item.p).toFixed(2)+"</strong></p>"
         return str
     }
 
@@ -122,7 +122,7 @@ $(document).ready(function(){
 
 
 
-    $('#hamper_count').on('click', function(e){
+    $('.btn-drawer').on('click', function(e){
         e.preventDefault()
         $('#drawer').toggleClass("showme")
     })
