@@ -7,14 +7,14 @@ class ApplicationController < ActionController::Base
   #before_action :county_list
   
 
-  # Check if Producer is disabled, except for logging out
-  before_action :producer_enabled, :except => [:destroy]
+  # Check if Producer/Customer is disabled, except for logging out
+  before_action :user_enabled, :except => [:destroy]
 
 
-  # Check if producer is disabled by admin
-  def producer_enabled
+  # Check if producer/customer is disabled by admin
+  def user_enabled
     redirected = false
-    if producer_signed_in? && current_producer.enabled == false && redirected == false
+    if ((producer_signed_in? && current_producer.enabled == false) || (customer_signed_in? && current_customer.enabled==false)) && redirected == false
       redirected = true
       render 'producers/not_allowed'
     end
