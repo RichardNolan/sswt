@@ -116,5 +116,8 @@ $(document).ready(function(){
     $('.btn-drawer').on('click', function(e){
         e.preventDefault()
         $('#drawer').toggleClass("showme")
+        // THIS LINE BELOW MOVES THE BODY OVER
+        // DEPENDING ON THE CHOSEN STYLE FOR THE DRAWER THIS MIGHT BE DISABLED
+        $('#main-container').toggleClass("showme")
     })
 })

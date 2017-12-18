@@ -1,9 +1,9 @@
 html, body {
-	
 	height: 100%;
-	
 }
-
+body{
+    overflow-x: hidden;
+}
 
 input.form-control {
     margin-bottom: 10px;
@@ -153,14 +153,9 @@ footer {
     text-align: center;
 }
 
-#drawer-container{
-    position: fixed;
-    width:100%;
-    top:60px;
-    overflow-x: hidden;
-}
 #drawer{
-    position: relative;
+    position: fixed;
+    top:60px;
     padding:16px;
     border: 1px solid #666;
     box-shadow: 0px 0px 10px #666;
@@ -172,4 +167,18 @@ footer {
 }
 #drawer.showme{
     left:calc(100% - 260px);
+}
+
+#main-container{
+    min-height: 100%;
+    min-width: 100%;
+    position: relative;
+    top: 0;
+    bottom: 100%;
+    left: 0;
+    z-index: 1;
+    transition: all 1s;
+}
+#main-container.showme{
+    left:-260px;
 }
