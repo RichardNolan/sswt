@@ -4,8 +4,7 @@ $(document).ready(function(){
     function mapit(ref, data, mapFunc){
         if (typeof data == 'string') data = $(ref).data(data) || []
         $(ref).html("")
-        $('#hamper_count').html(data.length)
-        var html = data.map(mapFunc)
+        var html = data ? data.map(mapFunc) : []
         html.forEach(function(item){
             $(ref).append(item)
         })
@@ -20,7 +19,7 @@ $(document).ready(function(){
     }
 
     mapit('#session_hamper', 'hamper', hamperMap)
-    
+    $('#hamper_count').html($('#session_hamper').data('hamper').length)
 
 
     $('a').bind('ajax:success', function(event, data, status, xhr) {
@@ -48,18 +47,13 @@ $(document).ready(function(){
         var price = $(this).closest(".add-group").children('.quantity').data("price")
         var quantity = $(this).closest(".add-group").children('.quantity').val() || 1 
           
-        console.log(hamper_id, product_id, price, quantity)
           if($(this).data("do")=="NEW_HAMPER"){
               var hamper_name = prompt("What do you want to call this hamper?") || "My Hamper"
-              // create_hamper(hamper_name)
               create_hamper(hamper_name, function(hamper_id){
-                  console.log("ready to add item")
                   create_hamper_item(hamper_id, product_id, quantity, price)
-                  console.log(hamper_id, product_id, quantity, price)
               })
               return false
           }
-  
           create_hamper_item(hamper_id, product_id, quantity, price)
       });
   
@@ -99,6 +93,7 @@ $(document).ready(function(){
     var hamperResult = function(data, textStatus, res){
         var hamper = JSON.parse(res.getResponseHeader('Hamper'))
         mapit('#session_hamper', hamper, hamperMap)
+        $('#hamper_count').html(hamper ? hamper.length : 0)
     }
 
 
@@ -108,11 +103,7 @@ $(document).ready(function(){
             url: "/hamper/createhamper",
             data: { hamper_name: hamper_name },
             success:function(data, textStatus, res){
-                console.log("SUCCESS")
-                console.log(res.getAllResponseHeaders())
-                // console.log(res.getResponseHeader('hamper_id'))
                 cb(res.getResponseHeader('hamper-id'))
-
             },
             error:function(err){
                 console.log(err.responseText)
