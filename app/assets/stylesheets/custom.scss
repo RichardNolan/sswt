@@ -164,7 +164,8 @@ footer {
     width:250px;
     left:110%;
     transition: all 1s;
+    z-index: 5000!important;
 }
 #drawer.showme{
-    left:calc(100% - 250px);
+    left:calc(100% - 260px);
 }

@@ -12,6 +12,11 @@
   <body>
     <%= render 'layouts/header' %>
     <%= render 'layouts/navbar' %>
+    <div id="drawer-container">
+      <div id="drawer" class="">
+        <%= render 'hampers/session' %>
+      </div>
+    </div>
     <div class="container" id="main-container">
       <p class="notice text-center"><%= notice %></p>
       <p class="alert text-center"><%= alert %></p>
@@ -19,10 +24,5 @@
     </div>
 
     <%= render 'layouts/footer' %>
-    <div id="drawer-container">
-      <div id="drawer" class="">
-        <%= render 'hampers/session' %>
-      </div>
-    </div>
   </body>
 </html>

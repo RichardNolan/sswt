@@ -37,7 +37,7 @@ gem 'bcrypt', git: 'https://github.com/codahale/bcrypt-ruby.git', :require => 'b
 
 gem 'figaro'
 gem 'carrierwave', '~> 1.0'
-
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'devise'
 
 gem 'jquery-rails'
