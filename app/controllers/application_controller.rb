@@ -1,12 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
-
-  # Before an action on any instance run county_list
-  # This seems like overkill having this on every instance, but it is global
-  #before_action :county_list
-  
-
+ 
   # Check if Producer/Customer is disabled, except for logging out
   before_action :user_enabled, :except => [:destroy]
 
