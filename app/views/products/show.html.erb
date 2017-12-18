@@ -33,13 +33,22 @@
       
       <%= link_to "Edit Product", edit_product_path(@product.id), class: 'btn btn-warning btn-sm' %>
 
+      <% if @product.deleted == false %>
+      <%= link_to 'Delete Product', @product, class: 'btn btn-danger btn-sm', method: :delete, data: { confirm: 'Are you sure you want to delete this product?' } %>
+      <% end %>
+
+      <% if @product.deleted == true %>
+      <span>Product is deleted. </span>
+      <%= link_to 'Activate Product', undelete_product_url, class: 'btn btn-success btn-sm', method: :put, data: { confirm: 'Are you sure you want to re-activate this product?' } %>
+      <% end %>
+
     </div>
   <% end %>
 
 
   <!-- Portfolio Item Heading -->
   <h1 class="my-4"><%= @product.name %>
-    <small>by <%= @product.producer.name %></small>
+    <small>by <%= link_to @product.producer.name, producer_url(@product.producer_id) %></small>
   </h1>
 
   <!-- Portfolio Item Row -->

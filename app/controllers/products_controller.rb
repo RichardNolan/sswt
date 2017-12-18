@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
 
   # Check that Producer is logged in (only if user is not admin)
-  before_action :authenticate_producer!, only: [:new, :edit, :update, :destroy], :unless => :authenticate_admin!
+  before_action :check_permission, only: [:new, :edit, :update, :destroy]
 
   # Only admin can disable/enable products
   before_action :authenticate_admin!, only: [:enable, :disable]
@@ -10,16 +10,16 @@ class ProductsController < ApplicationController
   before_action :producer_enabled, only: [:new, :edit, :update, :destroy]
 
   # set @product variable
-  before_action :set_product, only: [:show, :edit, :update, :destroy, :enable, :disable, :like]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :enable, :disable, :like, :undelete]
 
   # set where images are needed
   before_action :set_images, only: [:show, :edit]
 
   # Check that Producer is owner of Product (unless user is admin)
-  before_action :is_owner, only: [:edit, :update, :destroy], :unless => :authenticate_admin!
+  before_action :is_owner, only: [:edit, :update, :destroy]
 
   # Redirect if product is disabled (unless user is admin)
-  before_action :redirect_if_product_disabled, only: [:show], :unless => :authenticate_admin!
+  before_action :redirect_if_product_disabled, only: [:show]
 
 
   # Search by keyword
@@ -29,7 +29,7 @@ class ProductsController < ApplicationController
     @keyword = ActionController::Base.helpers.sanitize(params[:query]) if params[:query]
     
     if @keyword
-      @products = Product.where('(name LIKE ? OR description LIKE ?) AND enabled = ?', "%#{@keyword}%", "%#{@keyword}%", true)
+      @products = Product.where('(name LIKE ? OR description LIKE ?) AND enabled = ? AND deleted = ?', "%#{@keyword}%", "%#{@keyword}%", true, false)
     else
       @products = Product.where('enabled = ?', true)
     end
@@ -54,7 +54,7 @@ class ProductsController < ApplicationController
 
   # Main Products page
   def index
-    @products = Product.order('id DESC').where('enabled = ?',true)
+    @products = Product.order('id DESC').where('enabled = ? AND deleted = ?',true, false)
   end
 
 
@@ -62,7 +62,7 @@ class ProductsController < ApplicationController
   def show
     
     # More products from Producer
-    @more_products = @product.producer.products.order('id DESC').limit(4).where('enabled = ? AND id <> ?',true, @product.id)
+    @more_products = @product.producer.products.order('id DESC').limit(4).where('enabled = ? AND id <> ? AND deleted = ?',true, @product.id, false)
 
   end
 
@@ -109,9 +109,20 @@ class ProductsController < ApplicationController
 
   # Delete Product
   def destroy
-    @product.destroy
-    redirect_to products_url, notice: 'Product was successfully destroyed.'
+    # only updates "deleted" field to true, instead of actually deleting the product from the database
+    @product.deleted = true
+    @product.save
+    redirect_to @product, notice: 'Product was successfully deleted.'
   end
+
+
+  # Un-Delete Product
+  def undelete
+    # updates "deleted" field to false
+    @product.deleted = false
+    @product.save
+    redirect_to @product, notice: 'Product was successfully reactivated.'
+  end  
 
 
   # Disable Product (admin)
@@ -140,7 +151,9 @@ class ProductsController < ApplicationController
 
     # Producer is owner of product
     def is_owner
-      redirect_to @product if not @product.producer_id == current_producer.id
+      if !admin_signed_in?  
+        redirect_to @product if not @product.producer_id == current_producer.id
+      end
     end
 
     # Use callbacks to share common setup or constraints between actions.
@@ -187,6 +200,14 @@ class ProductsController < ApplicationController
     def redirect_if_product_disabled 
       if @product.enabled == false && !admin_signed_in?
         redirect_to products_path
+      end
+    end
+
+
+    # Check permission to edit
+    def check_permission
+      if !producer_signed_in? && !admin_signed_in?
+        redirect_to new_producer_session_path
       end
     end
 

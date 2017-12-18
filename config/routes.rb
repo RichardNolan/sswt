@@ -66,5 +66,8 @@ Rails.application.routes.draw do
   # Enable Product
   put '/products/:id/enable', to: 'products#enable', as: 'enable_product'
 
+  # Un-delete Product
+  put '/products/:id/undelete', to: 'products#undelete', as: 'undelete_product'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
