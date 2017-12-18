@@ -6,7 +6,7 @@ class ProducersController < ApplicationController
   # Set producer variable
   before_action :set_producer, only: [:show, :destroy, :enable]
   
-
+  
   # Index - List of Producers
   def index
     @producers = Producer.all

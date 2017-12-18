@@ -6,9 +6,6 @@ class ProductsController < ApplicationController
   # Only admin can disable/enable products
   before_action :authenticate_admin!, only: [:enable, :disable]
   
-  # Check if producer is disabled by admin
-  before_action :producer_enabled, only: [:new, :edit, :update, :destroy]
-
   # set @product variable
   before_action :set_product, only: [:show, :edit, :update, :destroy, :enable, :disable, :like, :undelete]
 
