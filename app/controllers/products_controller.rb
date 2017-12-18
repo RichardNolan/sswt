@@ -51,7 +51,21 @@ class ProductsController < ApplicationController
 
   # Main Products page
   def index
-    @products = Product.order('id DESC').where('enabled = ? AND deleted = ?',true, false)
+    # IDEA ################################
+		####### GET SORT ORDER FROM QUERYSTRING
+
+    order = (params[:orderby] || 'id')+" "+(params[:order] || 'DESC')
+    show = params[:show] || 10
+		# EXAMPLES
+		# http://localhost:3000/?order=desc    - homepage most recent
+		# http://localhost:3000/?orderby=name&order=asc    -  homepage alphabetical
+		# http://localhost:3000/?orderby=price&order=desc  -  dearest first
+		# http://localhost:3000/?orderby=price&order=asc  -  cheapest first
+		# default is latest products
+		@products = Product.order(order).limit(show).where('enabled = ? AND deleted = ?',true, false)
+    #######################################
+    
+    # @products = Product.order('id DESC').where('enabled = ? AND deleted = ?',true, false)
   end
 
 

@@ -15,8 +15,23 @@ class CategoriesController < ApplicationController
 
   # Display Products by Category
   def show
-    #@products = @category.products.where(enabled: [nil, true]) # only enabled products
-    @products = @category.products.where('enabled = ? AND deleted = ?', true, false) # only enabled products not deleted
+		# IDEA ################################
+		####### GET SORT ORDER FROM QUERYSTRING
+		orderby = params[:orderby] || 'id'
+		asc_desc = params[:order] || 'DESC'
+		order = orderby+" "+asc_desc
+		show = params[:show] || 6
+		# EXAMPLES
+		# http://localhost:3000/?order=desc    - homepage most recent
+		# http://localhost:3000/?orderby=name&order=asc    -  homepage alphabetical
+		# http://localhost:3000/?orderby=price&order=desc  -  dearest first
+		# http://localhost:3000/?orderby=price&order=asc  -  cheapest first
+		# default is latest products
+    @products = @category.products.order(order).limit(show).where('enabled = ? AND deleted = ?', true, false) # only enabled products not deleted    
+    #######################################
+    
+
+    # @products = @category.products.where('enabled = ? AND deleted = ?', true, false) # only enabled products not deleted
     render template: "products/index"
   end
 

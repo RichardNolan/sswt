@@ -50,6 +50,7 @@
                 <%= link_to product.name, product %>
               </h4>
               <small><%= product.producer.name %></small>
+              <%= currency(product.price) %>
               <p class="card-text"><%= product.description %></p>
             </div>
             <div class="card-footer text-muted">
