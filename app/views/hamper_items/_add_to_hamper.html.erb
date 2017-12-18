@@ -1,0 +1,31 @@
+ <div class="input-group add-group float-right">
+      <input type="number" class="form-control form-control-sm quantity" value=1 min=1 data-id="<%= product.id %>" data-price="<%= product.price %>">
+
+      <% 
+      if customer_signed_in? then 
+        
+        @hampers = Hamper.where(:customer_id => current_customer[:id])  
+      
+      %>
+        <div class="btn-group" role="group">
+          <button id="add_button_<%= product.id %>" type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Add
+          </button>
+          <div class="dropdown-menu" aria-labelledby="add_button_<%= product.id %>">
+          <% @hampers.each do |item| %>
+            <button class="dropdown-item buy" type="button" data-hamper="<%= item.id %>"><%= item.name %></button>
+          <% end %>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item buy" type="button" data-do="NEW_HAMPER" data-id="<%= product.id %>" data-price="<%= product.price %>">New Hamper</button>
+          </div>
+        </div>
+
+      <% else %>
+
+        <span class="input-group-btn">
+          <button class="btn btn-secondary btn-sm add" type="button">Add</button>
+        </span>
+
+      <% end %>
+
+</div>

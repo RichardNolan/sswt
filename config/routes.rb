@@ -32,11 +32,15 @@ Rails.application.routes.draw do
   # product likes route
   get '/products/:id/like',    to: 'products#like', as: 'like'
 
+  # session hamper add and empty
+  post 'hamper_item/add',    to: 'hamper_items#add',   as: 'add_to_hamper'
+  post 'hamper/empty',  to: 'hamper_items#empty', as: 'empty_hamper'
   
   # dont allow default edit profile url
   get '/producers/:id/edit', to: 'producers#not_allowed'
   get '/customers/:id/edit', to: 'producers#not_allowed'
 
+  post 'hamper/createhamper', to: 'hampers#create_hamper'
 
   # Scaffold resources      
   resources :orders

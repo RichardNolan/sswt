@@ -50,6 +50,9 @@
                 <%= link_to product.name, product %>
               </h4>
               <p class="card-text"><%= product.description %></p>
+            </div>
+            <div class="card-footer text-muted">
+              <%= render 'hamper_items/add_to_hamper', product: product %>
               <%= render partial: '/products/likes', locals:{product: product}%>
             </div>
           </div>
