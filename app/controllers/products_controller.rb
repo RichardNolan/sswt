@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
 
-  # Check that Producer is logged in
-  before_action :authenticate_producer!, only: [:new, :edit, :update, :destroy]
+  # Check that Producer is logged in (only if user is not admin)
+  before_action :authenticate_producer!, only: [:new, :edit, :update, :destroy], :unless => :authenticate_admin!
 
   # Only admin can disable/enable products
   before_action :authenticate_admin!, only: [:enable, :disable]
@@ -15,8 +15,12 @@ class ProductsController < ApplicationController
   # set where images are needed
   before_action :set_images, only: [:show, :edit]
 
-  # Check that Producer is owner of Product
-  before_action :is_owner, only: [:edit, :update, :destroy]
+  # Check that Producer is owner of Product (unless user is admin)
+  before_action :is_owner, only: [:edit, :update, :destroy], :unless => :authenticate_admin!
+
+  # Redirect if product is disabled (unless user is admin)
+  before_action :redirect_if_product_disabled, only: [:show], :unless => :authenticate_admin!
+
 
   # Search by keyword
   def search
@@ -57,13 +61,8 @@ class ProductsController < ApplicationController
   # Show Product Page
   def show
     
-    # if product is disallowed, redirect to main products page (admin allowed to see)
-    if @product.enabled == false && !admin_signed_in?
-      redirect_to products_path
-    end
-
     # More products from Producer
-    @more_products = @product.producer.products.order('id DESC').limit(4).where('enabled = ?',true)
+    @more_products = @product.producer.products.order('id DESC').limit(4).where('enabled = ? AND id <> ?',true, @product.id)
 
   end
 
@@ -72,12 +71,16 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
     @product.product_images.build
+    @form_submit_button = 'Upload Product'
+    @producer_id = current_producer.id
   end
 
 
   # Edit Product
   def edit
     @product.product_images.build
+    @form_submit_button = 'Save Product'
+    @producer_id = @product.producer_id
   end
 
 
@@ -94,8 +97,8 @@ class ProductsController < ApplicationController
 
   # Form submission for update product
   def update
-    puts '#############################'
-    puts product_params
+    #puts '#############################'
+    #puts product_params
     if @product.update(product_params)
       redirect_to @product, notice: 'Product was successfully updated.'
     else
@@ -178,4 +181,13 @@ class ProductsController < ApplicationController
                                         product_images_attributes:[:src, :id, :primary_image]
                                       )
     end
+
+
+    # if product is disallowed, redirect to main products page (admin allowed to see)
+    def redirect_if_product_disabled 
+      if @product.enabled == false && !admin_signed_in?
+        redirect_to products_path
+      end
+    end
+
 end

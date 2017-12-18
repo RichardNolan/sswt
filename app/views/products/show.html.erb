@@ -25,8 +25,8 @@
 
 
   <% 
-  # Only Product Owner can view this 
-  if(producer_signed_in? && current_producer.id == @product.producer_id) %>
+  # Only Product Owner + Admin can view this 
+  if((producer_signed_in? && current_producer.id == @product.producer_id) || admin_signed_in?) %>
     <div class="admin-controls">
       <h5>Producer tools</h5>
       <hr>
