@@ -42,7 +42,12 @@
 
           <div class="col-sm-4 form-group">
             <%= f.label :county %>
+                <%= f.select :county_id, options_from_collection_for_select(countyList, 'id', 'name', {selected: resource.county_id}), {}, {:include_blank => true, class: 'form-control', :required => true} 
+                %>
+            <!--
+            <%= f.label :county %>
             <%= select_tag "county_id", options_from_collection_for_select(countyList, "id", "name"), :include_blank => true, class: 'form-control', :required => true %>
+            -->
           </div>    
 
         </div>

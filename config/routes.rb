@@ -33,6 +33,11 @@ Rails.application.routes.draw do
   get '/products/:id/like',    to: 'products#like', as: 'like'
 
   
+  # dont allow default edit profile url
+  get '/producers/:id/edit', to: 'producers#not_allowed'
+  get '/customers/:id/edit', to: 'producers#not_allowed'
+
+
   # Scaffold resources      
   resources :orders
   resources :order_items
