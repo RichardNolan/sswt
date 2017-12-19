@@ -63,11 +63,16 @@ $(document).ready(function(){
         var quantity = $(this).closest(".add-group").children('.quantity').val() || 1 
           
           if($(this).data("do")=="NEW_HAMPER"){
-              var hamper_name = prompt("What do you want to call this hamper?") || "My Hamper"
-              create_hamper(hamper_name, function(hamper_id){
-                  create_hamper_item(hamper_id, product_id, quantity, price)
-              })
-              return false
+            var hamper_name = prompt("What do you want to call this hamper?")
+            $(this).closest('.btn-group').children('.dropdown-toggle').click()
+            if(hamper_name){
+                create_hamper(hamper_name, function(hamper_id){
+                    create_hamper_item(hamper_id, product_id, quantity, price)
+                })
+                return false
+            }else{
+                return false
+            }
           }
           create_hamper_item(hamper_id, product_id, quantity, price)
       });
@@ -78,7 +83,6 @@ $(document).ready(function(){
     $('.empty').on('click', function(){
         if(confirm("Are you sure you want to discard everything in this hamper?")){
             var hamper_id = $(this).data("hamper") || 0
-console.log(hamper_id)
             $.ajax({
                 type: "POST",
                 url: "/hamper/empty",
@@ -107,7 +111,10 @@ console.log(hamper_id)
 
     var hamperResult = function(data, textStatus, res){
         var hampers = JSON.parse(res.getResponseHeader('Hampers'))
-        console.log(hampers)
+        $('.add-menu').html("")
+        for(hamper in hampers){
+            $('.add-menu').append("<button class='dropdown-item add' type='button' data-hamper='"+hampers[hamper].id+"'>"+hampers[hamper].name+"</button>")
+        }
         mapit('#display_hamper', hampers, hamperMap)
         $('#hamper_count').html(hampers ? hampers.length : 0)
     }
@@ -120,7 +127,6 @@ console.log(hamper_id)
             data: { hamper_name: hamper_name },
             success:function(data, textStatus, res){
                 var hamper = JSON.parse(res.getResponseHeader('hamper'))
-                console.log(hamper)
                 cb(hamper.id)
             },
             error:function(err){

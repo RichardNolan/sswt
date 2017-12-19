@@ -12,11 +12,16 @@
             Add
           </button>
           <div class="dropdown-menu" aria-labelledby="add_button_<%= product.id %>">
-          <% @hampers.each do |item| %>
-            <button class="dropdown-item add" type="button" data-hamper="<%= item.id %>"><%= item.name %></button>
-          <% end %>
+            <div class="add-menu">
+            <% @hampers.each do |item| %>
+              <button class="dropdown-item add" type="button" data-hamper="<%= item.id %>"><%= item.name %></button>
+            <% end %>
+            </div>
             <div class="dropdown-divider"></div>
-            <button class="dropdown-item add" type="button" data-do="NEW_HAMPER" data-id="<%= product.id %>" data-price="<%= product.price %>">New Hamper</button>
+            <div style="text-align:center">
+              <button class="btn btn-primary add new_hamper" type="button" data-do="NEW_HAMPER" data-id="<%= product.id %>" data-price="<%= product.price %>">New</button>
+              <a href="/hampers" class="btn btn-primary" role="button" aria-pressed="true">Edit</a>
+            </div>
           </div>
         </div>
 
