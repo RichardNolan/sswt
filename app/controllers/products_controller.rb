@@ -61,6 +61,9 @@ class ProductsController < ApplicationController
     # More products from Producer
     @more_products = @product.producer.products.order('id DESC').limit(4).where('enabled = ? AND id <> ? AND deleted = ?',true, @product.id, false)
 
+    # Allergen details
+    @allergens = getAllergens
+
   end
 
 
@@ -208,4 +211,29 @@ class ProductsController < ApplicationController
       end
     end
 
+
+    # Get Allergen Details
+    def getAllergens
+
+      # selected allergens
+      selected_allergens = []
+
+      selected_allergens << "Cerials" if @product.contains_cerials == true
+      selected_allergens << "Crustaceans" if @product.contains_crustaceans == true
+      selected_allergens << "Eggs" if @product.contains_eggs == true
+      selected_allergens << "Fish" if @product.contains_fish == true
+      selected_allergens << "Peanuts" if @product.contains_peanuts == true
+      selected_allergens << "Soybeans" if @product.contains_soybeans == true
+      selected_allergens << "Milk" if @product.contains_milk == true
+      selected_allergens << "Nuts" if @product.contains_nuts == true
+      selected_allergens << "Celery" if @product.contains_celery == true
+      selected_allergens << "Mustard" if @product.contains_mustard == true
+      selected_allergens << "Sesame" if @product.contains_semsame == true
+      selected_allergens << "Sulphur" if @product.contains_sulphur == true
+      selected_allergens << "Lupin" if @product.contains_lupin == true
+      selected_allergens << "Mullucus" if @product.contains_mullucus == true
+
+      return selected_allergens
+
+    end
 end
