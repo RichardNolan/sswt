@@ -57,6 +57,8 @@
     <div class="col-md-6">
       <img class="img-fluid" src="<%= primary_product_image(@product.id) %>" alt="" id="hero_image">
 
+      <!-- Thumbnails -->
+      <% if @images.count > 1 %>
       <div class="row">
         <% @images.each do | image |%>
           <div class="col-sm-3 padding-5">
@@ -64,6 +66,7 @@
           </div>
         <% end %>
       </div>
+      <% end %>
 
     </div>
 
