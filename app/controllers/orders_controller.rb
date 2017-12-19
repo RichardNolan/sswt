@@ -63,14 +63,14 @@ class OrdersController < ApplicationController
 ######  ENTITIES FOR UNREGISTERED CUSTOMERS #######
 ###################################################
 
-  def create_unregistered_hamper 
-    return Hamper.create({
-                  customer_id:0, 
-                  name:"My Hamper", 
-                  price: @order.price, 
-                  greeting:""
-                })
-  end
+  # def create_unregistered_hamper 
+  #   return Hamper.create({
+  #                 customer_id:0, 
+  #                 name:"My Hamper", 
+  #                 price: @order.price, 
+  #                 greeting:""
+  #               })
+  # end
 
   def create_unregistered_order_item(hamper)
     return OrderItem.create({
@@ -79,14 +79,14 @@ class OrdersController < ApplicationController
                 })
   end
 
-  def create_unregistered_hamper_item(item, hamper)
-    return HamperItem.create({
-                  hamper_id: hamper.id,
-                  product_id: item['id'], 
-                  price_when_ordered: item['p'], 
-                  quantity: item['q'], 
-                })
-  end
+  # def create_unregistered_hamper_item(item, hamper)
+  #   return HamperItem.create({
+  #                 hamper_id: hamper.id,
+  #                 product_id: item['id'], 
+  #                 price_when_ordered: item['p'], 
+  #                 quantity: item['q'], 
+  #               })
+  # end
 
   def create_unregistered_order
       @order = Order.create({
@@ -102,11 +102,17 @@ class OrdersController < ApplicationController
               delivery_stripeTokenType: params[:stripeTokenType],
               delivery_stripeEmail: params[:stripeEmail]
             })
-      hamper = create_unregistered_hamper if @order
+      hamper = create_hamper({price: @order.price}) if @order
+
       @order_item = create_unregistered_order_item(hamper) if @order && hamper
       if hamper && @order then
         session['hamper0'].each do |item|
-          hamper_item = create_unregistered_hamper_item(item, hamper)
+          # hamper_item = create_unregistered_hamper_item(item, hamper)
+          # hamper_item = create_hamper_item({product_id:item['id'], price:item['p'], quantity:item['q'], hamper_id:hamper.id})
+          hamper_item = create_hamper_item({product_id:item['id'], price:item['p'], quantity:item['q']}, hamper)
+          
+# CONTINUE TO MAKE CUSTOMER CART AND ABSTRACT BITS OF THIS OUT TO APPLICATION CONTROLLER, LIKE HOW HAMPER ITEMS WAS - USE THE ASSOCIATION
+
           custom_error if !hamper_item
         end
       else

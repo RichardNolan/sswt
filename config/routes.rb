@@ -56,7 +56,9 @@ Rails.application.routes.draw do
   resources :producers
   resources :products
 
-  
+  ##  QUESTION
+  ##  SHOULD THESE BE ABOVE THE RESOURCES?
+
   # Disable Producer
   delete '/producers/:id', to: 'producers#destroy'
 
