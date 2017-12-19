@@ -35,31 +35,32 @@ class HamperItemsController < ApplicationController
         # add the item to the array if not already in the hamper
         session[hamper].push( {h: hamper_id, id: product_id, q: quantity, p: price} ) if !already_in_hamper
 
-        hamper_data = convert_session_hamper_into_hash(hamper)
+        hamper_data = convert_session_hamper_into_hash(hamper).to_json
 
       else
         hamper_item = create_hamper_item({product_id:product_id, price: price, quantity: quantity}, get_hamper(hamper_id))
         hampers = Hamper.where('customer_id = ?', current_customer.id)
-        hamper_data = hampers.to_json(:include => :hamper_items)
+        hamper_data = hampers.to_json(:include => { :hamper_items => {  :include => { :product => {:only => :name } } } })
       end
       # respond ok and return the hamper
-      head :ok, hampers: hamper_data.to_json, format: :json
+      head :ok, hampers: hamper_data, format: :json
   end
 
   def empty
-    hamper_id = params[:hamper_id] || 0
-    # get session name from passed hamper id
-    hamper = 'hamper'+hamper_id.to_s
+    hamper_id = params[:hamper_id]
     # delete it from session object
-    session.delete(hamper) if hamper=='hamper0'
+    session.delete('hamper0') if hamper_id == 0
+    hamper = Hamper.find(hamper_id)
+    hamper.destroy if(hamper)
+
     # respond ok and return what should be an empty array
-    head :ok, hamper: session[hamper].to_json, format: :json
+    head :ok, hamper: [].to_json, format: :json
   end
 
   # RETURNS A JSON VERSION OF THE HAMPERS BELONGING TO THE CUSTOMER - FROM EITHER THE SESSION OR DB
   def get_hamper_data
     hamper_data = convert_session_hamper_into_hash("hamper0") if(!customer_signed_in?)
-    hamper_data = Hamper.where('customer_id = ?', current_customer.id).to_json(:include => :hamper_items) if(customer_signed_in?)
+    hamper_data = Hamper.where('customer_id = ?', current_customer.id).to_json(:include => { :hamper_items => {  :include => { :product => {:only => :name } } } }) if(customer_signed_in?)
     head :ok, hampers: hamper_data, format: :json
   end
 
@@ -73,8 +74,8 @@ class HamperItemsController < ApplicationController
       p = item['p'] || item[:p]
       h = item['h'] || item[:h]
       price += (p * q)
-      name = Product.find(id).name || 'unknown'
-      item = item.merge({name: name, product_id:id, quantity:q, price_when_ordered:p, hamper_id:h})
+      product = {name: Product.find(id).name || 'unknown'}
+      item = item.merge({product: product, product_id:id, quantity:q, price_when_ordered:p, hamper_id:h})
     end
     return [{name:"My Hamper", price: price, greeting:"", hamper_items:hamper_items}]
   end

@@ -1,6 +1,12 @@
 class HampersController < ApplicationController
   before_action :set_hamper, only: [:show, :edit, :update, :destroy]
 
+  def create_hamper
+    hamper = current_customer.hampers.create({name:params[:hamper_name], price:0, greeting:""})
+    # respond ok and return the hamper
+    head :ok, hamper: hamper.to_json, format: :json
+  end
+
   # GET /hampers
   # GET /hampers.json
   def index

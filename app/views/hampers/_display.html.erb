@@ -14,27 +14,25 @@
                   p = item['p'] || item[:p]
                   h = item['h'] || item[:h]
                   price += (p * q)
-                  name = Product.find(id).name || 'unknown'
-                  item = item.merge({name: name, product_id:id, quantity:q, price_when_ordered:p, hamper_id:h})
+                  product = {name: Product.find(id).name || 'unknown'}
+                  item = item.merge({product: product, product_id:id, quantity:q, price_when_ordered:p, hamper_id:h})
                 end
-                hampers = [{name:"My Hamper", price:price, greeting:"", hamper_items:hamper_items}]
-
-
-
-              %>
-      <% else
-              hampers = Hamper.where('customer_id = ?', current_customer.id) || []
-              hampers.each do |hamper|
+                hampers = [{name:"My Hamper", price:price, greeting:"", hamper_items:hamper_items}]    
+        else
+              hampers = Hamper.where('customer_id = ?', current_customer.id).to_json(:include => { :hamper_items => {  :include => { :product => {:only => :name } } } }) || []
+              hamper_ids = Hamper.where('customer_id = ?', current_customer.id).to_json({:only => :id })
+        end 
       %>
-               
-              <% end %>
-      <% end %>
 
       
       <%= content_tag "div", id: "display_hamper", data:{ hampers: hampers } do %>
         Loading products...
       <% end %>
 
-      
-<button class="btn btn-primary empty">Clear</button>
+<% if customer_signed_in? then %>      
+  <a href="/hampers" class="btn btn-primary" role="button" aria-pressed="true">Manage</a>
+<% else %>
+  <button class="btn btn-primary empty">Clear</button>
+<% end %>
+
 <a href="/orders" class="btn btn-primary" role="button" aria-pressed="true">Checkout</a>

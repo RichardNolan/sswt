@@ -12,13 +12,15 @@ $(document).ready(function(){
     }
 
     var hamperMap = function(hamper){
+        hamper_price = 0
         var str = "<hr>" 
             str += "<h4>" + (hamper.name || "My Hamper") + "</h4>"
             for(item in hamper.hamper_items){
-                str += "<h5>" + hamper.hamper_items[item].quantity + " x " + hamper.hamper_items[item].name+"</h5>"
+                hamper_price += hamper.hamper_items[item].price_when_ordered
+                str += "<h5>" + hamper.hamper_items[item].quantity + " x " + hamper.hamper_items[item].product.name+"</h5>"
                 str += "<p>@ €" + hamper.hamper_items[item].price_when_ordered.toFixed(2) + " = <strong>€" + (hamper.hamper_items[item].quantity * hamper.hamper_items[item].price_when_ordered).toFixed(2) + "</strong></p>"
             }
-            str += "<h5 class='danger'>Total: €" + hamper.price.toFixed(2) + "</h5>"
+            str += "<h5 class='danger'>Total: €" + hamper_price.toFixed(2) + "</h5>"
         return str
     }
 
@@ -76,7 +78,7 @@ $(document).ready(function(){
     $('.empty').on('click', function(){
         if(confirm("Are you sure you want to discard everything in this hamper?")){
             var hamper_id = $(this).data("hamper") || 0
-
+console.log(hamper_id)
             $.ajax({
                 type: "POST",
                 url: "/hamper/empty",
@@ -105,6 +107,7 @@ $(document).ready(function(){
 
     var hamperResult = function(data, textStatus, res){
         var hampers = JSON.parse(res.getResponseHeader('Hampers'))
+        console.log(hampers)
         mapit('#display_hamper', hampers, hamperMap)
         $('#hamper_count').html(hampers ? hampers.length : 0)
     }
@@ -116,7 +119,9 @@ $(document).ready(function(){
             url: "/hamper/createhamper",
             data: { hamper_name: hamper_name },
             success:function(data, textStatus, res){
-                cb(res.getResponseHeader('hamper-id'))
+                var hamper = JSON.parse(res.getResponseHeader('hamper'))
+                console.log(hamper)
+                cb(hamper.id)
             },
             error:function(err){
                 console.log(err.responseText)
