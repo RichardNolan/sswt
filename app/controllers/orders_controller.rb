@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
     elsif(admin_signed_in?) then
       render 'index'
     else
-      @order = session['hamper0']
+      @order = session['hamper0'] || []
       @total = @order.reduce(0) {|total, item| total + (item['q']*item['p'])}
       render 'session'
     end
