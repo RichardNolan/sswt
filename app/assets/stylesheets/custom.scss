@@ -3,7 +3,13 @@ html, body {
 }
 body{
     overflow-x: hidden;
+    background: linear-gradient(
+        to top right,
+        #abbaab, #ffffff
+    );
+    background-attachment: fixed;
 }
+
 
 
 /* Add to Cart Button */
@@ -15,7 +21,7 @@ body{
         cursor: pointer;
     }
     &:active {
-        background: GreenYellow;
+        background: Gold;
         color: black;
     }
 }
@@ -28,7 +34,13 @@ input.form-control {
 
 .navbar, footer {
     z-index: 99999;
+    background: linear-gradient(
+        to top right,
+        #1488CC, #2B32B2
+    );
 }
+
+
 .text-red {
     color: red;
 }
@@ -176,7 +188,7 @@ footer {
     background: url(/images/cart-full.png);
     background-size: cover;
     text-align: center;
-    color: white !important;
+    color: black !important;
     font-weight: bold;
 }
 
