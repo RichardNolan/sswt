@@ -8,7 +8,7 @@
       
       %>
         <div class="btn-group" role="group">
-          <button id="add_button_<%= product.id %>" type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button id="add_button_<%= product.id %>" type="button" class="btn btn-add-to-cart dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Add
           </button>
           <div class="dropdown-menu" aria-labelledby="add_button_<%= product.id %>">
@@ -23,7 +23,7 @@
       <% else %>
 
         <span class="input-group-btn">
-          <button class="btn btn-secondary btn-sm add" type="button">Add</button>
+          <button class="btn btn-add-to-cart btn-sm add" type="button">Add</button>
         </span>
 
       <% end %>

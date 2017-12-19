@@ -5,6 +5,23 @@ body{
     overflow-x: hidden;
 }
 
+
+/* Add to Cart Button */
+.btn-add-to-cart {
+    background: green;
+    color: white;
+    &:hover {
+        background: DarkGreen;
+        cursor: pointer;
+    }
+    &:active {
+        background: GreenYellow;
+        color: black;
+    }
+}
+
+
+
 input.form-control {
     margin-bottom: 10px;
 }
@@ -148,9 +165,19 @@ footer {
 .basket{
     height:40px;
     width:40px;
-    background: url(/images/basket.svg);
+    background: url(/images/cart-empty.png);
     background-size: cover;
     text-align: center;
+    font-weight: normal;
+}
+.basket-full {
+    height:40px;
+    width:40px;
+    background: url(/images/cart-full.png);
+    background-size: cover;
+    text-align: center;
+    color: white !important;
+    font-weight: bold;
 }
 
 #drawer{

@@ -1,6 +1,17 @@
 $(document).ready(function(){
 
 
+    //  Visual feedback that Cart has changed
+    $('#hamper_count').bind("DOMSubtreeModified",function(){
+        if($(this).html() >= '1') {
+            $(this).addClass('basket-full').removeClass('basket');;            
+        }
+        if($(this).html() == '0') {
+            $(this).removeClass('basket-full').addClass('basket');            
+        }
+    });
+
+
     function mapit(ref, data, mapFunc){
         if (typeof data == 'string') data = $(ref).data(data) || []
         $(ref).html("")
