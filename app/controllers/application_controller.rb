@@ -53,6 +53,17 @@ class ApplicationController < ActionController::Base
             )
   end
 
+  def price_multiple_hampers hampers
+    return hampers.reduce(0) do | total, hamper |
+      total += price_hamper(hamper)
+    end
+  end
+
+  def price_hamper hamper
+    return hamper.hamper_items.reduce(0) do | total, item |
+      total += (item.price_when_ordered * item.quantity)
+    end
+  end
 
   protected
 

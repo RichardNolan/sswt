@@ -1,0 +1,117 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="float-right">Total cost = <%= currency(@total) %></h1>
+        </div>
+    </div>
+
+
+
+<h3>1. Review your order</h3>
+
+<% @order.each do |hamper| %>
+    <div class="col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <%= link_to hamper do %>
+                    <h5 class="card-title"><%= hamper.name %> - <%= currency(hamper.price) %></h5>
+                <% end %>
+                <div class="container-fluid">
+                    <div class="row">
+                        <% hamper.hamper_items.each do |hamper_item| %>
+                        <div class="col">
+                            <%= hamper_item.product.name %> - <%= currency(hamper_item.product.price) %>
+                        </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">OPTIONS</small>
+            </div>
+        </div>
+    </div>
+
+  
+<%  end %>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>2. Provide delivery details</h5>
+    <%= form_tag('/orders') %>
+
+        <input type="hidden" name="price" value="<%= @total %>">
+        <div class="row">
+            <div class="col-lg-12 card">
+                <div class="card-body">
+                    <div class="row">
+
+                            <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                                <label for="firstname">Name</label>
+                                <input class="form-control" placeholder="Your First Name" required type="text" name="firstname" id="firstname" />
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                                <label for="lastname">Name</label>
+                                <input class="form-control" placeholder="Your Last Name" required="required" type="text" name="lastname" id="lastname" />
+                            </div>
+                
+                    </div>  
+                    <div class="row">              
+                            <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                                <label for="address1">Address</label>
+                                <input class="form-control" placeholder="Address Line 1" required="required" type="text" name="address" id="address" />
+                            </div>
+
+                            <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                                <label for="address2">Address2</label>
+                                <input class="form-control" placeholder="Address Line 2" type="text"  name="address2" id="address2" />
+                            </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                            <label for="producer_county">County</label>
+                            <select class="form-control" required="required" name="county_id" id="county_id">
+                                <option value=""></option>
+                                <% countyList.each do |county|%>
+                                <option value="<%=county.id%>"><%=county.name%></option>
+                                <% end %>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                            <label for="contact_phone">Telephone number</label>
+                            <input class="form-control" placeholder="Telephone Number" required="required" type="text" name="contact_phone" id="contact_phone" />
+                        </div>
+                    </div>          
+
+                </div>
+            </div>
+        </div>
+    <h5>3. Proceed to payment</h5>
+    
+                            <script
+                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="pk_test_4ptS9FAXPs8ZBlHdcifKph8s"
+                                data-amount="<%= @total*100 %>"
+                                data-name="Custom Hampers"
+                                data-description="Unregistered customer purchase"
+                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                data-locale="auto"
+                                data-zip-code="false"
+                                data-currency="eur">
+                            </script>
+                            <img src="/images/powered_by_stripe.png" />
+    </form>
+</div>

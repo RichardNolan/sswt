@@ -4,15 +4,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    if(customer_signed_in?) then
-      @orders = Order.where('customer_id = ?', current_customer.id)
-    elsif(admin_signed_in?) then
-      render 'index'
-    else
-      @order = session['hamper0']
-      @total = @order.reduce(0) {|total, item| total + (item['q']*item['p'])}
-      render 'session'
-    end
+    @orders = Order.all
   end
 
   # GET /orders/1
@@ -29,12 +21,29 @@ class OrdersController < ApplicationController
   def edit
   end
 
-  
   # A generic catch all redirect if there is an error with the unregistered order
   def custom_error
     # render 'order/error'
     # return false
   end
+
+  def verify
+    if(customer_signed_in?) then
+      @order = Hamper.where('customer_id = ?', current_customer.id)
+      @total = price_multiple_hampers(@order) 
+      @order.collect do | hamper |
+        hamper.price = price_hamper(hamper)
+      end
+      render 'registered_customer_order'
+    elsif(admin_signed_in?) then
+      render 'index'
+    else
+      @order = session['hamper0']
+      @total = @order.reduce(0) {|total, item| total + (item['q']*item['p'])}
+      render 'unregistered_customer_order'
+    end
+  end
+
 
 ###########################################################################
 ######  THIS IS THE STRIPE ACTION TO CHARGE SOMEONE USING THE TOKEN #######

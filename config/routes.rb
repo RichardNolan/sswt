@@ -43,6 +43,8 @@ Rails.application.routes.draw do
 
   post 'hamper/createhamper', to: 'hampers#create_hamper'
 
+  get '/orders/verify', to: 'orders#verify'
+
   # Scaffold resources      
   resources :orders
   resources :order_items
