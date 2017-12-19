@@ -32,6 +32,7 @@ input.form-control {
     margin-bottom: 10px;
 }
 
+
 .navbar, footer {
     z-index: 99999;
     background: linear-gradient(
@@ -39,6 +40,12 @@ input.form-control {
         #1488CC, #2B32B2
     );
 }
+
+.navbar {
+    box-shadow: 4px 2px 8px #333;
+    border-bottom: 1px #e8e8e8 solid;
+}
+
 
 
 .text-red {
@@ -101,6 +108,7 @@ footer {
 	bottom: 0;	
 	left: 0;
 	padding: 20px;
+    border-top: 1px #e8e8e8 solid;
 }
 
 .portfolio-item {

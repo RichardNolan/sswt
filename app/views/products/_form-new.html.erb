@@ -87,137 +87,140 @@
 			<% end %>
 
 		</div>
+
+	
+		<!-- Food Allergins -->
+		<div class="row">
+			<div class="col-md-12">
+				<hr>
+				<h2>Allergens</h2>			  		
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+
+				<div class="field">
+					<%= f.check_box :contains_cerials, id: :product_contains_cerials %>
+					<%= f.label :contains_cerials %>
+				</div>
+
+			</div>
+			<div class="col-md-4">
+
+				<div class="field">
+					<%= f.check_box :contains_crustaceans, id: :product_contains_crustaceans %>
+					<%= f.label :contains_crustaceans %>
+				</div>
+
+			</div>
+			<div class="col-md-4">
+
+				<div class="field">
+					<%= f.check_box :contains_eggs, id: :product_contains_eggs %>
+					<%= f.label :contains_eggs %>
+				</div>
+
+			</div>
+			<div class="col-md-4">
+
+				<div class="field">
+					<%= f.check_box :contains_fish, id: :product_contains_fish %>
+					<%= f.label :contains_fish %>
+				</div>
+
+			</div>
+			<div class="col-md-4">
+
+				<div class="field">
+					<%= f.check_box :contains_peanuts, id: :product_contains_peanuts %>
+					<%= f.label :contains_peanuts %>
+				</div>
+
+			</div>
+			<div class="col-md-4">
+
+				<div class="field">
+					<%= f.check_box :contains_soybeans, id: :product_contains_soybeans %>
+					<%= f.label :contains_soybeans %>
+				</div>
+
+			</div>
+			<div class="col-md-4">
+
+				<div class="field">
+					<%= f.check_box :contains_milk, id: :product_contains_milk %>
+					<%= f.label :contains_milk %>
+				</div>
+
+			</div>
+			<div class="col-md-4">
+
+				<div class="field">
+					<%= f.check_box :contains_nuts, id: :product_contains_nuts %>
+					<%= f.label :contains_nuts %>
+				</div>
+
+			</div>
+			<div class="col-md-4">
+
+				<div class="field">
+					<%= f.check_box :contains_celery, id: :product_contains_celery %>
+					<%= f.label :contains_celery %>
+				</div>
+
+			</div>
+			<div class="col-md-4">
+
+				<div class="field">
+					<%= f.check_box :contains_mustard, id: :product_contains_mustard %>
+					<%= f.label :contains_mustard %>
+				</div>
+
+			</div>
+			<div class="col-md-4">
+
+				<div class="field">
+					<%= f.check_box :contains_semsame, id: :product_contains_semsame %>
+					<%= f.label :contains_semsame %>
+				</div>
+
+			</div>
+			<div class="col-md-4">
+
+				<div class="field">
+					<%= f.check_box :contains_sulphur, id: :product_contains_sulphur %>
+					<%= f.label :contains_sulphur %>
+				</div>
+
+			</div>
+			<div class="col-md-4">
+
+				<div class="field">
+					<%= f.check_box :contains_lupin, id: :product_contains_lupin %>
+					<%= f.label :contains_lupin %>
+				</div>
+
+			</div>
+			<div class="col-md-4">
+
+				<div class="field">
+					<%= f.check_box :contains_mullucus, id: :product_contains_mullucus %>
+					<%= f.label :contains_mullucus %>
+				</div>        
+
+			</div>
+
+			<div class="col-md-12">
+				<div class="form-group">
+					<hr>
+					<%= f.submit @form_submit_button, class: "btn btn-primary" %>
+				</div>
+			</div>
+
+		</div>
 	</div>
 
-	<!-- Food Allergins -->
-	<div class="row">
-		<div class="col-md-12">
-			<hr>
-			<h2>Allergens</h2>			  		
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-md-4">
-
-			<div class="field">
-				<%= f.check_box :contains_cerials, id: :product_contains_cerials %>
-				<%= f.label :contains_cerials %>
-			</div>
-
-		</div>
-		<div class="col-md-4">
-
-			<div class="field">
-				<%= f.check_box :contains_crustaceans, id: :product_contains_crustaceans %>
-				<%= f.label :contains_crustaceans %>
-			</div>
-
-		</div>
-		<div class="col-md-4">
-
-			<div class="field">
-				<%= f.check_box :contains_eggs, id: :product_contains_eggs %>
-				<%= f.label :contains_eggs %>
-			</div>
-
-		</div>
-		<div class="col-md-4">
-
-			<div class="field">
-				<%= f.check_box :contains_fish, id: :product_contains_fish %>
-				<%= f.label :contains_fish %>
-			</div>
-
-		</div>
-		<div class="col-md-4">
-
-			<div class="field">
-				<%= f.check_box :contains_peanuts, id: :product_contains_peanuts %>
-				<%= f.label :contains_peanuts %>
-			</div>
-
-		</div>
-		<div class="col-md-4">
-
-			<div class="field">
-				<%= f.check_box :contains_soybeans, id: :product_contains_soybeans %>
-				<%= f.label :contains_soybeans %>
-			</div>
-
-		</div>
-		<div class="col-md-4">
-
-			<div class="field">
-				<%= f.check_box :contains_milk, id: :product_contains_milk %>
-				<%= f.label :contains_milk %>
-			</div>
-
-		</div>
-		<div class="col-md-4">
-
-			<div class="field">
-				<%= f.check_box :contains_nuts, id: :product_contains_nuts %>
-				<%= f.label :contains_nuts %>
-			</div>
-
-		</div>
-		<div class="col-md-4">
-
-			<div class="field">
-				<%= f.check_box :contains_celery, id: :product_contains_celery %>
-				<%= f.label :contains_celery %>
-			</div>
-
-		</div>
-		<div class="col-md-4">
-
-			<div class="field">
-				<%= f.check_box :contains_mustard, id: :product_contains_mustard %>
-				<%= f.label :contains_mustard %>
-			</div>
-
-		</div>
-		<div class="col-md-4">
-
-			<div class="field">
-				<%= f.check_box :contains_semsame, id: :product_contains_semsame %>
-				<%= f.label :contains_semsame %>
-			</div>
-
-		</div>
-		<div class="col-md-4">
-
-			<div class="field">
-				<%= f.check_box :contains_sulphur, id: :product_contains_sulphur %>
-				<%= f.label :contains_sulphur %>
-			</div>
-
-		</div>
-		<div class="col-md-4">
-
-			<div class="field">
-				<%= f.check_box :contains_lupin, id: :product_contains_lupin %>
-				<%= f.label :contains_lupin %>
-			</div>
-
-		</div>
-		<div class="col-md-4">
-
-			<div class="field">
-				<%= f.check_box :contains_mullucus, id: :product_contains_mullucus %>
-				<%= f.label :contains_mullucus %>
-			</div>        
-
-		</div>
-	</div>
-
-	<div class="form-group">
-		<hr>
-		<%= f.submit @form_submit_button, class: "btn btn-primary" %>
-	</div>
-
-</div>
 </div>
 
 <% end %>
