@@ -1,5 +1,11 @@
 <!-- Page Content -->
-<div class="container">
+
+<!-- Portfolio Item Heading -->
+<h1 class="my-4 text-center"><%= @product.name %>
+  <small>by <%= link_to @product.producer.name, producer_url(@product.producer_id) %></small>
+</h1>
+
+<div class="container card">
 
 
   <% 
@@ -46,23 +52,22 @@
   <% end %>
 
 
-  <!-- Portfolio Item Heading -->
-  <h1 class="my-4"><%= @product.name %>
-    <small>by <%= link_to @product.producer.name, producer_url(@product.producer_id) %></small>
-  </h1>
-
   <!-- Portfolio Item Row -->
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-6">
       <img class="img-fluid" src="<%= primary_product_image(@product.id) %>" alt="" id="hero_image">
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-6">
       <h3 class="my-3"><%= @product.name %></h3>
       <p><%= @product.description %></p>
       <h5 class="my-5"><%= currency(@product.price) %></h5>
-      <%= render partial: '/products/likes', locals:{product: @product}%>
-      <%= render 'hamper_items/add_to_hamper', product: @product %>
+
+      <div class="product-controls">
+        <%= render partial: '/products/likes', locals:{product: @product}%>
+        <%= render 'hamper_items/add_to_hamper', product: @product %>
+      </div>
+
     </div>
 
   </div>
@@ -77,6 +82,7 @@
   <!-- /.row -->
 
   <!-- Related Products Row -->
+  <hr>
   <h3 class="my-4">More Products from <%= @product.producer.name %></h3>
 
   <div class="row">
