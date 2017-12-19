@@ -11,16 +11,29 @@ $(document).ready(function(){
 
     }
 
-    var hamperMap = function(item){
-        var str = "" 
-            str += "<h4>"+item.q+" x "+item.name+"</h4>"
-            str += "<p>@ €"+item.p.toFixed(2)+" = <strong>€"+(item.q*item.p).toFixed(2)+"</strong></p>"
+    var hamperMap = function(hamper){
+        var str = "<hr>" 
+            str += "<h4>" + (hamper.name || "My Hamper") + "</h4>"
+            for(item in hamper.hamper_items){
+                str += "<h5>" + hamper.hamper_items[item].quantity + " x " + hamper.hamper_items[item].name+"</h5>"
+                str += "<p>@ €" + hamper.hamper_items[item].price_when_ordered.toFixed(2) + " = <strong>€" + (hamper.hamper_items[item].quantity * hamper.hamper_items[item].price_when_ordered).toFixed(2) + "</strong></p>"
+            }
+            str += "<h5 class='danger'>Total: €" + hamper.price.toFixed(2) + "</h5>"
         return str
     }
 
-    mapit('#session_hamper', 'hamper', hamperMap)
-    $('#hamper_count').html($('#session_hamper').data('hamper').length)
+    hampers_data = $('#display_hamper').data('hampers')
 
+    if(hampers_data){
+        mapit('#display_hamper', 'hampers', hamperMap)
+
+        // CHOICE BETWEEN SHOWING TOTAL HAMPERS OR TOTAL PRODUCTS IN NAV BAR
+        var total_products = hampers_data.reduce(function(total, hamper){
+            return total += hamper.length
+        }, 0)
+        var total_hampers = hampers_data.length
+        $('#hamper_count').html(total_hampers)
+    }
 
     $('a').bind('ajax:success', function(event, data, status, xhr) {
         console.log('a ajax')
@@ -91,9 +104,9 @@ $(document).ready(function(){
     }
 
     var hamperResult = function(data, textStatus, res){
-        var hamper = JSON.parse(res.getResponseHeader('Hamper'))
-        mapit('#session_hamper', hamper, hamperMap)
-        $('#hamper_count').html(hamper ? hamper.length : 0)
+        var hampers = JSON.parse(res.getResponseHeader('Hampers'))
+        mapit('#display_hamper', hampers, hamperMap)
+        $('#hamper_count').html(hampers ? hampers.length : 0)
     }
 
 

@@ -32,6 +32,9 @@ class ApplicationController < ActionController::Base
 
   end
 
+  def get_hamper id
+    return Hamper.find(id)
+  end
 	
 	def create_hamper(val)
 		return  Hamper.create({
@@ -40,15 +43,17 @@ class ApplicationController < ActionController::Base
               price: (val[:price] || 0), 
               greeting:(val[:greeting] || "")
             })
-	  end
+  end
 
-    def create_hamper_item(val, hamper)
-      return  hamper.hamper_items.create(
-                product_id: (val['product_id'] || val[:product_id]),  
-                price_when_ordered: (val['price'] || val[:price]), 
-                quantity: (val['quantity'] || val[:quantity])
-              )
-    end
+  def create_hamper_item(val, hamper)
+    return  hamper.hamper_items.create(
+              product_id: (val['product_id'] || val[:product_id]),  
+              price_when_ordered: (val['price'] || val[:price]), 
+              quantity: (val['quantity'] || val[:quantity])
+            )
+  end
+
+
   protected
 
     def after_sign_in_path_for(customer)
