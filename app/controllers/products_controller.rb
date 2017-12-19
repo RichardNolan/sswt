@@ -59,7 +59,7 @@ class ProductsController < ApplicationController
   def show
     
     # More products from Producer
-    @more_products = @product.producer.products.order('id DESC').limit(4).where('enabled = ? AND id <> ? AND deleted = ?',true, @product.id, false)
+    @more_products = @product.producer.products.order('id DESC').where('enabled = ? AND id <> ? AND deleted = ?',true, @product.id, false)
 
     # Allergen details
     @allergens = getAllergens
