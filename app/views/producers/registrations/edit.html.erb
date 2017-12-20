@@ -42,6 +42,40 @@
                   <%= f.label "Telephone Number" %>
                   <%= f.text_field :contact_phone, class: 'form-control', placeholder: 'Telephone Number', :required => true %>
                 </div>
+<%
+  if @producer.producer_images.count==0 then
+    @producer.producer_images.build
+  end
+%>
+
+
+<!-- IMAGE -->
+		<h5>Profile Image</h5>
+		<div class="row">
+			<%= f.fields_for :producer_images do |image| %>
+
+			<div class="col-md-4">
+				<% 
+				if (!image.object.id.blank?) then
+					placeholder_id = "preview-" + @producer.id.to_s + "-" + image.object.id.to_s
+					placeholder_image = image.object.src
+				else
+					placeholder_id = "preview-new"
+					placeholder_image = "/images/placeholder.jpg"
+				end
+				%>
+				<img src="<%= placeholder_image %>" class=" img-fluid" id='<%= placeholder_id %>'/>
+				<button type="button" class="btn btn-success upload"><img src='/images/upload.svg'></button>
+				<%= image.file_field :src, id: :producer_image_src, class: 'invisible' %>
+			</div>
+
+			<% end %>
+		</div>
+
+
+
+
+
 
               </div>
 
