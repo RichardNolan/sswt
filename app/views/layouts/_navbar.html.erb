@@ -45,6 +45,7 @@ fixed-top">
               <div class="dropdown-item"><%= current_customer.email %></div>
               <div class="dropdown-divider"></div>
               <%= link_to "My Hampers", hampers_url, class: 'dropdown-item' %>
+              <%= link_to "My Orders", orders_url, class: 'dropdown-item' %>
               <% end %>
 
               <% if producer_signed_in? %>
