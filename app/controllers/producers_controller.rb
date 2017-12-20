@@ -18,6 +18,9 @@ class ProducersController < ApplicationController
     @products = @producer.products.all
   end
 
+  def edit
+    @producer.producer_images.build
+  end 
 
   # Producer Products page
   def products
@@ -58,7 +61,22 @@ class ProducersController < ApplicationController
 
     # Permitted Parameters
     def producer_params
-      params.require(:producer).permit(:name, :email, :email_confirmed, :password, :address, :address2, :county_id, :contact_phone, :contact_email, :join_date, :enabled, :admin_notes, :about)
+      params.require(:producer).permit(
+                                  :name, 
+                                  :email, 
+                                  :email_confirmed, 
+                                  :password, 
+                                  :address, 
+                                  :address2, 
+                                  :county_id, 
+                                  :contact_phone, 
+                                  :contact_email, 
+                                  :join_date, 
+                                  :enabled, 
+                                  :admin_notes,
+                                  :about,
+                                  producer_images_attributes:[:src, :id]
+                              )
     end
 
 

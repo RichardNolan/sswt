@@ -5,4 +5,7 @@ class Producer < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
     has_many :products			# PK used many times in products
     has_many :producer_images  	# PK used many times in producer_images
+
+    accepts_nested_attributes_for :producer_images, allow_destroy: true, reject_if: proc {|attributes| attributes['src'].blank?}
+    
 end

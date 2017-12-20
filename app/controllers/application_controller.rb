@@ -85,6 +85,6 @@ class ApplicationController < ActionController::Base
       # this allows the following parameters to be permitted, devise advises this goes here
       # These are for each devise action
       devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :first_name, :last_name,:address, :address2, :contact_phone, :county_id])
-      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :first_name, :last_name, :address, :address2, :contact_phone, :county_id])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :first_name, :last_name, :address, :address2, :contact_phone, :county_id, :about, :producer_images_attributes => [:src, :id]])
     end
 end
