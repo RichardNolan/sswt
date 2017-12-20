@@ -26,7 +26,6 @@ class HampersController < ApplicationController
   # GET /hampers
   # GET /hampers.json
   def index
-    
   end
 
   # GET /hampers/1
