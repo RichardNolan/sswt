@@ -1,6 +1,3 @@
-<p id="notice"><%= notice %></p>
-
-
 <% if customer_signed_in? && current_customer.id %>
 <h3 class="text-center">My Hampers</h3>
 <% end %>
@@ -43,7 +40,12 @@
             <td><%= hamper.price %></td>            
             <td><%= hamper.hamper_items.count %></td>
             <td>###</td>
-            <td><button type="button" class="btn btn-primary btn-sm" onclick="openHamperModal(<%= hamper.id %>)">View Items</button></td>
+            <td>
+            
+              <%= link_to 'Delete Hamper', hamper, class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure you want to delete this hamper?' } %>
+              <button type="button" class="btn btn-primary btn-sm" onclick="openHamperModal(<%= hamper.id %>)">View Items</button>
+
+            </td>
           </tr>
           
         <% end %>

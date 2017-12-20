@@ -73,14 +73,20 @@ class HampersController < ApplicationController
     end
   end
 
-  # DELETE /hampers/1
-  # DELETE /hampers/1.json
+
+  # Delete Hamper
   def destroy
     @hamper.destroy
-    respond_to do |format|
-      format.html { redirect_to hampers_url, notice: 'Hamper was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to hampers_url, notice: 'Hamper was successfully destroyed.'
+  end
+
+
+  # Delete Product (Hamper Item)
+  def delete_hamper_item
+    @hamper_item = HamperItem.find(params[:id])
+    @hamper = Hamper.find(@hamper_item.hamper_id)
+    @hamper_item.destroy
+    redirect_to hampers_url, notice: "Product removed from hamper.";
   end
 
 
