@@ -47,6 +47,11 @@ fixed-top">
               <%= link_to "My Hampers", hampers_url, class: 'dropdown-item' %>
               <% end %>
 
+              <% if producer_signed_in? %>
+              <%= link_to("My Products", "/producers/#{current_producer.id}/products", class: 'dropdown-item') %>
+              <div class="dropdown-divider"></div>
+              <% end %>
+
               <%= producer_signed_in? ?   link_to("My Profile", producer_path(current_producer.id), class: 'dropdown-item') : link_to("My Profile", customer_path(current_customer.id), class: 'dropdown-item') %>
 
               <%= producer_signed_in? ?   link_to("Edit Profile", edit_producer_registration_path, class: 'dropdown-item') : link_to("Edit Profile", edit_customer_registration_path, class: 'dropdown-item') %>
@@ -89,11 +94,12 @@ fixed-top">
           
         <% end %>
 
-
+        <% if !producer_signed_in? && !admin_signed_in? %>
         <li class="nav-item basket">
           <a href="" class="nav-link btn-drawer" id="hamper_count" title="Shopping Cart">0</a>
         </li>
-
+        <% end %>
+        
       </ul>
 
 

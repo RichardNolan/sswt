@@ -75,7 +75,9 @@
       
       <div class="product-controls">
         <%= render partial: '/products/likes', locals:{product: @product}%>
-        <%= render 'hamper_items/add_to_hamper', product: @product %>
+        <% if !producer_signed_in? && !admin_signed_in? %>
+          <%= render 'hamper_items/add_to_hamper', product: @product %>
+        <% end %>
       </div>
 
       <p><%= @product.description %></p>
