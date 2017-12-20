@@ -20,7 +20,7 @@
                     <div class="row">
                         <% hamper.hamper_items.each do |hamper_item| %>
                         <div class="col">
-                            <%= hamper_item.product.name %> - <%= currency(hamper_item.product.price) %>
+                           <%= hamper_item.quantity %> x <%= hamper_item.product.name %> - <%= currency(hamper_item.product.price) %>
                         </div>
                         <% end %>
                     </div>
