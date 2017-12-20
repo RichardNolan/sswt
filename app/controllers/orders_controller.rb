@@ -125,12 +125,7 @@ class OrdersController < ApplicationController
       @order_item = create_unregistered_order_item(hamper) if @order && hamper
       if hamper && @order then
         session['hamper0'].each do |item|
-          # hamper_item = create_unregistered_hamper_item(item, hamper)
-          # hamper_item = create_hamper_item({product_id:item['id'], price:item['p'], quantity:item['q'], hamper_id:hamper.id})
           hamper_item = create_hamper_item({product_id:item['id'], price:item['p'], quantity:item['q']}, hamper)
-          
-# CONTINUE TO MAKE CUSTOMER CART AND ABSTRACT BITS OF THIS OUT TO APPLICATION CONTROLLER, LIKE HOW HAMPER ITEMS WAS - USE THE ASSOCIATION
-
           custom_error if !hamper_item
         end
       else
@@ -149,7 +144,9 @@ class OrdersController < ApplicationController
       reset_session
       return false
     end
-
+    puts '#############'
+puts order_params
+puts '############'
     @order = Order.new(order_params)
     respond_to do |format|
       if @order.save
@@ -195,11 +192,12 @@ class OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(
+                                :order_id,
                                 :price, 
                                 :customer_id,
                                 :authenticity_token,
-                                :firstname,
-                                :address1,
+                                :lastname,
+                                :address,
                                 :address2,
                                 :county_id,
                                 :contact_phone,
