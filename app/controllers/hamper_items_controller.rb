@@ -47,12 +47,15 @@ class HamperItemsController < ApplicationController
   end
 
   def empty
-    hamper_id = params[:hamper_id]
+    hamper_id = params[:hamper_id].to_i
     # delete it from session object
-    session.delete('hamper0') if hamper_id == 0
-    hamper = Hamper.find(hamper_id)
-    hamper.destroy if(hamper)
-
+    puts hamper_id
+    if hamper_id == 0 then
+      session.delete('hamper0') 
+    else
+      hamper = Hamper.find(hamper_id)
+      hamper.destroy if(hamper)
+    end
     # respond ok and return what should be an empty array
     head :ok, hamper: [].to_json, format: :json
   end

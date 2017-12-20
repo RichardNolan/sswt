@@ -1,6 +1,11 @@
 $(document).ready(function(){
 
-
+    // Take a dom ref, data, and a mapFunction
+    // runs the data through the map function creating HTML
+    // places the HTML into the ref object
+    // data can be a string value of a data attribute containing the data
+    // this is how initial data is loaded
+    // further calls can pass data from an ajax call
     function mapit(ref, data, mapFunc){
         if (typeof data == 'string') data = $(ref).data(data) || []
         $(ref).html("")
@@ -8,15 +13,16 @@ $(document).ready(function(){
         html.forEach(function(item){
             $(ref).append(item)
         })
-
     }
 
+    // a mapping function for mapit above
+    // this one expects iterations over a collection of hampers
     var hamperMap = function(hamper){
         hamper_price = 0
         var str = "<hr>" 
             str += "<h4>" + (hamper.name || "My Hamper") + "</h4>"
             for(item in hamper.hamper_items){
-                hamper_price += hamper.hamper_items[item].price_when_ordered
+                hamper_price += (hamper.hamper_items[item].price_when_ordered * hamper.hamper_items[item].quantity)
                 str += "<h5>" + hamper.hamper_items[item].quantity + " x " + hamper.hamper_items[item].product.name+"</h5>"
                 str += "<p>@ €" + hamper.hamper_items[item].price_when_ordered.toFixed(2) + " = <strong>€" + (hamper.hamper_items[item].quantity * hamper.hamper_items[item].price_when_ordered).toFixed(2) + "</strong></p>"
             }
@@ -24,19 +30,17 @@ $(document).ready(function(){
         return str
     }
 
-    hampers_data = $('#display_hamper').data('hampers')
-
-    if(hampers_data){
-        mapit('#display_hamper', 'hampers', hamperMap)
-
-        // CHOICE BETWEEN SHOWING TOTAL HAMPERS OR TOTAL PRODUCTS IN NAV BAR
-        var total_products = hampers_data.reduce(function(total, hamper){
+    // just counts whats given to it and diaplys it on nav_bar
+    function show_total(from){
+        var total_products = from ? from.reduce(function(total, hamper){
             return total += hamper.length
-        }, 0)
-        var total_hampers = hampers_data.length
-        $('#hamper_count').html(total_hampers)
+        }, 0) : 0
+        var total_hampers = from ? from.length : 0
+
+        $('#hamper_count').html(total_hampers || 0)  // or total_products ???
     }
 
+    
     $('a').bind('ajax:success', function(event, data, status, xhr) {
         console.log('a ajax')
         $like = $(this).closest('.like_btn')
@@ -116,7 +120,8 @@ $(document).ready(function(){
             $('.add-menu').append("<button class='dropdown-item add' type='button' data-hamper='"+hampers[hamper].id+"'>"+hampers[hamper].name+"</button>")
         }
         mapit('#display_hamper', hampers, hamperMap)
-        $('#hamper_count').html(hampers ? hampers.length : 0)
+        show_total(hampers)
+        hamper_btns(hampers)
     }
 
 
@@ -135,7 +140,21 @@ $(document).ready(function(){
         });
     }
 
-
+    function hamper_btns(hampers){    
+        disabled = !(hampers && hampers.length>0)
+        console.log(disabled)
+        if(disabled){
+            $( "#btn_clear_hamper" ).prop( "disabled", true );
+            $('#btn_clear_hamper').addClass('disabled')
+            $('#btn_manage_hampers').addClass('disabled')
+            $('#btn_checkout').addClass('disabled')
+        }else{
+            $( "#btn_clear_hamper" ).prop( "disabled", false );
+            $('#btn_clear_hamper').removeClass('disabled')
+            $('#btn_manage_hampers').removeClass('disabled')
+            $('#btn_checkout').removeClass('disabled')
+        }
+    }
 
     $('.btn-drawer').on('click', function(e){
         e.preventDefault()
@@ -144,4 +163,15 @@ $(document).ready(function(){
         // DEPENDING ON THE CHOSEN STYLE FOR THE DRAWER THIS MIGHT BE DISABLED
         $('#main-container').toggleClass("showme")
     })
+
+    // This is an initiation
+    function init(){
+        if($('#display_hamper').data('hampers')){
+            mapit('#display_hamper', 'hampers', hamperMap)
+            show_total($('#display_hamper').data('hampers'))       
+            hamper_btns($('#display_hamper').data('hampers'))
+        }
+    }
+
+    init()
 })
