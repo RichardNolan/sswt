@@ -68,8 +68,15 @@
                 <div class="form-group">
                   <%= f.label :password_confirmation %>
                   <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "off", placeholder: 'Confirm your password' %>
-                </div>
+                </div>                
 
+              </div>
+
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <%= f.label :about %>
+                  <%= f.text_area(:about, id: :about, class: 'form-control') %>
+                </div>
               </div>
 
               <div class="col-lg-12">
