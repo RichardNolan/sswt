@@ -48,7 +48,7 @@ fixed-top">
               <% end %>
 
               <% if producer_signed_in? %>
-              <%= link_to("My Products", producer_products_path, class: 'dropdown-item') %>
+              <%= link_to("My Products", "/producers/#{current_producer.id}/products", class: 'dropdown-item') %>
               <div class="dropdown-divider"></div>
               <% end %>
 
