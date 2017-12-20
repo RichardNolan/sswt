@@ -1,0 +1,20 @@
+<% 
+  @products.each do |product|
+  # only show disabled products to owner or admin
+  if (product.enabled == false || product.deleted == true)  && (!producer_signed_in? || current_producer.id != @producer.id) && !admin_signed_in?
+    next
+  end
+%>
+<div class="col-md-3 col-sm-6 mb-4">
+  <%= link_to product do %>
+    <img class="img-fluid" src="<%= primary_product_image(product.id) %>" alt="<%= product.name %>">
+    <% if product.enabled == false %>
+      <div class="text-red text-center">[Disabled by Admin]</div>
+    <% end %>
+    <% if product.deleted == true %>
+      <div class="text-red text-center">[DELETED]</div>
+    <% end %>
+    <p class="text-center"><%= product.name %></p>
+  <% end %>
+</div>
+<% end %> 

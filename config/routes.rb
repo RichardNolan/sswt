@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   get 'producer/not_allowed', to: 'producers#not_allowed', as: 'producer_not_allowed'
 
 
+  # Producer Products page
+  get '/producers/:id/products', to: 'producers#products', as: 'producer_products'
+  
+
   # Hamper Items
   get 'hampers/:id/hamper_items', to: 'hampers#hamper_items'
 

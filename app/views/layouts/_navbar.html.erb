@@ -47,6 +47,11 @@ fixed-top">
               <%= link_to "My Hampers", hampers_url, class: 'dropdown-item' %>
               <% end %>
 
+              <% if producer_signed_in? %>
+              <%= link_to("My Products", producer_products_path, class: 'dropdown-item') %>
+              <div class="dropdown-divider"></div>
+              <% end %>
+
               <%= producer_signed_in? ?   link_to("My Profile", producer_path(current_producer.id), class: 'dropdown-item') : link_to("My Profile", customer_path(current_customer.id), class: 'dropdown-item') %>
 
               <%= producer_signed_in? ?   link_to("Edit Profile", edit_producer_registration_path, class: 'dropdown-item') : link_to("Edit Profile", edit_customer_registration_path, class: 'dropdown-item') %>

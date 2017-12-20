@@ -4,7 +4,7 @@ class ProducersController < ApplicationController
   before_action :authenticate_admin!, only: [:index, :destroy, :enable]
 
   # Set producer variable
-  before_action :set_producer, only: [:show, :destroy, :enable]
+  before_action :set_producer, only: [:show, :destroy, :enable, :products]
   
   
   # Index - List of Producers
@@ -15,6 +15,13 @@ class ProducersController < ApplicationController
 
   # View Producer Page
   def show
+    @products = @producer.products.all
+  end
+
+
+  # Producer Products page
+  def products
+    @products = @producer.products.all
   end
 
 
