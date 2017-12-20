@@ -1,10 +1,26 @@
 class HampersController < ApplicationController
-  before_action :set_hamper, only: [:show, :edit, :update, :destroy]
+
+  # Customer can only view own hampers || Admin can view all hampers
+  before_action :create_hamper_list, only: [:index]
+
+  # Set @hamper variable
+  before_action :set_hamper, only: [:show, :edit, :update, :destroy, :hamper_items]
+
+  # Customer (or admin) can only view own hamper_items
+  before_action :get_hamper_items, only: [:hamper_items]
+
+
+  # Get Hamper Items - Ajax Request
+  def hamper_items
+    @hamper_items = get_hamper_items
+    render :layout => false
+  end
+
 
   # GET /hampers
   # GET /hampers.json
   def index
-    @hampers = Hamper.all
+    
   end
 
   # GET /hampers/1
@@ -61,14 +77,54 @@ class HampersController < ApplicationController
     end
   end
 
+
+  # Private methods --------------------------
   private
-    # Use callbacks to share common setup or constraints between actions.
+
+    # Set @hamper variable
     def set_hamper
       @hamper = Hamper.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Permitted parameters
     def hamper_params
       params.require(:hamper).permit(:customer_id, :name, :price, :greeting)
     end
+
+
+    # Create hamper list depending on user being Customer or Admin
+    def create_hamper_list
+
+      # if not logged in...
+      if !admin_signed_in? && !customer_signed_in?
+        redirect_to root_url
+      end
+
+      # Customer List
+      if customer_signed_in?
+        @hampers = Hamper.where(:customer_id => current_customer.id)
+      end
+
+      # Admin List
+      if admin_signed_in?
+        @hampers = Hamper.all
+      end
+
+    end
+
+
+    # Customer (or admin) can only view own hamper_items
+    def get_hamper_items
+      # not admin...
+      if !admin_signed_in? 
+        if (customer_signed_in? && current_customer.id != @hamper.customer_id) || !customer_signed_in?
+          render 'producers/not_allowed'
+        end        
+      end
+
+      hamper_id = params[:id]    
+      @hamper_items = @hamper.hamper_items
+    
+    end
+
 end

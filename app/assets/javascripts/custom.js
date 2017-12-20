@@ -1,6 +1,19 @@
 $(document).ready(function(){
 
 
+    //  When Modal Opened...
+    $('#hamperModal').on('shown.bs.modal', function () {
+        
+        $.ajax({
+          url: '/hampers/' + modal_hamper_id + '/hamper_items',
+          success: function(data) {            
+            $('#modal-ajax-content').html(data);
+          }
+        });
+
+    })
+
+
     //  Visual feedback that Cart has changed
     $('#hamper_count').bind("DOMSubtreeModified",function(){
         if($(this).html() >= '1') {

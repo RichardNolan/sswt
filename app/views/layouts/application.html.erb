@@ -1,26 +1,35 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Custom Hampers</title>
-    <%= csrf_meta_tags %>
+<%= render 'layouts/header' %>
+<%= render 'layouts/navbar' %>
 
-    <%= favicon_link_tag 'favicon.ico' %>
-    
-  </head>
+<div class="container" id="main-container">
+  <p class="notice text-center"><%= notice %></p>
+  <p class="alert text-center"><%= alert %></p>
+  <%= yield %>
+</div>
+
+<div id="drawer">
+  <%= render 'hampers/session' %>
+</div>
 
 
-  <body>
-    <%= render 'layouts/header' %>
-    <%= render 'layouts/navbar' %>
+<!-- Hamper Modal -->
+<div id="hamperModal" class="modal fade modal-hamper-items" role="dialog">
+  <div class="modal-dialog">
 
-    <div class="container" id="main-container">
-      <p class="notice text-center"><%= notice %></p>
-      <p class="alert text-center"><%= alert %></p>
-      <%= yield %>
-    </div>
-      <div id="drawer">
-        <%= render 'hampers/session' %>
+    <!-- Modal content-->
+    <div class="modal-content">      
+      <div class="modal-body">
+        <div id="modal-ajax-content">          
+        </div>
       </div>
-    <%= render 'layouts/footer' %>
-  </body>
-</html>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<%= render 'layouts/footer' %>
+
+

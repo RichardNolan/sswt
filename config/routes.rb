@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   # Producer not allowed
   get 'producer/not_allowed', to: 'producers#not_allowed', as: 'producer_not_allowed'
 
+
+  # Hamper Items
+  get 'hampers/:id/hamper_items', to: 'hampers#hamper_items'
+
   
   # Devise routes
   devise_for :admins#, :skip => [:registrations]

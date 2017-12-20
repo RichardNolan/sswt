@@ -1,0 +1,21 @@
+<h4><%= @hamper.name %></h4>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hamper_items.each do |hamper_item| %>
+      <tr>        
+        <td><%= Product.find(hamper_item.product_id).name %></td>
+        <td><%= hamper_item.quantity %></td>
+        <td><%= hamper_item.price_when_ordered %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
