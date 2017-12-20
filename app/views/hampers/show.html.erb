@@ -20,5 +20,12 @@
   <%= @hamper.greeting %>
 </p>
 
+<p>
+  <strong>Items:</strong><br>
+  <% @hamper.hamper_items.each do |item| %>
+    <%= product_name(item.product_id) %><br>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_hamper_path(@hamper) %> |
 <%= link_to 'Back', hampers_path %>

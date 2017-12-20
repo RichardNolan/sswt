@@ -18,6 +18,9 @@ module ApplicationHelper
 		(primary_image = primary_image.src if primary_image) || "/images/placeholder.jpg"
 	end
 	
+	def product_name id
+		return Product.find(id).name
+	end	
 	
 	def currency(num)
 		num = 0 if !num

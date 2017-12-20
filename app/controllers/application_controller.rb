@@ -32,12 +32,54 @@ class ApplicationController < ActionController::Base
 
   end
 
+  def get_hamper id
+    return Hamper.find(id)
+  end
+	
+	def create_hamper(val)
+		return  Hamper.create({
+              customer_id:(val[:customer_id] || 0), 
+              name:(val[:name] || "My Hamper"), 
+              price: (val[:price] || 0), 
+              greeting:(val[:greeting] || "")
+            })
+  end
+
+  def create_hamper_item(val, hamper)
+    return  hamper.hamper_items.create(
+              product_id: (val['product_id'] || val[:product_id]),  
+              price_when_ordered: (val['price'] || val[:price]), 
+              quantity: (val['quantity'] || val[:quantity])
+            )
+  end
+
+  def price_multiple_hampers hampers
+    return hampers.reduce(0) do | total, hamper |
+      total += price_hamper(hamper)
+    end
+  end
+
+  def price_hamper hamper
+    return hamper.hamper_items.reduce(0) do | total, item |
+      total += (item.price_when_ordered * item.quantity)
+    end
+  end
 
   protected
-    #def county_list
-      # populate @counties instance variable
-      #@counties = County.order('name ASC').all
-    #end
+
+    def after_sign_in_path_for(customer)
+      # this function redirects the signed in customer to their profile
+      if session['hamper0'].length>0 then
+        hamper = create_hamper({customer_id:current_customer.id, name:"Default"})
+        if hamper then
+          session['hamper0'].each do |item|
+            hamper_item = create_hamper_item({product_id:(item['id'] || item[:id]), price: (item['p'] || item[:p]), quantity: (item['q'] || item[:q])}, hamper)
+          end
+        end
+        session.delete('hamper0')
+      end
+      signed_in_root_path(resource)
+    end
 
     def configure_permitted_parameters
       # this allows the following parameters to be permitted, devise advises this goes here

@@ -25,6 +25,12 @@ $(document).ready(function(){
     });
 
 
+    // Take a dom ref, data, and a mapFunction
+    // runs the data through the map function creating HTML
+    // places the HTML into the ref object
+    // data can be a string value of a data attribute containing the data
+    // this is how initial data is loaded
+    // further calls can pass data from an ajax call
     function mapit(ref, data, mapFunc){
         if (typeof data == 'string') data = $(ref).data(data) || []
         $(ref).html("")
@@ -32,20 +38,34 @@ $(document).ready(function(){
         html.forEach(function(item){
             $(ref).append(item)
         })
-
     }
 
-    var hamperMap = function(item){
-        var str = "" 
-            str += "<h4>"+item.q+" x "+item.name+"</h4>"
-            str += "<p>@ €"+item.p.toFixed(2)+" = <strong>€"+(item.q*item.p).toFixed(2)+"</strong></p>"
+    // a mapping function for mapit above
+    // this one expects iterations over a collection of hampers
+    var hamperMap = function(hamper){
+        hamper_price = 0
+        var str = "<hr>" 
+            str += "<h4>" + (hamper.name || "My Hamper") + "</h4>"
+            for(item in hamper.hamper_items){
+                hamper_price += (hamper.hamper_items[item].price_when_ordered * hamper.hamper_items[item].quantity)
+                str += "<h5>" + hamper.hamper_items[item].quantity + " x " + hamper.hamper_items[item].product.name+"</h5>"
+                str += "<p>@ €" + hamper.hamper_items[item].price_when_ordered.toFixed(2) + " = <strong>€" + (hamper.hamper_items[item].quantity * hamper.hamper_items[item].price_when_ordered).toFixed(2) + "</strong></p>"
+            }
+            str += "<h5 class='danger'>Total: €" + hamper_price.toFixed(2) + "</h5>"
         return str
     }
 
-    mapit('#session_hamper', 'hamper', hamperMap)
-    $('#hamper_count').html($('#session_hamper').data('hamper').length)
+    // just counts whats given to it and diaplys it on nav_bar
+    function show_total(from){
+        var total_products = from ? from.reduce(function(total, hamper){
+            return total += hamper.length
+        }, 0) : 0
+        var total_hampers = from ? from.length : 0
 
+        $('#hamper_count').html(total_hampers || 0)  // or total_products ???
+    }
 
+    
     $('a').bind('ajax:success', function(event, data, status, xhr) {
         console.log('a ajax')
         $like = $(this).closest('.like_btn')
@@ -72,11 +92,16 @@ $(document).ready(function(){
         var quantity = $(this).closest(".add-group").children('.quantity').val() || 1 
           
           if($(this).data("do")=="NEW_HAMPER"){
-              var hamper_name = prompt("What do you want to call this hamper?") || "My Hamper"
-              create_hamper(hamper_name, function(hamper_id){
-                  create_hamper_item(hamper_id, product_id, quantity, price)
-              })
-              return false
+            var hamper_name = prompt("What do you want to call this hamper?")
+            $(this).closest('.btn-group').children('.dropdown-toggle').click()
+            if(hamper_name){
+                create_hamper(hamper_name, function(hamper_id){
+                    create_hamper_item(hamper_id, product_id, quantity, price)
+                })
+                return false
+            }else{
+                return false
+            }
           }
           create_hamper_item(hamper_id, product_id, quantity, price)
       });
@@ -87,7 +112,6 @@ $(document).ready(function(){
     $('.empty').on('click', function(){
         if(confirm("Are you sure you want to discard everything in this hamper?")){
             var hamper_id = $(this).data("hamper") || 0
-
             $.ajax({
                 type: "POST",
                 url: "/hamper/empty",
@@ -115,9 +139,14 @@ $(document).ready(function(){
     }
 
     var hamperResult = function(data, textStatus, res){
-        var hamper = JSON.parse(res.getResponseHeader('Hamper'))
-        mapit('#session_hamper', hamper, hamperMap)
-        $('#hamper_count').html(hamper ? hamper.length : 0)
+        var hampers = JSON.parse(res.getResponseHeader('Hampers'))
+        $('.add-menu').html("")
+        for(hamper in hampers){
+            $('.add-menu').append("<button class='dropdown-item add' type='button' data-hamper='"+hampers[hamper].id+"'>"+hampers[hamper].name+"</button>")
+        }
+        mapit('#display_hamper', hampers, hamperMap)
+        show_total(hampers)
+        hamper_btns(hampers)
     }
 
 
@@ -127,7 +156,8 @@ $(document).ready(function(){
             url: "/hamper/createhamper",
             data: { hamper_name: hamper_name },
             success:function(data, textStatus, res){
-                cb(res.getResponseHeader('hamper-id'))
+                var hamper = JSON.parse(res.getResponseHeader('hamper'))
+                cb(hamper.id)
             },
             error:function(err){
                 console.log(err.responseText)
@@ -135,7 +165,21 @@ $(document).ready(function(){
         });
     }
 
-
+    function hamper_btns(hampers){    
+        disabled = !(hampers && hampers.length>0)
+        console.log(disabled)
+        if(disabled){
+            $( "#btn_clear_hamper" ).prop( "disabled", true );
+            $('#btn_clear_hamper').addClass('disabled')
+            $('#btn_manage_hampers').addClass('disabled')
+            $('#btn_checkout').addClass('disabled')
+        }else{
+            $( "#btn_clear_hamper" ).prop( "disabled", false );
+            $('#btn_clear_hamper').removeClass('disabled')
+            $('#btn_manage_hampers').removeClass('disabled')
+            $('#btn_checkout').removeClass('disabled')
+        }
+    }
 
     $('.btn-drawer').on('click', function(e){
         e.preventDefault()
@@ -144,4 +188,15 @@ $(document).ready(function(){
         // DEPENDING ON THE CHOSEN STYLE FOR THE DRAWER THIS MIGHT BE DISABLED
         $('#main-container').toggleClass("showme")
     })
+
+    // This is an initiation
+    function init(){
+        if($('#display_hamper').data('hampers')){
+            mapit('#display_hamper', 'hampers', hamperMap)
+            show_total($('#display_hamper').data('hampers'))       
+            hamper_btns($('#display_hamper').data('hampers'))
+        }
+    }
+
+    init()
 })

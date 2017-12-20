@@ -39,12 +39,15 @@ Rails.application.routes.draw do
   # session hamper add and empty
   post 'hamper_item/add',    to: 'hamper_items#add',   as: 'add_to_hamper'
   post 'hamper/empty',  to: 'hamper_items#empty', as: 'empty_hamper'
+  post 'hamper/data',  to: 'hamper_items#get_hamper_data'
   
   # dont allow default edit profile url
   get '/producers/:id/edit', to: 'producers#not_allowed'
   get '/customers/:id/edit', to: 'producers#not_allowed'
 
   post 'hamper/createhamper', to: 'hampers#create_hamper'
+
+  get '/orders/verify', to: 'orders#verify'
 
   # Scaffold resources      
   resources :orders
@@ -60,7 +63,9 @@ Rails.application.routes.draw do
   resources :producers
   resources :products
 
-  
+  ##  QUESTION
+  ##  SHOULD THESE BE ABOVE THE RESOURCES?
+
   # Disable Producer
   delete '/producers/:id', to: 'producers#destroy'
 

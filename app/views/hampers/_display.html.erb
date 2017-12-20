@@ -1,0 +1,39 @@
+<button type="button" class="btn btn-danger btn-sm float-right btn-drawer">X</button>
+      <%
+        if !customer_signed_in? then
+              session['hamper0'] ||= []
+     
+              # THIS IS THE SAME FUNCTIONALITY AS A THE ACTION
+              # convert_session_hamper_into_hash() in hamper_items_controller
+              # I will look at abstracting this to an action in application_controller
+              # when the rest of the hampers and cart is finished
+                price = 0
+                hamper_items = session['hamper0'].collect do |item| 
+                  id = item['id'] || item[:id]
+                  q = item['q'] || item[:q]
+                  p = item['p'] || item[:p]
+                  h = item['h'] || item[:h]
+                  price += (p * q)
+                  product = {name: Product.find(id).name || 'unknown'}
+                  item = item.merge({product: product, product_id:id, quantity:q, price_when_ordered:p, hamper_id:h})
+                end
+                hampers = hamper_items.length>0 ? [{name:"My Hamper", price:price, greeting:"", hamper_items:hamper_items}]  : []  
+        else
+              hampers = Hamper.where('customer_id = ?', current_customer.id).to_json(:include => { :hamper_items => {  :include => { :product => {:only => :name } } } }) || []
+              hamper_ids = Hamper.where('customer_id = ?', current_customer.id).to_json({:only => :id })
+        end 
+      %>
+
+      
+      <%= content_tag "div", id: "display_hamper", data:{ hampers: hampers } do %>
+        Loading products...
+      <% end %>
+
+<% disabled = hampers.length>0 ? "" : 'disabled' %>  
+
+<% if customer_signed_in? then %>      
+  <a href="/hampers" id="btn_manage_hampers" class="btn btn-primary <%= disabled %>" role="button" aria-pressed="true">Manage</a>
+<% else %>
+  <button id="btn_clear_hamper" class="btn btn-primary empty <%= disabled %>">Clear</button>
+<% end %>
+<a href="/orders/verify" id="btn_checkout" class="btn btn-primary <%= disabled %>" role="button" aria-pressed="true">Checkout</a>

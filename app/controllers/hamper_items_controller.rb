@@ -8,10 +8,10 @@ class HamperItemsController < ApplicationController
     # id = product.id
     # q = quantity
     # p = price
-    hamper_id = params['hamper_id'].to_i
-    quantity = params['quantity'].to_i
-    price = params['price'].to_f
-    product_id = params['product_id'].to_i
+    hamper_id = params['hamper_id'].to_i || 0
+    quantity = params['quantity'].to_i || 1
+    price = params['price'].to_f || 0
+    product_id = params['product_id'].to_i || 0
 
     if(!customer_signed_in?)then
         # create a string name for the session which includes the hamper id
@@ -35,31 +35,54 @@ class HamperItemsController < ApplicationController
         # add the item to the array if not already in the hamper
         session[hamper].push( {h: hamper_id, id: product_id, q: quantity, p: price} ) if !already_in_hamper
 
-        # with the small session saved we add some extra data required for the hamper view, like product name
-        full_session = session[hamper].collect do |item| 
-          id = item['id'] || item[:id]
-          name = Product.find(id).name || 'unknown'
-          item = item.merge({name: name})
-        end
-        
-        # respond ok and return the hamper
-        head :ok, hamper: full_session.to_json, format: :json
+        hamper_data = convert_session_hamper_into_hash(hamper).to_json
+
       else
-        HamperItem.create({hamper_id: hamper_id, price_when_ordered: price.to_f, product_id: product_id, quantity: quantity })
-        # respond ok and return the hamper
-        head :ok
+        hamper_item = create_hamper_item({product_id:product_id, price: price, quantity: quantity}, get_hamper(hamper_id))
+        hampers = Hamper.where('customer_id = ?', current_customer.id)
+        hamper_data = hampers.to_json(:include => { :hamper_items => {  :include => { :product => {:only => :name } } } })
       end
+      # respond ok and return the hamper
+      head :ok, hampers: hamper_data, format: :json
   end
 
   def empty
-    hamper_id = params[:hamper_id] || 0
-    # get session name from passed hamper id
-    hamper = 'hamper'+hamper_id.to_s
+    hamper_id = params[:hamper_id].to_i
     # delete it from session object
-    session.delete(hamper) if hamper=='hamper0'
+    puts hamper_id
+    if hamper_id == 0 then
+      session.delete('hamper0') 
+    else
+      hamper = Hamper.find(hamper_id)
+      hamper.destroy if(hamper)
+    end
     # respond ok and return what should be an empty array
-    head :ok, hamper: session[hamper].to_json, format: :json
+    head :ok, hamper: [].to_json, format: :json
   end
+
+  # RETURNS A JSON VERSION OF THE HAMPERS BELONGING TO THE CUSTOMER - FROM EITHER THE SESSION OR DB
+  def get_hamper_data
+    hamper_data = convert_session_hamper_into_hash("hamper0") if(!customer_signed_in?)
+    hamper_data = Hamper.where('customer_id = ?', current_customer.id).to_json(:include => { :hamper_items => {  :include => { :product => {:only => :name } } } }) if(customer_signed_in?)
+    head :ok, hampers: hamper_data, format: :json
+  end
+
+  def convert_session_hamper_into_hash(hamper)
+    session[hamper] ||= []
+    price = 0
+    # with the small session saved we add some extra data required for the hamper view, like product name
+    hamper_items = session[hamper].collect do |item| 
+      id = item['id'] || item[:id]
+      q = item['q'] || item[:q]
+      p = item['p'] || item[:p]
+      h = item['h'] || item[:h]
+      price += (p * q)
+      product = {name: Product.find(id).name || 'unknown'}
+      item = item.merge({product: product, product_id:id, quantity:q, price_when_ordered:p, hamper_id:h})
+    end
+    return [{name:"My Hamper", price: price, greeting:"", hamper_items:hamper_items}]
+  end
+
 
   # GET /hamper_items
   # GET /hamper_items.json
