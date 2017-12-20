@@ -19,8 +19,11 @@
                 end
                 hampers = hamper_items.length>0 ? [{name:"My Hamper", price:price, greeting:"", hamper_items:hamper_items}]  : []  
         else
-              hampers = Hamper.where('customer_id = ?', current_customer.id).to_json(:include => { :hamper_items => {  :include => { :product => {:only => :name } } } }) || []
-              hamper_ids = Hamper.where('customer_id = ?', current_customer.id).to_json({:only => :id })
+              #hampers = Hamper.where('customer_id = ?', current_customer.id).to_json(:include => { :hamper_items => {  :include => { :product => {:only => :name } } } }) || []
+              hampers = Hamper.where('customer_id = ? AND ordered = ?', current_customer.id, false).to_json(:include => { :hamper_items => {  :include => { :product => {:only => :name } } } }) || []
+              
+              #hamper_ids = Hamper.where('customer_id = ?', current_customer.id).to_json({:only => :id })
+              hamper_ids = Hamper.where('customer_id = ? AND ordered = ?', current_customer.id, false).to_json({:only => :id })
         end 
       %>
 

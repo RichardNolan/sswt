@@ -17,6 +17,10 @@ class CustomersController < ApplicationController
 
   # View Customer Page
   def show
+    if customer_signed_in?
+      @hampers = Hamper.where("customer_id = ? AND ordered = ?", current_customer.id, false)
+      @orders = Order.where("customer_id = ?", current_customer.id)
+    end
   end
 
 

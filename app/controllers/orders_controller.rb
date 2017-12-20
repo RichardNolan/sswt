@@ -38,7 +38,8 @@ class OrdersController < ApplicationController
 
   def verify
     if(customer_signed_in?) then
-      @order = Hamper.where('customer_id = ?', current_customer.id)
+      # @order = Hamper.where('customer_id = ?', current_customer.id)
+      @order = Hamper.where('customer_id = ? AND ordered = ?', current_customer.id, false)
       @total = price_multiple_hampers(@order) 
       @order.collect do | hamper |
         hamper.price = price_hamper(hamper)
@@ -75,36 +76,12 @@ class OrdersController < ApplicationController
     end
   end
 
-
-###################################################
-######  BELOW ARE THE ACTIONS FOR CREATING  #######
-######  ENTITIES FOR UNREGISTERED CUSTOMERS #######
-###################################################
-
-  # def create_unregistered_hamper 
-  #   return Hamper.create({
-  #                 customer_id:0, 
-  #                 name:"My Hamper", 
-  #                 price: @order.price, 
-  #                 greeting:""
-  #               })
-  # end
-
   def create_order_item(hamper)
     return OrderItem.create({
                   hamper_id:hamper.id, 
                   order_id:@order.id
                 })
   end
-
-  # def create_unregistered_hamper_item(item, hamper)
-  #   return HamperItem.create({
-  #                 hamper_id: hamper.id,
-  #                 product_id: item['id'], 
-  #                 price_when_ordered: item['p'], 
-  #                 quantity: item['q'], 
-  #               })
-  # end
 
   def create_order
       @order = Order.create({
@@ -133,7 +110,8 @@ class OrdersController < ApplicationController
         custom_error
       end
     else
-      hampers = Hamper.where('customer_id = ?', current_customer.id)
+      # hampers = Hamper.where('customer_id = ?', current_customer.id)
+      hampers = Hamper.where('customer_id = ? AND ordered = ?', current_customer.id, false)
       hampers.each do | hamper |
         @order_item = create_order_item(hamper) if @order && hamper
       end 

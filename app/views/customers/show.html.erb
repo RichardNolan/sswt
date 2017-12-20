@@ -62,9 +62,12 @@
       <div class="card">
         <h4 class="card-header">Hampers</h4>
         <div class="card-body">
-            
-          ...hampers
-
+          <% @customer.hampers.length %>
+          <% @hampers.each do |hamper| %> 
+            <%= hamper.name %> 
+            <%= link_to 'Edit', edit_hamper_path(hamper) %>
+            <%= link_to 'Delete', hamper, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
         </div>        
       </div>
     </div>
@@ -75,8 +78,16 @@
       <div class="card">
         <h4 class="card-header">Orders</h4>
         <div class="card-body">
-            ...orders
-
+          <ul>
+          <% @orders.each do |order| %>  
+            <li><%= order.updated_at %> <%= link_to 'Delete', order, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+              <ul>
+                <% order.order_items.each do |item| %>
+                  <li><%= item.hamper.name %></li>
+                <% end %>
+              </ul>
+          <% end %>
+          </ul>
         </div>        
       </div>
     </div>

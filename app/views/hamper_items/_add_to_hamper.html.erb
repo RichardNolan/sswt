@@ -4,7 +4,8 @@
       <% 
       if customer_signed_in? then 
         
-        @hampers = Hamper.where(:customer_id => current_customer[:id])  
+        # @hampers = Hamper.where(:customer_id => current_customer[:id]) 
+        @hampers = Hamper.where('customer_id = ? AND ordered = ?', current_customer.id, false) 
       
       %>
         <div class="btn-group" role="group">

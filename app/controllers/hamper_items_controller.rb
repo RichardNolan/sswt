@@ -39,8 +39,11 @@ class HamperItemsController < ApplicationController
 
       else
         hamper_item = create_hamper_item({product_id:product_id, price: price, quantity: quantity}, get_hamper(hamper_id))
-        hampers = Hamper.where('customer_id = ?', current_customer.id)
-        hamper_data = hampers.to_json(:include => { :hamper_items => {  :include => { :product => {:only => :name } } } })
+        # hampers = Hamper.where('customer_id = ?', current_customer.id)
+              # hampers = Hamper.where("customer_id = ? AND ordered = ?", current_customer.id, false)
+              # hamper_data = hampers.to_json(:include => { :hamper_items => {  :include => { :product => {:only => :name } } } })
+        # refactor of above two lines
+        hamper_data = Hamper.where("customer_id = ? AND ordered = ?", current_customer.id, false).to_json(:include => { :hamper_items => {  :include => { :product => {:only => :name } } } })
       end
       # respond ok and return the hamper
       head :ok, hampers: hamper_data, format: :json
@@ -63,7 +66,8 @@ class HamperItemsController < ApplicationController
   # RETURNS A JSON VERSION OF THE HAMPERS BELONGING TO THE CUSTOMER - FROM EITHER THE SESSION OR DB
   def get_hamper_data
     hamper_data = convert_session_hamper_into_hash("hamper0") if(!customer_signed_in?)
-    hamper_data = Hamper.where('customer_id = ?', current_customer.id).to_json(:include => { :hamper_items => {  :include => { :product => {:only => :name } } } }) if(customer_signed_in?)
+    # hamper_data = Hamper.where('customer_id = ?', current_customer.id).to_json(:include => { :hamper_items => {  :include => { :product => {:only => :name } } } }) if(customer_signed_in?)
+    hamper_data = Hamper.where('customer_id = ? AND ordered = ?', current_customer.id, false).to_json(:include => { :hamper_items => {  :include => { :product => {:only => :name } } } }) if(customer_signed_in?)
     head :ok, hampers: hamper_data, format: :json
   end
 

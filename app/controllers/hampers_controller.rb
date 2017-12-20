@@ -113,7 +113,8 @@ class HampersController < ApplicationController
 
       # Customer List
       if customer_signed_in?
-        @hampers = Hamper.where(:customer_id => current_customer.id)
+        # @hampers = Hamper.where(:customer_id => current_customer.id)
+        @hampers = Hamper.where("customer_id = ? AND ordered = ?", current_customer.id, false)
       end
 
       # Admin List
