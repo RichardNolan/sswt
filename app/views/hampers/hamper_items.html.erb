@@ -6,6 +6,7 @@
       <th>Product</th>
       <th>Quantity</th>
       <th>Price</th>
+      <th>Manage</th>
     </tr>
   </thead>
 
@@ -15,6 +16,14 @@
         <td><%= Product.find(hamper_item.product_id).name %></td>
         <td><%= hamper_item.quantity %></td>
         <td><%= hamper_item.price_when_ordered %></td>
+        <td>
+          <% if @hamper.ordered != true %>
+            <%= link_to 'Delete Product', "/hampers/#{hamper_item.id}/removeitem", class: 'btn btn-sm btn-danger', method: :put, data: { confirm: 'Are you sure you want to delete this hamper?' } %>
+          <% end %>
+          <% if @hamper.ordered == true %>
+            Hamper Ordered
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   # Hamper Items
   get 'hampers/:id/hamper_items', to: 'hampers#hamper_items'
 
+  # Remove Hamper Item
+  put '/hampers/:id/removeitem', to: 'hampers#delete_hamper_item'
+
   
   # Devise routes
   devise_for :admins#, :skip => [:registrations]
