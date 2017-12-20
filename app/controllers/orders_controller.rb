@@ -90,7 +90,7 @@ class OrdersController < ApplicationController
   #               })
   # end
 
-  def create_unregistered_order_item(hamper)
+  def create_order_item(hamper)
     return OrderItem.create({
                   hamper_id:hamper.id, 
                   order_id:@order.id
@@ -106,9 +106,9 @@ class OrdersController < ApplicationController
   #               })
   # end
 
-  def create_unregistered_order
+  def create_order
       @order = Order.create({
-              customer_id: 0, 
+              customer_id: current_customer.id || 0, 
               price: (params[:price].to_i * 100).to_i, 
               delivery_first_name: params[:firstname],
               delivery_last_name: params[:lastname],
@@ -120,9 +120,10 @@ class OrdersController < ApplicationController
               delivery_stripeTokenType: params[:stripeTokenType],
               delivery_stripeEmail: params[:stripeEmail]
             })
-      hamper = create_hamper({price: @order.price}) if @order
 
-      @order_item = create_unregistered_order_item(hamper) if @order && hamper
+    if !customer_signed_in? then
+      hamper = create_hamper({price: @order.price}) if @order
+      @order_item = create_order_item(hamper) if @order && hamper
       if hamper && @order then
         session['hamper0'].each do |item|
           hamper_item = create_hamper_item({product_id:item['id'], price:item['p'], quantity:item['q']}, hamper)
@@ -131,32 +132,28 @@ class OrdersController < ApplicationController
       else
         custom_error
       end
-      create_charge
+    else
+      hampers = Hamper.where('customer_id = ?', current_customer.id)
+      hampers.each do | hamper |
+        @order_item = create_order_item(hamper) if @order && hamper
+      end 
+    end
+
+    create_charge
   end
 
   
   # POST /orders
   # POST /orders.json
   def create
-    if !customer_signed_in? then
-      create_unregistered_order 
+
+      create_order 
+      session.delete('hamper0') if(session['hamper0'])
+      @order.order_items.each do |item|
+        item.hamper.update(ordered: true)
+      end 
       redirect_to @order, notice: 'Order was successfully created.'
-      reset_session
-      return false
-    end
-    puts '#############'
-puts order_params
-puts '############'
-    @order = Order.new(order_params)
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
-    end    
+
   end
 
   # PATCH/PUT /orders/1
