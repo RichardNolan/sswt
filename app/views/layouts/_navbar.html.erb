@@ -89,11 +89,12 @@ fixed-top">
           
         <% end %>
 
-
+        <% if !producer_signed_in? && !admin_signed_in? %>
         <li class="nav-item basket">
           <a href="" class="nav-link btn-drawer" id="hamper_count" title="Shopping Cart">0</a>
         </li>
-
+        <% end %>
+        
       </ul>
 
 

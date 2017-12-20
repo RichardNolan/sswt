@@ -55,7 +55,11 @@
               <p class="card-text"><%= product.description %></p>
             </div>
             <div class="card-footer text-muted">
-              <%= render 'hamper_items/add_to_hamper', product: product %>
+
+              <% if !producer_signed_in? && !admin_signed_in? %>
+                <%= render 'hamper_items/add_to_hamper', product: product %>
+              <% end %>
+
               <%= render partial: '/products/likes', locals:{product: product}%>
             </div>
           </div>
