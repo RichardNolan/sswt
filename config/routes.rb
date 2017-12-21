@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
-
   # Root Page
   root 'welcome#index'
   
+  get 'admins/sign_up', to: 'welcome#index'
   # Producer not allowed
   get 'producer/not_allowed', to: 'producers#not_allowed', as: 'producer_not_allowed'
 
