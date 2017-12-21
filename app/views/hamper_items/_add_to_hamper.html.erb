@@ -10,18 +10,22 @@
       %>
         <div class="btn-group" role="group">
           <button id="add_button_<%= product.id %>" type="button" class="btn btn-add-to-cart dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Add
+            Buy
           </button>
-          <div class="dropdown-menu" aria-labelledby="add_button_<%= product.id %>">
+          <div class="dropdown-menu" aria-labelledby="add_button_<%= product.id %>" style="width:250px">
             <div class="add-menu">
-            <% @hampers.each do |item| %>
-              <button class="dropdown-item add" type="button" data-hamper="<%= item.id %>"><%= item.name %></button>
-            <% end %>
+              
+              <small class="pl20">Choose a hamper:</small>
+              <% @hampers.each do |item| %>
+                <button class="dropdown-item add" type="button" data-hamper="<%= item.id %>" style="cursor:pointer"><%= item.name %></button>
+              <% end %>
             </div>
             <div class="dropdown-divider"></div>
-            <div style="text-align:center">
-              <button class="btn btn-primary add new_hamper" type="button" data-do="NEW_HAMPER" data-id="<%= product.id %>" data-price="<%= product.price %>">New</button>
-              <a href="/hampers" class="btn btn-primary" role="button" aria-pressed="true">Edit</a>
+            <div class="pl20">
+              <button class="btn btn-sm btn-success add new_hamper" type="button" data-do="NEW_HAMPER" data-id="<%= product.id %>" data-price="<%= product.price %>">New hamper</button>
+              
+              <a href="/hampers" class="btn btn-sm btn-warning" role="button" aria-pressed="true">View hampers</a>
+              
             </div>
           </div>
         </div>
@@ -29,7 +33,7 @@
       <% else %>
 
         <span class="input-group-btn">
-          <button class="btn btn-add-to-cart btn-sm add" type="button">Add</button>
+          <button class="btn btn-add-to-cart btn-sm add" type="button">Buy</button>
         </span>
 
       <% end %>
