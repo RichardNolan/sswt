@@ -69,7 +69,6 @@ Rails.application.routes.draw do
   resources :product_likes
   resources :customers  
   resources :categories
-  resources :product_images
   resources :producers
   resources :products
 
