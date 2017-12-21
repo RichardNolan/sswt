@@ -8,8 +8,7 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :destroy, :enable]
   
 
-
-    # Index - List of Producers
+  # Index - List of Producers
   def index
     @customers = Customer.all
   end
@@ -17,13 +16,14 @@ class CustomersController < ApplicationController
 
   # View Customer Page
   def show
+    # Only customer (owner) or Admin can view customer page
     if (customer_signed_in? && current_customer.id == @customer.id) || admin_signed_in?
       @hampers = Hamper.where("customer_id = ? AND ordered = ?", @customer.id, false)
       @orders = Order.where("customer_id = ?", @customer.id)      
+    # Redirect to root page if not authorized to view customer page
     elsif (!customer_signed_in? && !admin_signed_in?) || (customer_signed_in? && @customer.id != current_customer.id && !admin_signed_in?) 
       redirect_to root_url    
     end
-      
   end
 
 
