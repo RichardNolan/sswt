@@ -48,11 +48,16 @@ class ProducersController < ApplicationController
   end
 
   def orders
-    @producer_orders = HamperItem
-                          .select('hamper_items.id, products.name, products.producer_id')
-                          .joins(:product)
-                          .where('products.producer_id = ?', current_producer.id) # this should be the last
-    @json = HamperItem.all.to_json(:include => { :product => {:include => :producer}   })
+    # this returns an array of the ids of all the producers products
+    producer_products = Product.where('producer_id = ?', current_producer.id).pluck(:id)
+    # use the array to query all hamper_items containing an item from the array
+    @producer_hamper_items = HamperItem.where(product_id: producer_products)
+
+    # using pluck again we get the ids of all the hampers containing these items
+    hamper_ids = @producer_hamper_items.pluck(:hamper_id)
+    # use the array to get the ordered hampers
+    @producer_orders = Hamper.where(id: hamper_ids, ordered: true).order(updated_at: :desc)
+
   end
   
 

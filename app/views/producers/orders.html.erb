@@ -1,7 +1,12 @@
-<% #@producer_orders.each do |hamper_item|  %>
+<h2>Orders of your products</p>
 
-<% #hamper_item.producer.name%>
-
-<% #end %>
-
-<%= @producer_orders.to_json %>
+<% @producer_orders.each do |hamper| %>
+    <h4>Ordered on: <%= hamper.updated_at %></h4>
+    <ul>
+        <% @producer_hamper_items.each do |hamper_item|  %>
+            <% if hamper_item.hamper_id == hamper.id %>
+                <li><%= hamper_item.quantity %> x <%= product_name(hamper_item.product_id) %> @ <%= currency(hamper_item.price_when_ordered) %><br>
+            <% end %>
+        <%end%>
+    </ul>
+<% end %>
