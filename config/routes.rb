@@ -66,7 +66,7 @@ Rails.application.routes.draw do
   resources :order_items
   resources :hampers
   resources :hamper_items
-  resources :product_likes
+  
   resources :customers  
   resources :categories
   resources :producers
