@@ -36,7 +36,10 @@ fixed-top">
 
 
               <% if producer_signed_in? %>
-              <div class="dropdown-item"><%= current_producer.name %></div>
+              <div class="dropdown-item"><%= current_producer.name %></div> 
+              
+              <div class="dropdown-divider"></div>
+              <a href="/producer/orders" class='dropdown-item'>Orders</a>
               <div class="dropdown-divider"></div>
               <%= link_to "Upload Product", '/products/new', class: 'dropdown-item' %>              
               <% end %>
@@ -56,6 +59,7 @@ fixed-top">
               <%= producer_signed_in? ?   link_to("My Profile", producer_path(current_producer.id), class: 'dropdown-item') : link_to("My Profile", customer_path(current_customer.id), class: 'dropdown-item') %>
 
               <%= producer_signed_in? ?   link_to("Edit Profile", edit_producer_registration_path, class: 'dropdown-item') : link_to("Edit Profile", edit_customer_registration_path, class: 'dropdown-item') %>
+            
               <div class="dropdown-divider"></div>
               <%= producer_signed_in? ?   link_to("Sign Out", destroy_producer_session_path, method: :delete, class: 'dropdown-item') : link_to("Sign Out", destroy_customer_session_path, method: :delete, class: 'dropdown-item') %>
             </div>

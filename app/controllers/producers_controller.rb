@@ -12,7 +12,6 @@ class ProducersController < ApplicationController
     @producers = Producer.all
   end
 
-
   # View Producer Page
   def show
     @products = @producer.products.all
@@ -48,7 +47,16 @@ class ProducersController < ApplicationController
   def not_allowed
   end
 
+  def orders
+    @producer_orders = HamperItem
+                          .select('hamper_items.id, products.name, products.producer_id')
+                          .joins(:product)
+                          .where('products.producer_id = ?', current_producer.id) # this should be the last
+    @json = HamperItem.all.to_json(:include => { :product => {:include => :producer}   })
+  end
   
+
+
   # Private ------------------------------------------------------------
   private
 
