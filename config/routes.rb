@@ -47,12 +47,14 @@ Rails.application.routes.draw do
   post 'hamper_item/add',    to: 'hamper_items#add',   as: 'add_to_hamper'
   post 'hamper/empty',  to: 'hamper_items#empty', as: 'empty_hamper'
   post 'hamper/data',  to: 'hamper_items#get_hamper_data'
-  
+ 
+  post 'hamper/createhamper', to: 'hampers#create_hamper' 
+
   # dont allow default edit profile url
   get '/producers/:id/edit', to: 'producers#not_allowed'
   get '/customers/:id/edit', to: 'producers#not_allowed'
 
-  post 'hamper/createhamper', to: 'hampers#create_hamper'
+  get '/producer/orders',     to: 'producers#orders'
 
   get '/orders/verify', to: 'orders#verify'
 
