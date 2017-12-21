@@ -26,7 +26,7 @@ class ProductsController < ApplicationController
     @keyword = ActionController::Base.helpers.sanitize(params[:query]) if params[:query]
     
     if @keyword
-      @products = Product.where('(name LIKE ? OR description LIKE ?) AND enabled = ? AND deleted = ?', "%#{@keyword}%", "%#{@keyword}%", true, false)
+      @products = Product.where('(name ILIKE ? OR description ILIKE ?) AND enabled = ? AND deleted = ?', "%#{@keyword}%", "%#{@keyword}%", true, false)
     else
       @products = Product.where('enabled = ?', true)
     end
