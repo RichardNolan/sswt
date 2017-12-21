@@ -1,16 +1,26 @@
 $(document).ready(function(){
 
 
-    //  When Modal Opened...
-    $('#hamperModal').on('shown.bs.modal', function () {
-        
+
+    //  When Order Modal Opened...
+    $('#orderModal').on('shown.bs.modal', function () {        
+        $.ajax({
+          url: '/orders/' + modal_order_id + '/order_items',
+          success: function(data) {            
+            $('.modal-ajax-content').html(data);
+          }
+        });
+    })
+
+
+    //  When Hamper Modal Opened...
+    $('#hamperModal').on('shown.bs.modal', function () {        
         $.ajax({
           url: '/hampers/' + modal_hamper_id + '/hamper_items',
           success: function(data) {            
-            $('#modal-ajax-content').html(data);
+            $('.modal-ajax-content').html(data);
           }
         });
-
     })
 
 

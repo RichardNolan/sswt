@@ -17,15 +17,40 @@
           <% if admin_signed_in? %>
             <th>Customer</th>
           <% end %>
-          <th>Order ID:</th>          
+          <th>Order ID:</th>                
+          <th>Order Date</th>
+          <th>Number of Products</th>
           <th>Total</th>
-          <th>Date</th>
           <th>&nbsp;</th>
         </tr>
       </thead>
 
       <tbody>
         <% @orders.each do |order| %>
+          <% 
+          # Order Total
+          order_total = 0
+
+          # Total Products
+          total_products = 0
+
+          order.order_items.each do |order_item| 
+            
+            # Hamper Total
+            hamper_total = 0
+
+            order_item.hamper.hamper_items.each do |hamper_item| 
+              # Sum of hamper total
+              hamper_total = hamper_total + (hamper_item.price_when_ordered * hamper_item.quantity)
+
+              # Total Products
+              total_products = total_products + hamper_item.quantity
+            end
+
+            # Order Total
+            order_total = order_total + hamper_total
+          end
+          %>
           <tr>            
             <% if admin_signed_in? %>
             <td>
@@ -36,9 +61,10 @@
             </td>
             <% end %>
             <td><%= order.id %></td>
-            <td><%= currency(order.price/100) %></td>
-            <td><%= order.created_at.strftime("%Y/%m/%d at %I:%M%p") %></td>
-            <td>
+            <td><%= order.created_at.strftime("%Y/%m/%d at %I:%M %p") %></td>
+            <td><%= total_products %></td>
+            <td><%= currency(order_total) %></td>            
+            <td class="text-right">
               <button class="btn btn-sm btn-primary" onclick="openOrderModal(<%= order.id %>)">Details</button>
             </td>
           </tr>
@@ -57,7 +83,7 @@
     var modal_order_id = 0;
     function openOrderModal(order_id) {
       modal_order_id = order_id;
-      $('#modal-ajax-content').html('<div class="loader"></div>')
+      $('.modal-ajax-content').html('<div class="loader"></div>')
       $('#orderModal').modal();
     }
 
