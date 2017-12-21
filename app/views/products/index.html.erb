@@ -7,6 +7,12 @@
         <div class="col-lg-12">
           <h5><%= @category.name %></h5>
           <p><%= @category.description %></p>
+
+          <!-- Image -->
+          <% if !@category.image.blank? then%>              
+              <div style="width:100%; height:300px; background-image: url(<%= @category.image %>); background-position: center; background-size: cover"></div>       
+          <% end %>
+
         </div>
         <% end %>
 
@@ -72,6 +78,11 @@
           <div class="row">
             <div class="col">
               <nav>
+                <% if @total_products == 0 %>
+                  <div style="height:80px"></div>
+                <% end %>
+
+                <% if @total_products > 0 %>
                 <ul class="pagination">
                   <%
 
@@ -88,7 +99,12 @@
                   
                   <li class="page-item <%= " disabled" if @total_products-@offset<=4 %>"><a class="page-link" href="<%=@url%>?offset=<%= @offset+4 %>">Next</a></li>
                 </ul>                
-                <div class="pagination-total">Total Products: <%= @total_products%></div>
+                <% end %>
+                <div class="pagination-total">
+                
+                  <h5>Total Products: <%= @total_products%></h5>
+                    
+                </div>
               </nav>
             </div>
           </div>
