@@ -26,7 +26,11 @@
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card h-100">
         <%= link_to category do %>
-          <img class="card-img-top" src="http://via.placeholder.com/700x400" alt="<%= category.name %>">
+          <% if !category.image.blank? then%>
+           <img class="card-img-top" src="<%= category.image %>" alt="<%= category.name %>">
+          <% else %>
+           <img class="card-img-top" src="/images/placeholder.jpg" alt="<%= category.name %>">
+          <% end %>
         <% end %>
         <div class="card-body">
           <h4 class="card-title">

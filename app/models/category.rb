@@ -9,4 +9,5 @@ class Category < ApplicationRecord
    				length: {maximum: 100}, 
    				uniqueness: {case_sensitive: false}
 
+	mount_uploader :image, PictureUploader # mounting the PictureUploader on the src field of the ProductImage
 end
