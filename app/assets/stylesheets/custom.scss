@@ -277,3 +277,21 @@ footer {
 .pagination-total{
     text-align: center;
 }
+
+#logo{
+    margin-right: 10px;
+    margin-bottom:-50px;
+}
+
+@media(max-width:420px){
+    #logo{
+        display:none;
+    } 
+}
+
+@media(max-width:991px){
+    #logo{
+        width:60px;
+        margin-bottom:0px;
+    } 
+}

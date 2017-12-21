@@ -88,7 +88,7 @@ class OrdersController < ApplicationController
 
   def create_order
       @order = Order.create({
-              customer_id: current_customer.id || 0, 
+              customer_id: (customer_signed_in? && current_customer.id) || 0, 
               price: (params[:price].to_f * 100).to_i, 
               delivery_first_name: params[:firstname],
               delivery_last_name: params[:lastname],
