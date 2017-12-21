@@ -51,7 +51,18 @@ class ProductsController < ApplicationController
 
   # Main Products page
   def index
-    @products = Product.order('id DESC').where('enabled = ? AND deleted = ?',true, false)
+    @products = Product
+                  .order('id DESC')
+                  .where('enabled = ? AND deleted = ?',true, false)
+
+    @total_products = @products.count
+    @offset = params[:offset].to_i || 0
+    @offset = 0 if @offset < 0 
+
+    @url = "/products/"
+    @products = @products
+                  .limit(4)
+                  .offset(@offset)
   end
 
 

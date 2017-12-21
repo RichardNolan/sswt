@@ -15,8 +15,23 @@ class CategoriesController < ApplicationController
 
   # Display Products by Category
   def show
-    #@products = @category.products.where(enabled: [nil, true]) # only enabled products
     @products = @category.products.where('enabled = ? AND deleted = ?', true, false) # only enabled products not deleted
+
+
+    @products = @category.products
+        .order('id DESC')
+        .where('enabled = ? AND deleted = ?',true, false)
+
+    @total_products = @products.count
+    @offset = params[:offset].to_i || 0
+    @offset = 0 if @offset < 0 
+
+    @products = @products
+        .limit(4)
+        .offset(@offset)
+    @url = "/products/category/"+params[:id]+"/"
+
+
     render template: "products/index"
   end
 

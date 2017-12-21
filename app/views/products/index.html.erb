@@ -69,7 +69,29 @@
 
           </div>
           <!-- /.row -->
+          <div class="row">
+            <div class="col">
+              <nav>
+                <ul class="pagination">
+                  <%
 
+                  %>
+
+                  <li class="page-item <%= " disabled" if @offset<=0 %>"><a class="page-link" href="<%=@url%>?offset=<%= @offset-4 %>">Previous</a></li>
+
+                  <% 1.upto((@total_products.to_f/4).ceil) do | index | %>
+
+                    <li class="page-item <%= " disabled" if (@offset/4)+1==index %>"><a class="page-link" href="<%=@url%>?offset=<%= (4*(index-1)) %>"><%=index%></a></li>
+                  
+                  <% end %>
+                  
+                  
+                  <li class="page-item <%= " disabled" if @total_products-@offset<=4 %>"><a class="page-link" href="<%=@url%>?offset=<%= @offset+4 %>">Next</a></li>
+                </ul>                
+                <div class="pagination-total">Total Products: <%= @total_products%></div>
+              </nav>
+            </div>
+          </div>
         </div>
         <!-- /.col-lg-9 -->
 
