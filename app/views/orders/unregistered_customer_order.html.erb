@@ -9,8 +9,8 @@
 
 <h5>1. Review your order</h5>
     <div class="row">
-
-    <% 
+        <%= "You have nothing in a hamper to order yet" if(@order.count==0)%>
+    <%         
         @order.each do |item| 
             product = Product.find(item['id']) 
             src = primary_product_image(item['id']) 

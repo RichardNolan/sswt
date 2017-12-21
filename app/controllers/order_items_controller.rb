@@ -4,21 +4,25 @@ class OrderItemsController < ApplicationController
   # GET /order_items
   # GET /order_items.json
   def index
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
     @order_items = OrderItem.all
   end
 
   # GET /order_items/1
   # GET /order_items/1.json
   def show
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
   end
 
   # GET /order_items/new
   def new
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
     @order_item = OrderItem.new
   end
 
   # GET /order_items/1/edit
   def edit
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
   end
 
   # POST /order_items

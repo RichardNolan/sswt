@@ -4,21 +4,25 @@ class CountiesController < ApplicationController
   # GET /counties
   # GET /counties.json
   def index
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
     @counties = County.all
   end
 
   # GET /counties/1
   # GET /counties/1.json
   def show
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
   end
 
   # GET /counties/new
   def new
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
     @county = County.new
   end
 
   # GET /counties/1/edit
   def edit
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
   end
 
   # POST /counties

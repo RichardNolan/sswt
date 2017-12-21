@@ -91,21 +91,25 @@ class HamperItemsController < ApplicationController
   # GET /hamper_items
   # GET /hamper_items.json
   def index
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
     @hamper_items = HamperItem.all
   end
 
   # GET /hamper_items/1
   # GET /hamper_items/1.json
   def show
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
   end
 
   # GET /hamper_items/new
   def new
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
     @hamper_item = HamperItem.new
   end
 
   # GET /hamper_items/1/edit
   def edit
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
   end
 
   # POST /hamper_items

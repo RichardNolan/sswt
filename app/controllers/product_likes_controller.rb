@@ -4,21 +4,25 @@ class ProductLikesController < ApplicationController
   # GET /product_likes
   # GET /product_likes.json
   def index
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
     @product_likes = ProductLike.all
   end
 
   # GET /product_likes/1
   # GET /product_likes/1.json
   def show
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
   end
 
   # GET /product_likes/new
   def new
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
     @product_like = ProductLike.new
   end
 
   # GET /product_likes/1/edit
   def edit
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
   end
 
   # POST /product_likes

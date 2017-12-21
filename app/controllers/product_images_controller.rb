@@ -4,21 +4,25 @@ class ProductImagesController < ApplicationController
   # GET /product_images
   # GET /product_images.json
   def index
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
     @product_images = ProductImage.all
   end
 
   # GET /product_images/1
   # GET /product_images/1.json
   def show
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
   end
 
   # GET /product_images/new
   def new
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
     @product_image = ProductImage.new
   end
 
   # GET /product_images/1/edit
   def edit
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
   end
 
   # POST /product_images

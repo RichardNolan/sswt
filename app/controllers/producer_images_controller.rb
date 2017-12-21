@@ -4,21 +4,25 @@ class ProducerImagesController < ApplicationController
   # GET /producer_images
   # GET /producer_images.json
   def index
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
     @producer_images = ProducerImage.all
   end
 
   # GET /producer_images/1
   # GET /producer_images/1.json
   def show
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
   end
 
   # GET /producer_images/new
   def new
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
     @producer_image = ProducerImage.new
   end
 
   # GET /producer_images/1/edit
   def edit
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
   end
 
   # POST /producer_images

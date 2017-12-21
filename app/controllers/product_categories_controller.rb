@@ -4,21 +4,25 @@ class ProductCategoriesController < ApplicationController
   # GET /product_categories
   # GET /product_categories.json
   def index
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
     @product_categories = ProductCategory.all
   end
 
   # GET /product_categories/1
   # GET /product_categories/1.json
   def show
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
   end
 
   # GET /product_categories/new
   def new
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
     @product_category = ProductCategory.new
   end
 
   # GET /product_categories/1/edit
   def edit
+    redirect_to :root, notice: 'There\'s nothing to see at the URL entered.'
   end
 
   # POST /product_categories
