@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   # GET /orders.json
   def index
     if(customer_signed_in?) then
-      @orders = Order.where('customer_id = ?', current_customer.id)
+      @orders = Order.where('customer_id = ?', current_customer.id).order(updated_at: :desc)
     elsif(admin_signed_in?) then
       render 'index'
     else
@@ -86,7 +86,7 @@ class OrdersController < ApplicationController
   def create_order
       @order = Order.create({
               customer_id: current_customer.id || 0, 
-              price: (params[:price].to_i * 100).to_i, 
+              price: (params[:price].to_f * 100).to_i, 
               delivery_first_name: params[:firstname],
               delivery_last_name: params[:lastname],
               delivery_address: params[:address],

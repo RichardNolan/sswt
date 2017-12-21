@@ -167,7 +167,6 @@ $(document).ready(function(){
 
     function hamper_btns(hampers){    
         disabled = !(hampers && hampers.length>0)
-        console.log(disabled)
         if(disabled){
             $( "#btn_clear_hamper" ).prop( "disabled", true );
             $('#btn_clear_hamper').addClass('disabled')

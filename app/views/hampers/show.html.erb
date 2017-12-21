@@ -1,18 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Customer:</strong>
-  <%= @hamper.customer_id %>
-</p>
-
-<p>
   <strong>Name:</strong>
   <%= @hamper.name %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @hamper.price %>
 </p>
 
 <p>
@@ -23,7 +13,7 @@
 <p>
   <strong>Items:</strong><br>
   <% @hamper.hamper_items.each do |item| %>
-    <%= product_name(item.product_id) %><br>
+    <%= item.quantity %> x <%= product_name(item.product_id) %> @ <%= currency(item.price_when_ordered) %><br>
   <% end %>
 </p>
 

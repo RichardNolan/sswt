@@ -68,15 +68,17 @@ class ApplicationController < ActionController::Base
   protected
 
     def after_sign_in_path_for(customer)
-      # this function redirects the signed in customer to their profile
-      if session['hamper0'].length>0 then
-        hamper = create_hamper({customer_id:current_customer.id, name:"Default"})
-        if hamper then
-          session['hamper0'].each do |item|
-            hamper_item = create_hamper_item({product_id:(item['id'] || item[:id]), price: (item['p'] || item[:p]), quantity: (item['q'] || item[:q])}, hamper)
+      if(customer_signed_in?) then
+        # this function redirects the signed in customer to their profile
+        if session['hamper0'].length>0 then
+          hamper = create_hamper({customer_id:current_customer.id, name:"Default"})
+          if hamper then
+            session['hamper0'].each do |item|
+              hamper_item = create_hamper_item({product_id:(item['id'] || item[:id]), price: (item['p'] || item[:p]), quantity: (item['q'] || item[:q])}, hamper)
+            end
           end
+          session.delete('hamper0')
         end
-        session.delete('hamper0')
       end
       signed_in_root_path(resource)
     end

@@ -1,14 +1,11 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @order.price %>
-</p>
 
-<p>
-  <strong>Customer:</strong>
-  <%= @order.customer_id %>
-</p>
-
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<div class="card">
+  <img class="card-img-top" src="/images/thankyou.jpg" alt="Thank you">
+  <div class="card-block">
+    <h4 class="card-title">We really appreciate your business.</h4>
+    <p class="card-text">Your hamper cost <%= currency(@order.price/100) %>, 
+    and once we've collected and packaged your hamper up, it'll be winging its way to 
+    <%=@order.delivery_address%>, <%=@order.delivery_address2%></p>
+  </div>
+</div>

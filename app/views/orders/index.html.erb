@@ -14,7 +14,9 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Customer</th>
+          <% if admin_signed_in? %>
+            <th>Customer</th>
+          <% end %>
           <th>Order ID:</th>          
           <th>Total</th>
           <th>Date</th>
@@ -34,7 +36,7 @@
             </td>
             <% end %>
             <td><%= order.id %></td>
-            <td>&euro; <%= order.price/100 %></td>
+            <td><%= currency(order.price/100) %></td>
             <td><%= order.created_at.strftime("%Y/%m/%d at %I:%M%p") %></td>
             <td>
               <button class="btn btn-sm btn-primary" onclick="openOrderModal(<%= order.id %>)">Details</button>

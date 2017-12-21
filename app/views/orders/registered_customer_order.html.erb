@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <small class="text-muted">OPTIONS</small>
+                <small class="text-muted"><%= link_to 'Delete', hamper, method: :delete, data: { confirm: 'Are you sure? This will delete the hamper entirely, not just remove it from the order.' } %></small>
             </div>
         </div>
     </div>
@@ -35,17 +35,6 @@
   
 <%  end %>
   
-
-
-
-
-
-
-
-
-
-
-
 
 
 <h5>2. Provide delivery details</h5>

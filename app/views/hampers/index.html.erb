@@ -37,7 +37,7 @@
             </td>
             <% end %>
             <td><%= hamper.name %></td>
-            <td><%= hamper.price %></td>            
+            <td><%= price_hamper(hamper) %></td>            
             <td><%= hamper.hamper_items.count %></td>
             <td>
               <% if hamper.ordered == true %>

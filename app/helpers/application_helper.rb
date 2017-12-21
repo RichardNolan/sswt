@@ -26,4 +26,17 @@ module ApplicationHelper
 		num = 0 if !num
 		return "€" + sprintf("%20.2f", num)
 	end
+	
+	def price_hamper hamper
+		return currency(hamper.hamper_items.reduce(0) do | total, item |
+		  total += (item.price_when_ordered * item.quantity)
+		end)
+	  end
+
+	  
+	def price_multiple_hampers hampers
+		return currency(hampers.reduce(0) do | total, hamper |
+		total += price_hamper(hamper)
+		end)
+	end
 end
