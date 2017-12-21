@@ -12,6 +12,7 @@
         </tr>
       </thead>
 
+      <% if @orders %>
       <tbody>
         <% @orders.each do |order| %>
           <% 
@@ -57,6 +58,7 @@
           </tr>
         <% end %>
       </tbody>
+      <% end %>
     </table>
 
 <script type="text/javascript">

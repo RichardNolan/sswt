@@ -12,6 +12,7 @@
         </tr>
       </thead>
 
+      <% if @hampers %>
       <tbody>
         <% @hampers.each do |hamper| %>
           <tr>
@@ -47,6 +48,8 @@
           
         <% end %>
       </tbody>
+      <% end %>
+      
     </table>
 
 
