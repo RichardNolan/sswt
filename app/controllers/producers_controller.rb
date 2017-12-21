@@ -12,14 +12,17 @@ class ProducersController < ApplicationController
     @producers = Producer.all
   end
 
+
   # View Producer Page
   def show
     @products = @producer.products.all
   end
 
+
   def edit
     @producer.producer_images.build
   end 
+
 
   # Producer Products page
   def products
@@ -47,6 +50,8 @@ class ProducersController < ApplicationController
   def not_allowed
   end
 
+
+  # Producer Orders
   def orders
     # this returns an array of the ids of all the producers products
     producer_products = Product.where('producer_id = ?', current_producer.id).pluck(:id)
