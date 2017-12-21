@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
     if(customer_signed_in?) then
       @orders = Order.where('customer_id = ?', current_customer.id).order(updated_at: :desc)
     elsif(admin_signed_in?) then
+      @orders = Order.order(updated_at: :desc)
       render 'index'
     else
       @order = session['hamper0'] || []
@@ -15,6 +16,8 @@ class OrdersController < ApplicationController
     end
     #@orders = Order.all
   end
+
+
 
   # GET /orders/1
   # GET /orders/1.json

@@ -1,0 +1,17 @@
+<h2>Orders of your products</p>
+
+<% @orders.each do |order| %>
+    <h4>Ordered on: <%= order.updated_at %> by <%= @order.first_name%> <%= @order.last_name%></h4>
+    <ul>
+        <% order.order_items.each do |order_item|  %>
+            <li><%= order_item.hamper.name %></li>
+            <ul>
+            <% order_item.hamper.each do |hamper|  %>
+                <% hamper.hamper_item.each do |hamper_item|  %>
+
+                    <li><%= hamper_item.quantity %> x <%= product_name(hamper_item.product_id) %> @ <%= currency(hamper_item.price_when_ordered) %><br>
+                <%end%>
+            <%end%>
+        <%end%>
+    </ul>
+<% end %>
