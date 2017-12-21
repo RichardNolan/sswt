@@ -1,0 +1,64 @@
+<table class="table table-border">
+      <thead>
+        <tr>
+          <% if admin_signed_in? %>
+          <th>Customer</th>
+          <% end %>
+          <th>Name</th>
+          <th>Total Price</th>          
+          <th>Items</th>
+          <th>Order Number</th>
+          <th>Manage</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @hampers.each do |hamper| %>
+          <tr>
+            <% if admin_signed_in? %>
+            <td>
+              <%= link_to(hamper.customer) do %>
+                <strong><%= "#{hamper.customer.first_name} #{hamper.customer.last_name}" %></strong><br>
+                <%= hamper.customer.email %>
+              <% end %>
+            </td>
+            <% end %>
+            <td><%= hamper.name %></td>
+            <td><%= price_hamper(hamper) %></td>            
+            <td><%= hamper.hamper_items.count %></td>
+            <td>
+              <% if hamper.ordered == true %>
+                Ordered
+              <% end %>
+              <% if hamper.ordered != true %>
+                Not Ordered
+              <% end %>              
+            </td>
+            <td>
+            
+              <% if hamper.ordered != true %>
+                <%= link_to 'Delete Hamper', hamper, class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure you want to delete this hamper?' } %>
+              <% end %>
+
+              <button type="button" class="btn btn-primary btn-sm" onclick="openHamperModal(<%= hamper.id %>)">View Items</button>
+
+            </td>
+          </tr>
+          
+        <% end %>
+      </tbody>
+    </table>
+
+
+
+<script type="text/javascript">
+  
+    // Open Hamper Modal
+    var modal_hamper_id = 0;
+    function openHamperModal(hamper_id) {
+      modal_hamper_id = hamper_id;
+      $('.modal-ajax-content').html('<div class="loader"></div>')
+      $('#hamperModal').modal();
+    }
+
+</script>    
