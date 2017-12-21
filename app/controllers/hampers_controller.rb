@@ -17,66 +17,24 @@ class HampersController < ApplicationController
   end
 
 
+  # Create Hamper
   def create_hamper
     hamper = current_customer.hampers.create({name:params[:hamper_name], price:0, greeting:""})
     # respond ok and return the hamper
     head :ok, hamper: hamper.to_json, format: :json
   end
 
-  # GET /hampers
-  # GET /hampers.json
+
+  # List Hampers
   def index
   end
 
-  # GET /hampers/1
-  # GET /hampers/1.json
-  def show
-  end
-
-  # GET /hampers/new
-  def new
-    @hamper = Hamper.new
-  end
-
-  # GET /hampers/1/edit
-  def edit
-  end
-
-  # POST /hampers
-  # POST /hampers.json
-  def create
-    @hamper = Hamper.new(hamper_params)
-
-    respond_to do |format|
-      if @hamper.save
-        format.html { redirect_to @hamper, notice: 'Hamper was successfully created.' }
-        format.json { render :show, status: :created, location: @hamper }
-      else
-        format.html { render :new }
-        format.json { render json: @hamper.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /hampers/1
-  # PATCH/PUT /hampers/1.json
-  def update
-    respond_to do |format|
-      if @hamper.update(hamper_params)
-        format.html { redirect_to @hamper, notice: 'Hamper was successfully updated.' }
-        format.json { render :show, status: :ok, location: @hamper }
-      else
-        format.html { render :edit }
-        format.json { render json: @hamper.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
 
   # Delete Hamper
   def destroy
     @hamper.destroy
-    redirect_to hampers_url, notice: 'Hamper was successfully destroyed.'
+    redirect_to hampers_url, notice: 'Hamper was successfully deleted.'
   end
 
 
