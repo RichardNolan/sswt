@@ -135,7 +135,7 @@ $(document).ready(function(){
     });
 
 
-
+    //  Create Hamper Item
     function create_hamper_item(hamper_id, product_id, quantity, price){        
         $.ajax({
             type: "POST",
@@ -148,6 +148,7 @@ $(document).ready(function(){
         });
     }
 
+    //  Hamper Result
     var hamperResult = function(data, textStatus, res){
         var hampers = JSON.parse(res.getResponseHeader('Hampers'))
         $('.add-menu').html("")
@@ -159,7 +160,7 @@ $(document).ready(function(){
         hamper_btns(hampers)
     }
 
-
+    //  Create Hamper
     function create_hamper(hamper_name, cb){      
         $.ajax({
             type: "POST",
@@ -175,6 +176,7 @@ $(document).ready(function(){
         });
     }
 
+    //  Hamper Buttons
     function hamper_btns(hampers){    
         disabled = !(hampers && hampers.length>0)
         if(disabled){
@@ -190,6 +192,7 @@ $(document).ready(function(){
         }
     }
 
+    //  Drawer Button
     $('.btn-drawer').on('click', function(e){
         e.preventDefault()
         $('#drawer').toggleClass("showme")
@@ -197,6 +200,7 @@ $(document).ready(function(){
         // DEPENDING ON THE CHOSEN STYLE FOR THE DRAWER THIS MIGHT BE DISABLED
         $('#main-container').toggleClass("showme")
     })
+
 
     // This is an initiation
     function init(){

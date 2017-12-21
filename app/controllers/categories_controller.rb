@@ -9,14 +9,12 @@ class CategoriesController < ApplicationController
 
   # Main Categories page
   def index
-    
   end
 
 
   # Display Products by Category
   def show
     @products = @category.products.where('enabled = ? AND deleted = ?', true, false) # only enabled products not deleted
-
 
     @products = @category.products
         .order('id DESC')
@@ -30,7 +28,6 @@ class CategoriesController < ApplicationController
         .limit(4)
         .offset(@offset)
     @url = "/products/category/"+params[:id]+"/"
-
 
     render template: "products/index"
   end
@@ -82,6 +79,7 @@ class CategoriesController < ApplicationController
     def set_category
       @category = Category.find(params[:id])
     end
+
 
     # Permitted parameters
     def category_params

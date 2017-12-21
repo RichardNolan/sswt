@@ -32,10 +32,13 @@ class ApplicationController < ActionController::Base
 
   end
 
+  # Get Hamper by ID
   def get_hamper id
     return Hamper.find(id)
   end
-	
+
+
+	# Create Hamper
 	def create_hamper(val)
 		return  Hamper.create({
               customer_id:(val[:customer_id] || 0), 
@@ -45,6 +48,8 @@ class ApplicationController < ActionController::Base
             })
   end
 
+
+  # Create Hamper Item
   def create_hamper_item(val, hamper)
     return  hamper.hamper_items.create(
               product_id: (val['product_id'] || val[:product_id]),  
@@ -53,19 +58,26 @@ class ApplicationController < ActionController::Base
             )
   end
 
+
+  # Total price of hampers
   def price_multiple_hampers hampers
     return hampers.reduce(0) do | total, hamper |
       total += price_hamper(hamper)
     end
   end
 
+
+  # Price of Hamper
   def price_hamper hamper
     return hamper.hamper_items.reduce(0) do | total, item |
       total += (item.price_when_ordered * item.quantity)
     end
   end
 
+
+  # Protected methods -------------------------------------
   protected
+
 
     def after_sign_in_path_for(customer)
       if(customer_signed_in?) then
@@ -83,10 +95,12 @@ class ApplicationController < ActionController::Base
       signed_in_root_path(resource)
     end
 
+    # Permitted parameters
     def configure_permitted_parameters
       # this allows the following parameters to be permitted, devise advises this goes here
       # These are for each devise action
       devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :first_name, :last_name,:address, :address2, :contact_phone, :county_id])
       devise_parameter_sanitizer.permit(:account_update, keys: [:name, :first_name, :last_name, :address, :address2, :contact_phone, :county_id, :about, :producer_images_attributes => [:src, :id]])
     end
+    
 end
