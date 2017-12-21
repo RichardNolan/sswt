@@ -1,29 +1,12 @@
 
 <div class="container">
-	<div class="card">
-		<div class="row">
-			
-			<div class="col-md-3">					
-			  <img class="card-img-top img-responsive" src="/images/thankyou.jpg" alt="Thank you">			  
-		  </div>
-		
-			<div class="col-md-9">
+		<div class="card" style="max-width:600px;">
+			<img class="card-img-top" src="/images/thankyou.jpg" alt="Thank you">
+			<div class="card-block">
 				<h4 class="card-title">We really appreciate your business.</h4>
 				<p class="card-text">Your hamper cost <%= currency(@order.price/100) %>, 
-			    and once we've collected and packaged your hamper up, it'll be winging its way to 
-			    <%=@order.delivery_address%>, <%=@order.delivery_address2%></p>
+				and once we've collected and packaged your hamper up, it'll be winging its way to 
+				<%=@order.delivery_address%>, <%=@order.delivery_address2%></p>
 			</div>
-		</div>				
-		
-	</div>
-</div>
-
-<div class="card" style="max-width:600px;">
-  <img class="card-img-top" src="/images/thankyou.jpg" alt="Thank you">
-  <div class="card-block">
-    <h4 class="card-title">We really appreciate your business.</h4>
-    <p class="card-text">Your hamper cost <%= currency(@order.price/100) %>, 
-    and once we've collected and packaged your hamper up, it'll be winging its way to 
-    <%=@order.delivery_address%>, <%=@order.delivery_address2%></p>
-  </div>
+		</div>
 </div>
