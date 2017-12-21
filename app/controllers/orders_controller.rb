@@ -47,12 +47,13 @@ class OrdersController < ApplicationController
 
   # GET /orders/1/edit
   def edit
+    redirect_to action: "show", id: @order.id
   end
 
   # A generic catch all redirect if there is an error with the unregistered order
   def custom_error
-    # render 'order/error'
-    # return false
+    render 'orders/error'
+    return false
   end
 
   def verify
