@@ -1,16 +1,26 @@
 $(document).ready(function(){
 
 
-    //  When Modal Opened...
-    $('#hamperModal').on('shown.bs.modal', function () {
-        
+
+    //  When Order Modal Opened...
+    $('#orderModal').on('shown.bs.modal', function () {        
+        $.ajax({
+          url: '/orders/' + modal_order_id + '/order_items',
+          success: function(data) {            
+            $('.modal-ajax-content').html(data);
+          }
+        });
+    })
+
+
+    //  When Hamper Modal Opened...
+    $('#hamperModal').on('shown.bs.modal', function () {        
         $.ajax({
           url: '/hampers/' + modal_hamper_id + '/hamper_items',
           success: function(data) {            
-            $('#modal-ajax-content').html(data);
+            $('.modal-ajax-content').html(data);
           }
         });
-
     })
 
 
@@ -45,13 +55,13 @@ $(document).ready(function(){
     var hamperMap = function(hamper){
         hamper_price = 0
         var str = "<hr>" 
-            str += "<h4>" + (hamper.name || "My Hamper") + "</h4>"
+            str += "<h5>" + (hamper.name || "My Hamper") + "</h5>"
             for(item in hamper.hamper_items){
                 hamper_price += (hamper.hamper_items[item].price_when_ordered * hamper.hamper_items[item].quantity)
-                str += "<h5>" + hamper.hamper_items[item].quantity + " x " + hamper.hamper_items[item].product.name+"</h5>"
-                str += "<p>@ €" + hamper.hamper_items[item].price_when_ordered.toFixed(2) + " = <strong>€" + (hamper.hamper_items[item].quantity * hamper.hamper_items[item].price_when_ordered).toFixed(2) + "</strong></p>"
+                str += "<p>" + hamper.hamper_items[item].quantity + " x " + hamper.hamper_items[item].product.name+"<br>"
+                str += "<small>@ €" + hamper.hamper_items[item].price_when_ordered.toFixed(2) + " = <strong>€" + (hamper.hamper_items[item].quantity * hamper.hamper_items[item].price_when_ordered).toFixed(2) + "</strong></small></p>"
             }
-            str += "<h5 class='danger'>Total: €" + hamper_price.toFixed(2) + "</h5>"
+            str += "<h6 class='danger'>Total: €" + hamper_price.toFixed(2) + "</h6>"
         return str
     }
 

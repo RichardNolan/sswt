@@ -17,10 +17,13 @@ class CustomersController < ApplicationController
 
   # View Customer Page
   def show
-    if customer_signed_in?
-      @hampers = Hamper.where("customer_id = ? AND ordered = ?", current_customer.id, false)
-      @orders = Order.where("customer_id = ?", current_customer.id)
+    if (customer_signed_in? && current_customer.id == @customer.id) || admin_signed_in?
+      @hampers = Hamper.where("customer_id = ? AND ordered = ?", @customer.id, false)
+      @orders = Order.where("customer_id = ?", @customer.id)      
+    elsif (!customer_signed_in? && !admin_signed_in?) || (customer_signed_in? && @customer.id != current_customer.id && !admin_signed_in?) 
+      redirect_to root_url    
     end
+      
   end
 
 

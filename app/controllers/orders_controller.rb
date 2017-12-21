@@ -1,6 +1,22 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  
+  # Customer (or admin) can only view own order_items
+  before_action :order_items_permission, only: [:order_items]
+
+  # Set @orders Variable
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :order_items]
+  
   # before_action :authenticate_admin!, only: [:index]
+  
+
+  # Get Order Items - Ajax Request
+  def order_items
+    @order = Order.find(params[:id])
+    @order_items = @order.order_items.all
+    render :layout => false
+  end
+
+
   # GET /orders
   # GET /orders.json
   def index
@@ -184,4 +200,13 @@ class OrdersController < ApplicationController
                                 :stripeEmail
                             )
     end
+
+
+    # Check permission to view order items
+    def order_items_permission
+      if (!customer_signed_in? && !admin_signed_in?) || (customer_signed_in? && Order.find(params[:id]).customer_id != current_customer.id)
+        return false
+      end      
+    end
+
 end

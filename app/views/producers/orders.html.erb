@@ -1,12 +1,31 @@
-<h2>Orders of your products</p>
+<h4 class="text-center">Your orders</h4>
 
-<% @producer_orders.each do |hamper| %>
-    <h4>Ordered on: <%= hamper.updated_at %></h4>
-    <ul>
-        <% @producer_hamper_items.each do |hamper_item|  %>
-            <% if hamper_item.hamper_id == hamper.id %>
-                <li><%= hamper_item.quantity %> x <%= product_name(hamper_item.product_id) %> @ <%= currency(hamper_item.price_when_ordered) %><br>
-            <% end %>
-        <%end%>
-    </ul>
-<% end %>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+
+			<div class="card">
+
+				<% @producer_orders.each do |hamper| %>
+
+						<div class="dropdown-divider"></div>
+						<div class="row">
+							<div class="col-md-4">
+				    		<p>Order date: <%= hamper.updated_at.strftime("%Y/%m/%d at %I:%M %p") %></p>
+				    	</div>
+				    	<div class="col-md-8">
+						    <ul>
+						        <% @producer_hamper_items.each do |hamper_item|  %>
+						            <% if hamper_item.hamper_id == hamper.id %>
+						                <li><%= hamper_item.quantity %> x <%= product_name(hamper_item.product_id) %> @ <%= currency(hamper_item.price_when_ordered) %></li>
+						            <% end %>
+						        <%end%>
+						    </ul>
+						  </div>
+						</div>
+				<% end %>
+
+			</div>
+		</div>
+	</div>
+</div>

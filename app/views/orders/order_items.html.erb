@@ -1,0 +1,54 @@
+<h4><%= "Order ID: #{@order.id} details" %></h4>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Hamper</th>
+      <th>Quantity/Product</th>
+      <th class="text-right">Price</th>      
+    </tr>
+  </thead>
+
+  <tbody>
+    <% 
+    sub_totals = []
+    if @order_items 
+    	@order_items.each do |order_item| %>
+      <tr>
+        <td><%= order_item.hamper.name %> </td>
+        <td colspan="2">
+        	<div class="row">
+        	<% 
+        	hamper_total = 0
+        	order_item.hamper.hamper_items.each do |hamper_item| 
+        		hamper_total = hamper_total + (hamper_item.price_when_ordered * hamper_item.quantity)        		
+        		%>
+        		<div class="col-md-8">	
+        				<%= "#{hamper_item.quantity} x " %>
+        				<%= Product.find(hamper_item.product_id).name %>
+        				<%= "@ #{hamper_item.price_when_ordered}" %>
+        		</div>
+        		<div class="col-md-4 text-right">
+        				&euro; <%= (hamper_item.price_when_ordered * hamper_item.quantity).round(2) %>
+        		</div>
+        	<% end %>
+        	</div>
+        	<div class="row">
+        			<div class="col-md-8">
+        					&nbsp;
+        			</div>
+        			<div class="col-md-4 text-right">
+        					<div class="dropdown-divider"></div>
+        					<strong>&euro; <%= hamper_total.round(2) %></strong>
+        			</div>
+        	</div>
+        	<% sub_totals << hamper_total %>
+        </td>        
+      </tr>
+    <% end 
+    end
+    %>
+  </tbody>
+</table>
+<div class="dropdown-divider"></div>
+<h6>Order Total: &euro; <%= sub_totals.sum.round(2) %></h6>

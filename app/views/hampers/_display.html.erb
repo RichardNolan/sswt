@@ -34,9 +34,13 @@
 
 <% disabled = hampers.length>0 ? "" : 'disabled' %>  
 
+<hr>
+<a href="/orders/verify" id="btn_checkout" class="btn btn-success btn-sm <%= disabled %>" role="button" aria-pressed="true">Checkout</a>
+
+
 <% if customer_signed_in? then %>      
-  <a href="/hampers" id="btn_manage_hampers" class="btn btn-primary <%= disabled %>" role="button" aria-pressed="true">Manage</a>
+  <a href="/hampers" id="btn_manage_hampers" class="btn btn-info btn-sm <%= disabled %>" role="button" aria-pressed="true">Manage Hampers</a>
 <% else %>
-  <button id="btn_clear_hamper" class="btn btn-primary empty <%= disabled %>">Clear</button>
+  <button id="btn_clear_hamper" class="btn btn-warning btn-sm empty <%= disabled %>">Clear Cart</button>
 <% end %>
-<a href="/orders/verify" id="btn_checkout" class="btn btn-primary <%= disabled %>" role="button" aria-pressed="true">Checkout</a>
+

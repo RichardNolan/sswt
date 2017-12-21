@@ -12,8 +12,11 @@ Rails.application.routes.draw do
   get '/producers/:id/products', to: 'producers#products', as: 'producer_products'
   
 
-  # Hamper Items
+  # Ajax Hamper Items
   get 'hampers/:id/hamper_items', to: 'hampers#hamper_items'
+
+  # Ajax Order Items
+  get 'orders/:id/order_items', to: 'orders#order_items'
 
   # Remove Hamper Item
   put '/hampers/:id/removeitem', to: 'hampers#delete_hamper_item'

@@ -4,9 +4,7 @@
 <div class="container">
 
   <!-- Customer Name -->
-  <h3 class="my-4"><%= "#{@customer.first_name} #{@customer.last_name}" %></h3>
-  <!-- Customer Email -->
-  <h4><%= @customer.email %></h4>
+  <h3 class="my-4 text-center"><%= "#{@customer.first_name} #{@customer.last_name}" %></h3>
 
   <% 
   # Only Admin can view this 
@@ -33,7 +31,7 @@
 
     
     <!-- Details -->
-    <div class="col-md-4">
+    <div class="col-md-12">
       <div class="card">
         <h4 class="card-header">Details</h4>
         <div class="card-body">
@@ -57,41 +55,32 @@
       </div>
     </div>
 
-    <!-- Details -->
-    <div class="col-md-4">
-      <div class="card">
-        <h4 class="card-header">Hampers</h4>
-        <div class="card-body">
-          <% @customer.hampers.length %>
-          <% @hampers.each do |hamper| %> 
-            <%= hamper.name %> 
-            <%= link_to 'Edit', edit_hamper_path(hamper) %>
-            <%= link_to 'Delete', hamper, method: :delete, data: { confirm: 'Are you sure?' } %>
-          <% end %>
-        </div>        
-      </div>
-    </div>
 
 
     <!-- Details -->
-    <div class="col-md-4">
+    <div class="col-md-12">
+      
       <div class="card">
         <h4 class="card-header">Orders</h4>
         <div class="card-body">
-          <ul>
-          <% @orders.each do |order| %>  
-            <li><%= order.updated_at %> <%= link_to 'Delete', order, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-              <ul>
-                <% order.order_items.each do |item| %>
-                  <li><%= item.hamper.name %></li>
-                <% end %>
-              </ul>
-          <% end %>
-          </ul>
-        </div>        
+          <%= render "orders/order_details" %>
+        </div>
       </div>
+
     </div>
 
+
+    <!-- Details -->
+    <div class="col-md-12">
+
+      <div class="card">
+        <h4 class="card-header">Hampers</h4>
+        <div class="card-body">
+          <%= render "hampers/hamper_details" %>
+        </div>
+      </div>
+      
+    </div>
 
 
   </div>

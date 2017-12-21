@@ -1,43 +1,51 @@
 
-<h1>Customers</h1>
+<h4 class="text-center">Customers</h4>
 
 
 <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>First name</th>
-        <th>Last name</th>                        
-        <th>Email</th>   
-        <th>Status</th>     
-        <th>Hampers</th> 
-        <th>Orders</th>
-        <th>Admin Tools</th>               
-      </tr>
-    </thead>
-    <tbody>
-      <% @customers.each do |customer| %>
-      <tr>
-        <td><%= customer.id %></td>
-        <td><%= customer.first_name %></td>
-        <td><%= customer.last_name %></td>
-        <td><%= customer.email %></td>        
-        <td>
-          <% if customer.enabled==true || customer.enabled==nil %>
-          <span class="text-green">Enabled</span>
-          <% else %>
-          <span class="text-red">Disabled</span>
-          <% end %>  
-        </td>
-        <td>...</td>
-        <td>...</td>
-        <td>          
-          <%= link_to 'Show', customer, class: 'btn btn-sm btn-primary' %>
-        </td>
-      </tr>      
-      <% end %>
-    </tbody>
-  </table>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>First name</th>
+              <th>Last name</th>                        
+              <th>Email</th>   
+              <th>Status</th>     
+              <th>Hampers</th> 
+              <th>Orders</th>
+              <th>Admin Tools</th>               
+            </tr>
+          </thead>
+          <tbody>
+            <% @customers.each do |customer| %>
+            <tr>
+              <td><%= customer.id %></td>
+              <td><%= customer.first_name %></td>
+              <td><%= customer.last_name %></td>
+              <td><%= customer.email %></td>        
+              <td>
+                <% if customer.enabled==true || customer.enabled==nil %>
+                <span class="text-green">Enabled</span>
+                <% else %>
+                <span class="text-red">Disabled</span>
+                <% end %>  
+              </td>
+              <td>...</td>
+              <td>...</td>
+              <td>          
+                <%= link_to 'Show', customer, class: 'btn btn-sm btn-primary' %>
+              </td>
+            </tr>      
+            <% end %>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
 
