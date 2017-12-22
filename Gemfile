@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby "2.4.0"
+ruby "2.4.2"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
@@ -40,6 +40,7 @@ gem 'figaro'
 gem 'carrierwave', '~> 1.0'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'devise'
+gem "fog-aws"
 
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.0.0.beta2.1'
